@@ -66,4 +66,10 @@ public class Department {
         Department other = (Department) obj;
         return id == other.id && Objects.equals(name, other.name);
     }
+
+    @Override
+    public String toString() {
+        return "Department [id=" + id + ", name=" + name + ", groups=" + groups + ", teachers="
+                + teachers + ", courses=" + courses + "]";
+    }
 }

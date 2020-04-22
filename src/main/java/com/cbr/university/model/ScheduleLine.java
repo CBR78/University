@@ -6,7 +6,7 @@ import java.util.Objects;
 public class ScheduleLine {
     private int id;
     private LocalDate date;
-    private LessonPairNumber lessonPairNumber;
+    private LessonPair lessonPair;
     private Group group;
     private Teacher teacher;
     private Course сourse;
@@ -28,12 +28,12 @@ public class ScheduleLine {
         this.date = date;
     }
 
-    public LessonPairNumber getLessonPairNumber() {
-        return lessonPairNumber;
+    public LessonPair getLessonPair() {
+        return lessonPair;
     }
 
-    public void setLessonPairNumber(LessonPairNumber lessonPairNumber) {
-        this.lessonPairNumber = lessonPairNumber;
+    public void setLessonPair(LessonPair lessonPair) {
+        this.lessonPair = lessonPair;
     }
 
     public Group getGroup() {
@@ -70,7 +70,7 @@ public class ScheduleLine {
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, group, id, lessonPairNumber, room, teacher, сourse);
+        return Objects.hash(date, group, id, lessonPair, room, teacher, сourse);
     }
 
     @Override
@@ -83,7 +83,13 @@ public class ScheduleLine {
             return false;
         ScheduleLine other = (ScheduleLine) obj;
         return Objects.equals(date, other.date) && Objects.equals(group, other.group) && id == other.id
-                && lessonPairNumber == other.lessonPairNumber && Objects.equals(room, other.room)
+                && lessonPair == other.lessonPair && Objects.equals(room, other.room)
                 && Objects.equals(teacher, other.teacher) && Objects.equals(сourse, other.сourse);
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleLine [id=" + id + ", date=" + date + ", lessonPair=" + lessonPair + ", group="
+                + group + ", teacher=" + teacher + ", сourse=" + сourse + ", room=" + room + "]";
     }
 }

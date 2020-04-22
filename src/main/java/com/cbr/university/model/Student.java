@@ -32,4 +32,9 @@ public class Student extends Person {
         Student other = (Student) obj;
         return groupId == other.groupId;
     }
+
+    @Override
+    public String toString() {
+        return "Student [groupId=" + groupId + "]";
+    }
 }

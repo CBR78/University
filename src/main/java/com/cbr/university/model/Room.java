@@ -38,4 +38,9 @@ public class Room {
         Room other = (Room) obj;
         return id == other.id && Objects.equals(number, other.number);
     }
+
+    @Override
+    public String toString() {
+        return "Room [id=" + id + ", number=" + number + "]";
+    }
 }

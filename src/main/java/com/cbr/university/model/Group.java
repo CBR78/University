@@ -48,4 +48,9 @@ public class Group {
         Group other = (Group) obj;
         return id == other.id && Objects.equals(name, other.name);
     }
+
+    @Override
+    public String toString() {
+        return "Group [id=" + id + ", name=" + name + ", students=" + students + "]";
+    }
 }

@@ -32,4 +32,9 @@ public class Teacher extends Person {
         Teacher other = (Teacher) obj;
         return courseId == other.courseId;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher [courseId=" + courseId + "]";
+    }
 }

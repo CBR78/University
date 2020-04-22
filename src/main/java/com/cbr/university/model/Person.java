@@ -48,4 +48,9 @@ public abstract class Person {
         return Objects.equals(firstName, other.firstName) && id == other.id
                 && Objects.equals(lastName, other.lastName);
     }
+
+    @Override
+    public String toString() {
+        return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+    }
 }
