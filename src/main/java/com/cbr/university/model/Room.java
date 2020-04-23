@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Room {
     private int id;
-    private String number;
+    private String name;
 
     public int getId() {
         return id;
@@ -14,17 +14,17 @@ public class Room {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class Room {
         if (getClass() != obj.getClass())
             return false;
         Room other = (Room) obj;
-        return id == other.id && Objects.equals(number, other.number);
+        return id == other.id && Objects.equals(name, other.name);
     }
 
     @Override
     public String toString() {
-        return "Room [id=" + id + ", number=" + number + "]";
+        return "Room [id=" + id + ", name=" + name + "]";
     }
 }

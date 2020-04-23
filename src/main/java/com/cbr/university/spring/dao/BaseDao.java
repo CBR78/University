@@ -2,7 +2,7 @@ package com.cbr.university.spring.dao;
 
 import java.util.List;
 
-public interface BaseDAO<T> {
+public interface BaseDao<T> {
 
     boolean create(T t);
 

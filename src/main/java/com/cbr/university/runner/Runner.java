@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.cbr.university.model.Course;
 import com.cbr.university.spring.config.AppConfig;
-import com.cbr.university.spring.dao.CourseDAOImpl;
+import com.cbr.university.spring.dao.CourseDaoImpl;
 
 public class Runner {
 
@@ -12,7 +12,7 @@ public class Runner {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 AppConfig.class);
-        CourseDAOImpl courseDAOImpl = context.getBean(CourseDAOImpl.class);
+        CourseDaoImpl courseDAOImpl = context.getBean(CourseDaoImpl.class);
         
         System.out.println("courseDAOImpl.create");
         Course course = new Course();

@@ -7,9 +7,9 @@ public class Department {
     private int id;
     private String name;
     private List<Group> groups;
-    private List<Teacher> teachers;
     private List<Course> courses;
-
+    private List<Teacher> teachers;
+    
     public int getId() {
         return id;
     }

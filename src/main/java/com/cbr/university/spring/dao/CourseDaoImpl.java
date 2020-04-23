@@ -12,17 +12,17 @@ import com.cbr.university.model.Course;
 import com.cbr.university.model.CourseMapper;
 
 @Component
-public class CourseDAOImpl implements BaseDAO<Course> {
+public class CourseDaoImpl implements BaseDao<Course> {
 
-    private static final String SQL_INSERT = "insert into courses(course_name) values(?)";
-    private static final String SQL_UPDATE = "update courses set course_name = ? where course_id = ?";
-    private static final String SQL_DELETE = "delete from courses where course_id = ?";
-    private static final String SQL_GET_ALL = "select * from courses";
-    private static final String SQL_GET_BY_ID = "select * from courses where course_id = ?";
+    private static final String SQL_INSERT = "INSERT INTO courses(course_name) VALUES(?)";
+    private static final String SQL_UPDATE = "UPDATE courses SET course_name = ? WHERE course_id = ?";
+    private static final String SQL_DELETE = "DELETE FROM courses WHERE course_id = ?";
+    private static final String SQL_GET_ALL = "SELECT * FROM courses";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM courses WHERE course_id = ?";
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CourseDAOImpl(DataSource dataSource) {
+    public CourseDaoImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
