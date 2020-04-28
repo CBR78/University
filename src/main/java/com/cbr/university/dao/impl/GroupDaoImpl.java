@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cbr.university.dao.BaseDao;
 import com.cbr.university.dao.SpringConfig;
-import com.cbr.university.dao.rowmapper.GroupRowMapper;
+import com.cbr.university.dao.resultsetextractor.GroupResultSetExtractor;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
 
@@ -23,8 +23,8 @@ public class GroupDaoImpl implements BaseDao<Group> {
     private static final String SQL_INSERT = "INSERT INTO groups (group_name) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE groups SET group_name = ? WHERE group_id = ?";
     private static final String SQL_DELETE = "DELETE FROM groups WHERE group_id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM groups";
-    private static final String SQL_GET_BY_ID = "SELECT * FROM groups WHERE group_id = ?";
+    private static final String SQL_GET_ALL = "SELECT * FROM groups LEFT JOIN students ON groups.group_id = students.group_id";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM groups LEFT JOIN students ON groups.group_id = students.group_id WHERE group_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -57,11 +57,12 @@ public class GroupDaoImpl implements BaseDao<Group> {
     }
 
     public List<Group> getAll() {
-        return jdbcTemplate.query(SQL_GET_ALL, new GroupRowMapper());
+        return jdbcTemplate.query(SQL_GET_ALL, new GroupResultSetExtractor());
     }
 
     public Group getById(int id) {
-        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new GroupRowMapper());
+        List<Group> groups = jdbcTemplate.query(SQL_GET_BY_ID, new GroupResultSetExtractor()); 
+        return groups.get(0);
     }
 
     private void setStudentsGroup(List<Student> students, int groupId) {
