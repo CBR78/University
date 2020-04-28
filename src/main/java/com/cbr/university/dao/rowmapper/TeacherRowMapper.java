@@ -1,4 +1,4 @@
-package com.cbr.university.dao.mappers;
+package com.cbr.university.dao.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.cbr.university.model.Teacher;
 
-public class TeacherMapper implements RowMapper<Teacher> {
+public class TeacherRowMapper implements RowMapper<Teacher> {
 
     public Teacher mapRow(ResultSet resultSet, int i) throws SQLException {
         Teacher teacher = new Teacher();

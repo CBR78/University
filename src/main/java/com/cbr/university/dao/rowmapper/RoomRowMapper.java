@@ -1,4 +1,4 @@
-package com.cbr.university.dao.mappers;
+package com.cbr.university.dao.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.cbr.university.model.Room;
 
-public class RoomMapper implements RowMapper<Room> {
+public class RoomRowMapper implements RowMapper<Room> {
     
     public Room mapRow(ResultSet resultSet, int i) throws SQLException {
         Room room = new Room();

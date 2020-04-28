@@ -10,23 +10,22 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.cbr.university.dao.BaseDao;
 import com.cbr.university.dao.SpringConfig;
-import com.cbr.university.dao.mappers.GroupMapper;
+import com.cbr.university.dao.rowmapper.GroupRowMapper;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
 
-@Component
+@Repository
 public class GroupDaoImpl implements BaseDao<Group> {
-
     private static final String SQL_INSERT = "INSERT INTO groups (group_name) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE groups SET group_name = ? WHERE group_id = ?";
     private static final String SQL_DELETE = "DELETE FROM groups WHERE group_id = ?";
     private static final String SQL_GET_ALL = "SELECT * FROM groups";
     private static final String SQL_GET_BY_ID = "SELECT * FROM groups WHERE group_id = ?";
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public GroupDaoImpl(DataSource dataSource) {
@@ -58,11 +57,11 @@ public class GroupDaoImpl implements BaseDao<Group> {
     }
 
     public List<Group> getAll() {
-        return jdbcTemplate.query(SQL_GET_ALL, new GroupMapper());
+        return jdbcTemplate.query(SQL_GET_ALL, new GroupRowMapper());
     }
 
     public Group getById(int id) {
-        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new GroupMapper());
+        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new GroupRowMapper());
     }
 
     private void setStudentsGroup(List<Student> students, int groupId) {

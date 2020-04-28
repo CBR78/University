@@ -9,20 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.cbr.university.dao.BaseDao;
-import com.cbr.university.dao.mappers.ScheduleLineMapper;
+import com.cbr.university.dao.rowmapper.ScheduleLineRowMapper;
 import com.cbr.university.model.ScheduleLine;
 
-@Component
+@Repository
 public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
     private static final String SQL_INSERT = "INSERT INTO schedule_lines (schedule_line_date, lesson_pair, group_id, teacher_id, course_id, room_id) VALUES (?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE schedule_lines SET schedule_line_date = ?, lesson_pair = ?, group_id = ?, teacher_id = ?, course_id = ?, room_id = ? WHERE schedule_line_id = ?";
     private static final String SQL_DELETE = "DELETE FROM schedule_lines WHERE schedule_line_id = ?";
     private static final String SQL_GET_ALL = "SELECT * FROM schedule_lines";
     private static final String SQL_GET_BY_ID = "SELECT * FROM schedule_lines WHERE schedule_line_id = ?";
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public ScheduleLineDaoImpl(DataSource dataSource) {
@@ -59,10 +59,10 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
     }
 
     public List<ScheduleLine> getAll() {
-        return jdbcTemplate.query(SQL_GET_ALL, new ScheduleLineMapper());
+        return jdbcTemplate.query(SQL_GET_ALL, new ScheduleLineRowMapper());
     }
 
     public ScheduleLine getById(int id) {
-        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new ScheduleLineMapper());
+        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new ScheduleLineRowMapper());
     }
 }

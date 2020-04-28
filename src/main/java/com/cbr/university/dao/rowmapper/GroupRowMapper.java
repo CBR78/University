@@ -1,4 +1,4 @@
-package com.cbr.university.dao.mappers;
+package com.cbr.university.dao.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import com.cbr.university.dao.impl.StudentDaoImpl;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
 
-public class GroupMapper implements RowMapper<Group> {
+public class GroupRowMapper implements RowMapper<Group> {
 
     public Group mapRow(ResultSet resultSet, int i) throws SQLException {
         Group group = new Group();

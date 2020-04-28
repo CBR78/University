@@ -1,4 +1,4 @@
-package com.cbr.university.dao.mappers;
+package com.cbr.university.dao.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Teacher;
 
-public class ScheduleLineMapper implements RowMapper<ScheduleLine> {
+public class ScheduleLineRowMapper implements RowMapper<ScheduleLine> {
 
     public ScheduleLine mapRow(ResultSet resultSet, int i) throws SQLException {
         ScheduleLine scheduleLine = new ScheduleLine();
@@ -35,7 +35,9 @@ public class ScheduleLineMapper implements RowMapper<ScheduleLine> {
         scheduleLine.setId(scheduleLineId);
         scheduleLine.setDate(scheduleLineDate);
         scheduleLine.setLessonPair(LessonPair.valueOf(lessonPairStatus));
-        scheduleLine.setGroup(getGroupById(groupId));
+        Group group = new Group(); 
+        group.setId(groupId);
+        scheduleLine.setGroup(group);
         scheduleLine.setTeacher(getTeacherById(teacherId));
         scheduleLine.setСourse(getCourseById(courseId));
         scheduleLine.setRoom(getRoomById(roomId));
