@@ -1,9 +1,11 @@
-package com.cbr.university.model;
+package com.cbr.university.dao.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.cbr.university.model.Teacher;
 
 public class TeacherMapper implements RowMapper<Teacher> {
 

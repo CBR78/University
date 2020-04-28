@@ -1,4 +1,4 @@
-package com.cbr.university.spring.config;
+package com.cbr.university.dao;
 
 import javax.sql.DataSource;
 
@@ -11,9 +11,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ComponentScan("com.cbr.university.spring")
+@ComponentScan("com.cbr.university.dao")
 @PropertySource("classpath:database.properties")
-public class AppConfig {
+public class SpringConfig {
 
     @Autowired
     Environment environment;

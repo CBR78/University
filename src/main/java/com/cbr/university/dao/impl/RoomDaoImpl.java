@@ -1,4 +1,4 @@
-package com.cbr.university.spring.dao;
+package com.cbr.university.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.cbr.university.dao.BaseDao;
+import com.cbr.university.dao.mappers.RoomMapper;
 import com.cbr.university.model.Room;
-import com.cbr.university.model.RoomMapper;
 
 @Component
 public class RoomDaoImpl implements BaseDao<Room> {
@@ -25,16 +26,16 @@ public class RoomDaoImpl implements BaseDao<Room> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public boolean create(Room room) {
-        return jdbcTemplate.update(SQL_INSERT, room.getName()) > 0;
+    public void create(Room room) {
+        jdbcTemplate.update(SQL_INSERT, room.getName());
     }
 
-    public boolean update(Room room) {
-        return jdbcTemplate.update(SQL_UPDATE, room.getName(), room.getId()) > 0;
+    public void update(Room room) {
+        jdbcTemplate.update(SQL_UPDATE, room.getName(), room.getId());
     }
 
-    public boolean delete(Room room) {
-        return jdbcTemplate.update(SQL_DELETE, room.getId()) > 0;
+    public void delete(Room room) {
+        jdbcTemplate.update(SQL_DELETE, room.getId());
     }
 
     public List<Room> getAll() {

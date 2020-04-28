@@ -1,4 +1,4 @@
-package com.cbr.university.spring.dao;
+package com.cbr.university.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.cbr.university.dao.BaseDao;
+import com.cbr.university.dao.mappers.CourseMapper;
 import com.cbr.university.model.Course;
-import com.cbr.university.model.CourseMapper;
 
 @Component
 public class CourseDaoImpl implements BaseDao<Course> {
@@ -26,16 +27,16 @@ public class CourseDaoImpl implements BaseDao<Course> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public boolean create(Course course) {
-        return jdbcTemplate.update(SQL_INSERT, course.getName()) > 0;
+    public void create(Course course) {
+        jdbcTemplate.update(SQL_INSERT, course.getName());
     }
 
-    public boolean update(Course course) {
-        return jdbcTemplate.update(SQL_UPDATE, course.getName(), course.getId()) > 0;
+    public void update(Course course) {
+        jdbcTemplate.update(SQL_UPDATE, course.getName(), course.getId());
     }
 
-    public boolean delete(Course course) {
-        return jdbcTemplate.update(SQL_DELETE, course.getId()) > 0;
+    public void delete(Course course) {
+        jdbcTemplate.update(SQL_DELETE, course.getId());
     }
 
     public List<Course> getAll() {

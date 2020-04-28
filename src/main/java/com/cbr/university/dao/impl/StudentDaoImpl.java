@@ -1,4 +1,4 @@
-package com.cbr.university.spring.dao;
+package com.cbr.university.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.cbr.university.dao.BaseDao;
+import com.cbr.university.dao.mappers.StudentMapper;
 import com.cbr.university.model.Student;
-import com.cbr.university.model.StudentMapper;
 
 @Component
 public class StudentDaoImpl implements BaseDao<Student> {
@@ -18,6 +19,8 @@ public class StudentDaoImpl implements BaseDao<Student> {
     private static final String SQL_DELETE = "DELETE FROM students WHERE student_id = ?";
     private static final String SQL_GET_ALL = "SELECT * FROM students";
     private static final String SQL_GET_BY_ID = "SELECT * FROM students WHERE student_id = ?";
+    private static final String SQL_GET_BY_GROUP = "SELECT * FROM students WHERE group_id = ?";
+
     JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -25,18 +28,18 @@ public class StudentDaoImpl implements BaseDao<Student> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public boolean create(Student student) {
-        return jdbcTemplate.update(SQL_INSERT, student.getFirstName(), student.getLastName(),
-                student.getGroupId()) > 0;
+    public void create(Student student) {
+        jdbcTemplate.update(SQL_INSERT, student.getFirstName(), student.getLastName(),
+                student.getGroupId());
     }
 
-    public boolean update(Student student) {
-        return jdbcTemplate.update(SQL_UPDATE, student.getFirstName(), student.getLastName(),
-                student.getGroupId(), student.getId()) > 0;
+    public void update(Student student) {
+        jdbcTemplate.update(SQL_UPDATE, student.getFirstName(), student.getLastName(),
+                student.getGroupId(), student.getId());
     }
 
-    public boolean delete(Student student) {
-        return jdbcTemplate.update(SQL_DELETE, student.getId()) > 0;
+    public void delete(Student student) {
+        jdbcTemplate.update(SQL_DELETE, student.getId());
     }
 
     public List<Student> getAll() {
@@ -45,5 +48,9 @@ public class StudentDaoImpl implements BaseDao<Student> {
 
     public Student getById(int id) {
         return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new StudentMapper());
+    }
+
+    public List<Student> getByGroup(int groupId) {
+        return jdbcTemplate.query(SQL_GET_BY_GROUP, new Object[] { groupId }, new StudentMapper());
     }
 }

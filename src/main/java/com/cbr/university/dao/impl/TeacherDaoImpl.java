@@ -1,4 +1,4 @@
-package com.cbr.university.spring.dao;
+package com.cbr.university.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.cbr.university.dao.BaseDao;
+import com.cbr.university.dao.mappers.TeacherMapper;
 import com.cbr.university.model.Teacher;
-import com.cbr.university.model.TeacherMapper;
 
 @Component
 public class TeacherDaoImpl implements BaseDao<Teacher> {
@@ -25,18 +26,18 @@ public class TeacherDaoImpl implements BaseDao<Teacher> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public boolean create(Teacher teacher) {
-        return jdbcTemplate.update(SQL_INSERT, teacher.getFirstName(), teacher.getLastName(),
-                teacher.getCourseId()) > 0;
+    public void create(Teacher teacher) {
+        jdbcTemplate.update(SQL_INSERT, teacher.getFirstName(), teacher.getLastName(),
+                teacher.getCourseId());
     }
 
-    public boolean update(Teacher teacher) {
-        return jdbcTemplate.update(SQL_UPDATE, teacher.getFirstName(), teacher.getLastName(),
-                teacher.getCourseId(), teacher.getId()) > 0;
+    public void update(Teacher teacher) {
+        jdbcTemplate.update(SQL_UPDATE, teacher.getFirstName(), teacher.getLastName(),
+                teacher.getCourseId(), teacher.getId());
     }
 
-    public boolean delete(Teacher teacher) {
-        return jdbcTemplate.update(SQL_DELETE, teacher.getId()) > 0;
+    public void delete(Teacher teacher) {
+        jdbcTemplate.update(SQL_DELETE, teacher.getId());
     }
 
     public List<Teacher> getAll() {
