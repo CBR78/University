@@ -17,8 +17,8 @@ public class CourseDaoImpl implements BaseDao<Course> {
     private static final String SQL_INSERT = "INSERT INTO courses(course_name) VALUES(?)";
     private static final String SQL_UPDATE = "UPDATE courses SET course_name = ? WHERE course_id = ?";
     private static final String SQL_DELETE = "DELETE FROM courses WHERE course_id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM courses";
-    private static final String SQL_GET_BY_ID = "SELECT * FROM courses WHERE course_id = ?";
+    private static final String SQL_GET_ALL = "SELECT course_id, course_name FROM courses";
+    private static final String SQL_GET_BY_ID = "SELECT course_id, course_name FROM courses WHERE course_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

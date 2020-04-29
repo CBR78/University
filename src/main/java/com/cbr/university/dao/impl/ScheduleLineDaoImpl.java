@@ -20,8 +20,8 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
     private static final String SQL_INSERT = "INSERT INTO schedule_lines (schedule_line_date, lesson_pair, group_id, teacher_id, course_id, room_id) VALUES (?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE schedule_lines SET schedule_line_date = ?, lesson_pair = ?, group_id = ?, teacher_id = ?, course_id = ?, room_id = ? WHERE schedule_line_id = ?";
     private static final String SQL_DELETE = "DELETE FROM schedule_lines WHERE schedule_line_id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM schedule_lines";
-    private static final String SQL_GET_BY_ID = "SELECT * FROM schedule_lines WHERE schedule_line_id = ?";
+    private static final String SQL_GET_ALL = "SELECT schedule_line_id, schedule_line_date, lesson_pair, group_id, teacher_id, course_id, room_id FROM schedule_lines";
+    private static final String SQL_GET_BY_ID = "SELECT schedule_line_id, schedule_line_date, lesson_pair, group_id, teacher_id, course_id, room_id FROM schedule_lines WHERE schedule_line_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

@@ -17,9 +17,9 @@ public class StudentDaoImpl implements BaseDao<Student> {
     private static final String SQL_INSERT = "INSERT INTO students (student_first_name, student_last_name, group_id) VALUES (?,?,?)";
     private static final String SQL_UPDATE = "UPDATE students SET student_first_name = ?, student_last_name = ?, group_id = ? WHERE student_id = ?";
     private static final String SQL_DELETE = "DELETE FROM students WHERE student_id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM students";
-    private static final String SQL_GET_BY_ID = "SELECT * FROM students WHERE student_id = ?";
-    private static final String SQL_GET_BY_GROUP = "SELECT * FROM students WHERE group_id = ?";
+    private static final String SQL_GET_ALL = "SELECT student_id, student_first_name, student_last_name, group_id FROM students";
+    private static final String SQL_GET_BY_ID = "SELECT student_id, student_first_name, student_last_name, group_id FROM students WHERE student_id = ?";
+    private static final String SQL_GET_BY_GROUP = "SELECT student_id, student_first_name, student_last_name, group_id FROM students WHERE group_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

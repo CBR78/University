@@ -17,8 +17,8 @@ public class RoomDaoImpl implements BaseDao<Room> {
     private static final String SQL_INSERT = "INSERT INTO rooms (room_name) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE rooms SET room_name = ? WHERE room_id = ?";
     private static final String SQL_DELETE = "DELETE FROM rooms WHERE room_id = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM rooms";
-    private static final String SQL_GET_BY_ID = "SELECT * FROM rooms WHERE room_id = ?";
+    private static final String SQL_GET_ALL = "SELECT room_id, room_name FROM rooms";
+    private static final String SQL_GET_BY_ID = "SELECT room_id, room_name FROM rooms WHERE room_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
