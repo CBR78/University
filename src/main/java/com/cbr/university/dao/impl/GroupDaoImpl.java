@@ -29,6 +29,7 @@ public class GroupDaoImpl implements BaseDao<Group> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(Group group) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -42,20 +43,24 @@ public class GroupDaoImpl implements BaseDao<Group> {
         group.setId(groupId);
     }
 
+    @Override
     public void update(Group group) {
         jdbcTemplate.update(SQL_UPDATE, group.getName(), group.getId());
     }
 
+    @Override
     public void delete(Group group) {
         jdbcTemplate.update(SQL_DELETE, group.getId());
     }
 
+    @Override
     public List<Group> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new GroupResultSetExtractor());
     }
 
+    @Override
     public Group getById(int id) {
-        List<Group> groups = jdbcTemplate.query(SQL_GET_BY_ID, new GroupResultSetExtractor()); 
+        List<Group> groups = jdbcTemplate.query(SQL_GET_BY_ID, new GroupResultSetExtractor());
         return groups.get(0);
     }
 }

@@ -14,10 +14,11 @@ import com.cbr.university.model.Student;
 
 public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> {
 
+    @Override
     public List<Group> extractData(ResultSet rs) throws SQLException {
         Map<Group, List<Student>> groupaAndStudentsMap = new HashMap<>();
         Group group = new Group();
-        
+
         while (rs.next()) {
             group.setId(rs.getInt("groups.group_id"));
             group.setName(rs.getString("group_name"));

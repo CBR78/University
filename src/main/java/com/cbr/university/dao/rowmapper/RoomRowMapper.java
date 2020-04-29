@@ -8,7 +8,8 @@ import org.springframework.jdbc.core.RowMapper;
 import com.cbr.university.model.Room;
 
 public class RoomRowMapper implements RowMapper<Room> {
-    
+
+    @Override
     public Room mapRow(ResultSet resultSet, int i) throws SQLException {
         Room room = new Room();
         room.setId(resultSet.getInt("room_id"));

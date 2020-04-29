@@ -11,42 +11,40 @@ import com.cbr.university.service.BaseService;
 
 @Service
 public class StudentServiceImpl implements BaseService<Student> {
-    
+
     private StudentDaoImpl studentDaoImpl;
-    
+
     @Autowired
     public StudentServiceImpl(StudentDaoImpl studentDaoImpl) {
         this.studentDaoImpl = studentDaoImpl;
     }
-    
 
     @Override
     public void create(Student student) {
         studentDaoImpl.create(student);
-        
     }
 
     @Override
-    public void update(Student t) {
-        // TODO Auto-generated method stub
-        
+    public void update(Student student) {
+        studentDaoImpl.update(student);
     }
 
     @Override
-    public void delete(Student t) {
-        // TODO Auto-generated method stub
-        
+    public void delete(Student student) {
+        studentDaoImpl.delete(student);
     }
 
     @Override
     public List<Student> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return studentDaoImpl.getAll();
     }
 
     @Override
     public Student getById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        return studentDaoImpl.getById(id);
+    }
+
+    public List<Student> getByGroup(int groupId) {
+        return studentDaoImpl.getByGroup(groupId);
     }
 }

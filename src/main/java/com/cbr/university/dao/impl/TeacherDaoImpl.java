@@ -26,24 +26,29 @@ public class TeacherDaoImpl implements BaseDao<Teacher> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(Teacher teacher) {
         jdbcTemplate.update(SQL_INSERT, teacher.getFirstName(), teacher.getLastName(),
                 teacher.getCourseId());
     }
 
+    @Override
     public void update(Teacher teacher) {
         jdbcTemplate.update(SQL_UPDATE, teacher.getFirstName(), teacher.getLastName(),
                 teacher.getCourseId(), teacher.getId());
     }
 
+    @Override
     public void delete(Teacher teacher) {
         jdbcTemplate.update(SQL_DELETE, teacher.getId());
     }
 
+    @Override
     public List<Teacher> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new TeacherRowMapper());
     }
 
+    @Override
     public Teacher getById(int id) {
         return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new TeacherRowMapper());
     }

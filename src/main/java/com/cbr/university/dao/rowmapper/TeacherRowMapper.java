@@ -9,6 +9,7 @@ import com.cbr.university.model.Teacher;
 
 public class TeacherRowMapper implements RowMapper<Teacher> {
 
+    @Override
     public Teacher mapRow(ResultSet resultSet, int i) throws SQLException {
         Teacher teacher = new Teacher();
         teacher.setId(resultSet.getInt("teacher_id"));

@@ -27,24 +27,29 @@ public class StudentDaoImpl implements BaseDao<Student> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(Student student) {
         jdbcTemplate.update(SQL_INSERT, student.getFirstName(), student.getLastName(),
                 student.getGroupId());
     }
 
+    @Override
     public void update(Student student) {
         jdbcTemplate.update(SQL_UPDATE, student.getFirstName(), student.getLastName(),
                 student.getGroupId(), student.getId());
     }
 
+    @Override
     public void delete(Student student) {
         jdbcTemplate.update(SQL_DELETE, student.getId());
     }
 
+    @Override
     public List<Student> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new StudentRowMapper());
     }
 
+    @Override
     public Student getById(int id) {
         return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new StudentRowMapper());
     }

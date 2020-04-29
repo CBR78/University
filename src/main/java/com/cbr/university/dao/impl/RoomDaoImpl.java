@@ -26,22 +26,27 @@ public class RoomDaoImpl implements BaseDao<Room> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(Room room) {
         jdbcTemplate.update(SQL_INSERT, room.getName());
     }
 
+    @Override
     public void update(Room room) {
         jdbcTemplate.update(SQL_UPDATE, room.getName(), room.getId());
     }
 
+    @Override
     public void delete(Room room) {
         jdbcTemplate.update(SQL_DELETE, room.getId());
     }
 
+    @Override
     public List<Room> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new RoomRowMapper());
     }
 
+    @Override
     public Room getById(int id) {
         return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new RoomRowMapper());
     }

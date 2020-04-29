@@ -1,4 +1,4 @@
-package com.cbr.university.dao;
+package com.cbr.university.config;
 
 import javax.sql.DataSource;
 

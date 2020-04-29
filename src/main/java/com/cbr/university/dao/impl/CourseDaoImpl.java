@@ -26,24 +26,28 @@ public class CourseDaoImpl implements BaseDao<Course> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(Course course) {
         jdbcTemplate.update(SQL_INSERT, course.getName());
     }
 
+    @Override
     public void update(Course course) {
         jdbcTemplate.update(SQL_UPDATE, course.getName(), course.getId());
     }
 
+    @Override
     public void delete(Course course) {
         jdbcTemplate.update(SQL_DELETE, course.getId());
     }
 
+    @Override
     public List<Course> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new CourseRowMapper());
     }
 
+    @Override
     public Course getById(int id) {
         return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new CourseRowMapper());
     }
-
 }

@@ -29,6 +29,7 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void create(ScheduleLine scheduleLine) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -36,10 +37,10 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT, new String[] { "id" });
             ps.setObject(1, scheduleLine.getDate());
             ps.setString(2, scheduleLine.getLessonPair().getPairStartTime());
-            ps.setInt(3, scheduleLine.getGroup().getId());
-            ps.setInt(4, scheduleLine.getTeacher().getId());
-            ps.setInt(5, scheduleLine.getСourse().getId());
-            ps.setInt(6, scheduleLine.getRoom().getId());
+            ps.setInt(3, scheduleLine.getGroupId());
+            ps.setInt(4, scheduleLine.getTeacherId());
+            ps.setInt(5, scheduleLine.getCourseId());
+            ps.setInt(6, scheduleLine.getRoomId());
             return ps;
         }, keyHolder);
 
@@ -47,22 +48,27 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
         scheduleLine.setId(scheduleLineId);
     }
 
+    @Override
     public void update(ScheduleLine scheduleLine) {
         jdbcTemplate.update(SQL_UPDATE, scheduleLine.getDate(),
-                scheduleLine.getLessonPair().getPairStartTime(), scheduleLine.getGroup().getId(),
-                scheduleLine.getTeacher().getId(), scheduleLine.getСourse().getId(),
-                scheduleLine.getRoom().getId(), scheduleLine.getId());
+                scheduleLine.getLessonPair().getPairStartTime(), scheduleLine.getGroupId(),
+                scheduleLine.getTeacherId(), scheduleLine.getCourseId(), scheduleLine.getRoomId(),
+                scheduleLine.getId());
     }
 
+    @Override
     public void delete(ScheduleLine scheduleLine) {
         jdbcTemplate.update(SQL_DELETE, scheduleLine.getId());
     }
 
+    @Override
     public List<ScheduleLine> getAll() {
         return jdbcTemplate.query(SQL_GET_ALL, new ScheduleLineRowMapper());
     }
 
+    @Override
     public ScheduleLine getById(int id) {
-        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id }, new ScheduleLineRowMapper());
+        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id },
+                new ScheduleLineRowMapper());
     }
 }

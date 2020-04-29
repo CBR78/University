@@ -7,10 +7,10 @@ public class ScheduleLine {
     private int id;
     private LocalDate date;
     private LessonPair lessonPair;
-    private Group group;
-    private Teacher teacher;
-    private Course сourse;
-    private Room room;
+    private int groupId;
+    private int teacherId;
+    private int courseId;
+    private int roomId;
 
     public int getId() {
         return id;
@@ -36,41 +36,41 @@ public class ScheduleLine {
         this.lessonPair = lessonPair;
     }
 
-    public Group getGroup() {
-        return group;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public int getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public Course getСourse() {
-        return сourse;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setСourse(Course сourse) {
-        this.сourse = сourse;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, group, id, lessonPair, room, teacher, сourse);
+        return Objects.hash(courseId, date, groupId, id, lessonPair, roomId, teacherId);
     }
 
     @Override
@@ -82,14 +82,15 @@ public class ScheduleLine {
         if (getClass() != obj.getClass())
             return false;
         ScheduleLine other = (ScheduleLine) obj;
-        return Objects.equals(date, other.date) && Objects.equals(group, other.group) && id == other.id
-                && lessonPair == other.lessonPair && Objects.equals(room, other.room)
-                && Objects.equals(teacher, other.teacher) && Objects.equals(сourse, other.сourse);
+        return courseId == other.courseId && Objects.equals(date, other.date) && groupId == other.groupId
+                && id == other.id && lessonPair == other.lessonPair && roomId == other.roomId
+                && teacherId == other.teacherId;
     }
 
     @Override
     public String toString() {
-        return "ScheduleLine [id=" + id + ", date=" + date + ", lessonPair=" + lessonPair + ", group="
-                + group + ", teacher=" + teacher + ", сourse=" + сourse + ", room=" + room + "]";
+        return "ScheduleLine [id=" + id + ", date=" + date + ", lessonPair=" + lessonPair + ", groupId="
+                + groupId + ", teacherId=" + teacherId + ", courseId=" + courseId + ", roomId=" + roomId
+                + "]";
     }
 }
