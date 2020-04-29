@@ -6,17 +6,14 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cbr.university.dao.BaseDao;
-import com.cbr.university.dao.SpringConfig;
 import com.cbr.university.dao.resultsetextractor.GroupResultSetExtractor;
 import com.cbr.university.model.Group;
-import com.cbr.university.model.Student;
 
 @Repository
 public class GroupDaoImpl implements BaseDao<Group> {
@@ -43,17 +40,14 @@ public class GroupDaoImpl implements BaseDao<Group> {
 
         int groupId = keyHolder.getKey().intValue();
         group.setId(groupId);
-        setStudentsGroup(group.getStudents(), groupId);
     }
 
     public void update(Group group) {
         jdbcTemplate.update(SQL_UPDATE, group.getName(), group.getId());
-        setStudentsGroup(group.getStudents(), group.getId());
     }
 
     public void delete(Group group) {
         jdbcTemplate.update(SQL_DELETE, group.getId());
-        setStudentsGroup(group.getStudents(), 0);
     }
 
     public List<Group> getAll() {
@@ -63,18 +57,5 @@ public class GroupDaoImpl implements BaseDao<Group> {
     public Group getById(int id) {
         List<Group> groups = jdbcTemplate.query(SQL_GET_BY_ID, new GroupResultSetExtractor()); 
         return groups.get(0);
-    }
-
-    private void setStudentsGroup(List<Student> students, int groupId) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                SpringConfig.class);
-        StudentDaoImpl studentDaoImpl = context.getBean(StudentDaoImpl.class);
-
-        for (Student student : students) {
-            student.setGroupId(groupId);
-            studentDaoImpl.update(student);
-        }
-
-        context.close();
     }
 }

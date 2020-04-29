@@ -16,9 +16,9 @@ public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> 
 
     public List<Group> extractData(ResultSet rs) throws SQLException {
         Map<Group, List<Student>> groupaAndStudentsMap = new HashMap<>();
-
+        Group group = new Group();
+        
         while (rs.next()) {
-            Group group = new Group();
             group.setId(rs.getInt("groups.group_id"));
             group.setName(rs.getString("group_name"));
             groupaAndStudentsMap.putIfAbsent(group, new ArrayList<>());
