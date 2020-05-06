@@ -3,8 +3,6 @@ package com.cbr.university.dao.impl;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,8 +23,8 @@ public class GroupDaoImpl implements BaseDao<Group> {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public GroupDaoImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public GroupDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

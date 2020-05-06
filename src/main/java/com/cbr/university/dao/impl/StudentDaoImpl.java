@@ -2,8 +2,6 @@ package com.cbr.university.dao.impl;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,8 +21,8 @@ public class StudentDaoImpl implements BaseDao<Student> {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public StudentDaoImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+    public StudentDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
