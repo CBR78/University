@@ -14,9 +14,9 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan("com.cbr.university")
 @PropertySource("classpath:database.properties")
+@EnableWebMvc
 public class WebMvcConfig {
     private static final String URL = "url";
     private static final String USER = "dbuser";
@@ -38,7 +38,7 @@ public class WebMvcConfig {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setPrefix("/WEB-INF/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        //templateResolver.setTemplateMode("HTML5");
         return templateResolver;
     }
 
@@ -46,6 +46,7 @@ public class WebMvcConfig {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
 
