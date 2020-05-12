@@ -1,5 +1,7 @@
 package com.cbr.university.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -7,8 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -17,12 +20,14 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan("com.cbr.university")
 @PropertySource("classpath:database.properties")
 @EnableWebMvc
-public class WebMvcConfig {
+public class WebMvcConfig implements WebMvcConfigurer {
     private static final String URL = "url";
     private static final String USER = "dbuser";
     private static final String PASSWORD = "dbpassword";
     private static final String DRIVER = "driver";
-
+    @Autowired
+    private ApplicationContext applicationContext;
+    
     @Bean
     JdbcTemplate jdbcTemplate(Environment environment) {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
@@ -33,28 +38,27 @@ public class WebMvcConfig {
         return new JdbcTemplate(driverManagerDataSource);
     }
 
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
+    //@Bean
+    private SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(this.applicationContext);
         templateResolver.setPrefix("/WEB-INF/");
         templateResolver.setSuffix(".html");
-        //templateResolver.setTemplateMode("HTML5");
         return templateResolver;
     }
 
-    @Bean
-    public SpringTemplateEngine templateEngine() {
+    //@Bean
+    private SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
 
-    @Bean
-    public ViewResolver viewResolver() {
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setOrder(1);
-        return viewResolver;
-    }
+        registry.viewResolver(viewResolver);
+    }   
 }

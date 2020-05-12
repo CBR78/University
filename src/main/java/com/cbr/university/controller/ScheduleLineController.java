@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.service.impl.CourseServiceImpl;
+import com.cbr.university.service.impl.ScheduleLineServiceImpl;
 
 @Controller
-@RequestMapping("courses")
-public class CourseController {
-    private static final String COURSES_VIEW_NAME = "courses";
-    private static final String COURSES_MODEL_NAME = "courses";
+@RequestMapping("schedule-lines")
+public class ScheduleLineController {
+    private static final String SCHEDULE_LINES_VIEW_NAME = "schedule-lines";
+    private static final String SCHEDULE_LINES_MODEL_NAME = "scheduleLines";
     ModelAndView modelAndView = new ModelAndView();
     @Autowired
-    CourseServiceImpl courseServiceImpl;
+    ScheduleLineServiceImpl scheduleLineServiceImpl;
     
     @GetMapping
     public ModelAndView getAll() {
         modelAndView.clear();
-        modelAndView.setViewName(COURSES_VIEW_NAME);
-        modelAndView.addObject(COURSES_MODEL_NAME, courseServiceImpl.getAll());
+        modelAndView.setViewName(SCHEDULE_LINES_VIEW_NAME);
+        modelAndView.addObject(SCHEDULE_LINES_MODEL_NAME, scheduleLineServiceImpl.getAll());
         return modelAndView;
     }
 }

@@ -20,7 +20,7 @@ public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> 
         Group group = new Group();
 
         while (rs.next()) {
-            group.setId(rs.getInt("groups.group_id"));
+            group.setId(rs.getInt("groups_group_id"));
             group.setName(rs.getString("group_name"));
             groupaAndStudentsMap.putIfAbsent(group, new ArrayList<>());
 
@@ -30,7 +30,7 @@ public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> 
                 student.setId(studentId);
                 student.setFirstName(rs.getString("student_first_name"));
                 student.setLastName(rs.getString("student_last_name"));
-                student.setGroupId(rs.getInt("students.group_id"));
+                student.setGroup(group);
                 groupaAndStudentsMap.get(group).add(student);
             }
         }

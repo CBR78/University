@@ -15,8 +15,8 @@ public class StudentDaoImpl implements BaseDao<Student> {
     private static final String SQL_INSERT = "INSERT INTO students (student_first_name, student_last_name, group_id) VALUES (?,?,?)";
     private static final String SQL_UPDATE = "UPDATE students SET student_first_name = ?, student_last_name = ?, group_id = ? WHERE student_id = ?";
     private static final String SQL_DELETE = "DELETE FROM students WHERE student_id = ?";
-    private static final String SQL_GET_ALL = "SELECT student_id, student_first_name, student_last_name, group_id FROM students";
-    private static final String SQL_GET_BY_ID = "SELECT student_id, student_first_name, student_last_name, group_id FROM students WHERE student_id = ?";
+    private static final String SQL_GET_ALL = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM students LEFT JOIN groups ON students.group_id = groups.group_id";
+    private static final String SQL_GET_BY_ID = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM students LEFT JOIN groups ON students.group_id = groups.group_id WHERE student_id = ?";
     private static final String SQL_GET_BY_GROUP = "SELECT student_id, student_first_name, student_last_name, group_id FROM students WHERE group_id = ?";
     private JdbcTemplate jdbcTemplate;
 
@@ -28,13 +28,13 @@ public class StudentDaoImpl implements BaseDao<Student> {
     @Override
     public void create(Student student) {
         jdbcTemplate.update(SQL_INSERT, student.getFirstName(), student.getLastName(),
-                student.getGroupId());
+                student.getGroup().getId());
     }
 
     @Override
     public void update(Student student) {
         jdbcTemplate.update(SQL_UPDATE, student.getFirstName(), student.getLastName(),
-                student.getGroupId(), student.getId());
+                student.getGroup().getId(), student.getId());
     }
 
     @Override

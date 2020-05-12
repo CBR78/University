@@ -18,8 +18,8 @@ public class GroupDaoImpl implements BaseDao<Group> {
     private static final String SQL_INSERT = "INSERT INTO groups (group_name) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE groups SET group_name = ? WHERE group_id = ?";
     private static final String SQL_DELETE = "DELETE FROM groups WHERE group_id = ?";
-    private static final String SQL_GET_ALL = "SELECT groups.group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id";
-    private static final String SQL_GET_BY_ID = "SELECT groups.group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id WHERE group_id = ?";
+    private static final String SQL_GET_ALL = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id";
+    private static final String SQL_GET_BY_ID = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id WHERE group_id = ?";
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

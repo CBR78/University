@@ -3,21 +3,21 @@ package com.cbr.university.model;
 import java.util.Objects;
 
 public class Teacher extends Person {
-    private int courseId;
+    private Course course;
 
-    public int getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(courseId);
+        result = prime * result + Objects.hash(course);
         return result;
     }
 
@@ -30,11 +30,11 @@ public class Teacher extends Person {
         if (getClass() != obj.getClass())
             return false;
         Teacher other = (Teacher) obj;
-        return courseId == other.courseId;
+        return Objects.equals(course, other.course);
     }
 
     @Override
     public String toString() {
-        return "Teacher [courseId=" + courseId + "]";
+        return "Teacher [course=" + course + "]";
     }
 }
