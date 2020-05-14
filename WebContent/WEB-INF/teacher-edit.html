@@ -19,17 +19,26 @@
 </head>
 <body>
     <div class="container">
-        <h2>Edit Course</h2>
-        <form th:action="@{/courses/edit/{id}(id=${course.id})}" th:object="${course}"
-            method="post">
+        <h2>Edit Teacher</h2>
+                <form th:action="@{/teachers/edit/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
             <div class="form-group">
                 <label>Id:</label>
-                <input class="form-control" th:placeholder="${course.id}" readonly>
+                <input class="form-control" th:placeholder="${teacher.id}" readonly>
                 <p></p>
-                <label>Name:</label>
-                <input type="text" class="form-control" th:placeholder="${course.name}"
-                    th:field="*{name}" required>
+                <label>First Name:</label>
+                <input type="text" class="form-control" th:placeholder="${teacher.firstName}"
+                    th:field="*{firstName}" required>
                 <p></p>
+                <label>Last Name:</label>
+                <input type="text" class="form-control" th:placeholder="${teacher.lastName}"
+                    th:field="*{lastName}" required>
+                <p></p>
+                <div class="box">
+                    <label>Course Name:</label>
+                    <select class="form-control" th:name="course.id" required>
+                        <option th:each="course: ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                    </select>
+                </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>

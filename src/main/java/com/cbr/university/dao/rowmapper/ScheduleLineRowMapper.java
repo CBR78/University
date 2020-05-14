@@ -28,20 +28,20 @@ public class ScheduleLineRowMapper implements RowMapper<ScheduleLine> {
         group.setName(resultSet.getString("groups_group_name"));
         scheduleLine.setGroup(group);
 
-        Course course = new Course();
-        course.setId(resultSet.getInt("courses_course_id"));
-        course.setName(resultSet.getString("courses_course_name"));
-        scheduleLine.setCourse(course);
-
         Room room = new Room();
         room.setId(resultSet.getInt("rooms_room_id"));
         room.setName(resultSet.getString("rooms_room_name"));
         scheduleLine.setRoom(room);
 
+        Course course = new Course();
+        course.setId(resultSet.getInt("courses_course_id"));
+        course.setName(resultSet.getString("courses_course_name"));
+
         Teacher teacher = new Teacher();
         teacher.setId(resultSet.getInt("teachers_teacher_id"));
         teacher.setFirstName(resultSet.getString("teachers_teacher_first_name"));
         teacher.setLastName(resultSet.getString("teachers_teacher_last_name"));
+        teacher.setCourse(course);
         scheduleLine.setTeacher(teacher);
 
         return scheduleLine;

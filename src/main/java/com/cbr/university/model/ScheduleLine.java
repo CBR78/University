@@ -8,9 +8,8 @@ public class ScheduleLine {
     private LocalDate date;
     private LessonPair lessonPair;
     private Group group;
-    private Course course;
-    private Room room;
     private Teacher teacher;
+    private Room room;
 
     public int getId() {
         return id;
@@ -44,12 +43,12 @@ public class ScheduleLine {
         this.group = group;
     }
 
-    public Course getCourse() {
-        return course;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Room getRoom() {
@@ -60,17 +59,9 @@ public class ScheduleLine {
         this.room = room;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(course, date, group, id, lessonPair, room, teacher);
+        return Objects.hash(date, group, id, lessonPair, room, teacher);
     }
 
     @Override
@@ -82,14 +73,14 @@ public class ScheduleLine {
         if (getClass() != obj.getClass())
             return false;
         ScheduleLine other = (ScheduleLine) obj;
-        return Objects.equals(course, other.course) && Objects.equals(date, other.date)
-                && Objects.equals(group, other.group) && id == other.id && lessonPair == other.lessonPair
-                && Objects.equals(room, other.room) && Objects.equals(teacher, other.teacher);
+        return Objects.equals(date, other.date) && Objects.equals(group, other.group) && id == other.id
+                && lessonPair == other.lessonPair && Objects.equals(room, other.room)
+                && Objects.equals(teacher, other.teacher);
     }
 
     @Override
     public String toString() {
         return "ScheduleLine [id=" + id + ", date=" + date + ", lessonPair=" + lessonPair + ", group="
-                + group + ", course=" + course + ", room=" + room + ", teacher=" + teacher + "]";
+                + group + ", teacher=" + teacher + ", room=" + room + "]";
     }
 }

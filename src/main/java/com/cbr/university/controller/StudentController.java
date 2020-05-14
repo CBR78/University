@@ -52,11 +52,12 @@ public class StudentController {
         mv.clear();
         mv.setViewName(STUDENTS_EDIT);
         mv.addObject("student", studentServiceImpl.getById(id));
+        mv.addObject("groups", groupServiceImpl.getAll());
         return mv;
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id, Student student) {
+    public ModelAndView edit(Student student, BindingResult result) {
         studentServiceImpl.update(student);
         return getAll();
     }

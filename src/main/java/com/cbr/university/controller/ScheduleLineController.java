@@ -26,9 +26,6 @@ public class ScheduleLineController {
     private ScheduleLineServiceImpl scheduleLineServiceImpl;
     @Autowired
     private GroupServiceImpl groupServiceImpl;
-    //private LessonPair lessonPair = new LessonPair();
-    //@Autowired
-    //private CourseServiceImpl courseServiceImpl;
     @Autowired
     private RoomServiceImpl roomServiceImpl;
     @Autowired
@@ -46,9 +43,7 @@ public class ScheduleLineController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_ADD);
-        //mv.addObject("lessonPairs", lessonPair);
         mv.addObject("groups", groupServiceImpl.getAll());
-        //mv.addObject("courses", courseServiceImpl.getAll());
         mv.addObject("rooms", roomServiceImpl.getAll());
         mv.addObject("teachers", teacherServiceImpl.getAll());
         return mv;
@@ -61,7 +56,7 @@ public class ScheduleLineController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable(value = "id") Integer id) {
+    public ModelAndView edit(@PathVariable("id") int id) {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_EDIT);
         mv.addObject("scheduleLine", scheduleLineServiceImpl.getById(id));
@@ -69,13 +64,13 @@ public class ScheduleLineController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable(value = "id") Integer id, ScheduleLine scheduleLine) {
+    public ModelAndView edit(ScheduleLine scheduleLine, BindingResult result) {
         scheduleLineServiceImpl.update(scheduleLine);
         return getAll();
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id) {
+    public ModelAndView delete(@PathVariable("id") int id) {
         scheduleLineServiceImpl.delete(scheduleLineServiceImpl.getById(id));
         return getAll();
     }

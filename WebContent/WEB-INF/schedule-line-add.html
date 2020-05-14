@@ -19,20 +19,26 @@
 </head>
 <body>
     <div class="container">
-        <h2>Add Course</h2>
+        <h2>Add Schedule Line</h2>
         <form th:action="@{/schedule-lines/add}" method="post">
             <div class="form-group">
+
+                <div class="box">
+                    <label>Date:</label>
+                    <input type="date" th:type="date" class="form-control" th:name="date" required>
+                </div>
+
+                <div class="box">
+                    <label>Lesson Pair:</label>
+                    <select class="form-control" th:name="lessonPair" required>
+                        <option th:each="lessonPair : ${T(com.cbr.university.model.LessonPair).values()}"
+                            th:value="${lessonPair}" th:text="${lessonPair.getPairStartTime()}"></option>
+                    </select>
+                </div>
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
                         <option th:each="group: ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
-                    </select>
-                </div>
-                <div class="box">
-                    <label>Course Name:</label>
-                    <select class="form-control" th:name="course.id" required>
-                        <option th:each="course: ${courses}" th:value="${course.id}"
-                            th:text="${course.name}"></option>
                     </select>
                 </div>
                 <div class="box">

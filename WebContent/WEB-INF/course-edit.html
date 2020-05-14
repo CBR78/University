@@ -20,8 +20,7 @@
 <body>
     <div class="container">
         <h2>Edit Course</h2>
-        <form th:action="@{/courses/edit/{id}(id=${course.id})}" th:object="${course}"
-            method="post">
+        <form th:action="@{/courses/edit/{id}(id=${course.id})}" th:object="${course}" method="post">
             <div class="form-group">
                 <label>Id:</label>
                 <input class="form-control" th:placeholder="${course.id}" readonly>
