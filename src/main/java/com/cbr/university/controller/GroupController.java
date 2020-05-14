@@ -2,6 +2,7 @@ package com.cbr.university.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +18,13 @@ public class GroupController {
     private static final String GROUPS = "groups";
     private static final String GROUPS_ADD = "group-add";
     private static final String GROUPS_EDIT = "group-edit";
+    private ModelAndView mv = new ModelAndView();
     @Autowired
     private GroupServiceImpl groupServiceImpl;
 
     @GetMapping
     public ModelAndView getAll() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(GROUPS);
         mv.addObject(GROUPS, groupServiceImpl.getAll());
         return mv;
@@ -30,26 +32,20 @@ public class GroupController {
 
     @GetMapping("/add")
     public ModelAndView add() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(GROUPS_ADD);
         return mv;
     }
 
     @PostMapping("/add")
-    public ModelAndView add(String name) {
-        Group group = new Group();
-        group.setName(name);
+    public ModelAndView add(Group group, BindingResult result) {
         groupServiceImpl.create(group);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(GROUPS);
-        mv.addObject(GROUPS, groupServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id) {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(GROUPS_EDIT);
         mv.addObject("group", groupServiceImpl.getById(id));
         return mv;
@@ -58,20 +54,12 @@ public class GroupController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id, Group group) {
         groupServiceImpl.update(group);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(GROUPS);
-        mv.addObject(GROUPS, groupServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         groupServiceImpl.delete(groupServiceImpl.getById(id));
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(GROUPS);
-        mv.addObject(GROUPS, groupServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 }

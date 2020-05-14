@@ -19,6 +19,7 @@ public class StudentController {
     private static final String STUDENTS = "students";
     private static final String STUDENTS_ADD = "student-add";
     private static final String STUDENTS_EDIT = "student-edit";
+    private ModelAndView mv = new ModelAndView();
     @Autowired
     private StudentServiceImpl studentServiceImpl;
     @Autowired
@@ -26,7 +27,7 @@ public class StudentController {
 
     @GetMapping
     public ModelAndView getAll() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(STUDENTS);
         mv.addObject(STUDENTS, studentServiceImpl.getAll());
         return mv;
@@ -34,7 +35,7 @@ public class StudentController {
 
     @GetMapping("/add")
     public ModelAndView add() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(STUDENTS_ADD);
         mv.addObject("groups", groupServiceImpl.getAll());
         return mv;
@@ -43,16 +44,12 @@ public class StudentController {
     @PostMapping("/add")
     public ModelAndView add(Student student, BindingResult result) {
         studentServiceImpl.create(student);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(STUDENTS);
-        mv.addObject(STUDENTS, studentServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id) {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(STUDENTS_EDIT);
         mv.addObject("student", studentServiceImpl.getById(id));
         return mv;
@@ -61,20 +58,12 @@ public class StudentController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id, Student student) {
         studentServiceImpl.update(student);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(STUDENTS);
-        mv.addObject(STUDENTS, studentServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         studentServiceImpl.delete(studentServiceImpl.getById(id));
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(STUDENTS);
-        mv.addObject(STUDENTS, studentServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 }

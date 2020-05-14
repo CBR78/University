@@ -18,12 +18,13 @@ public class CourseController {
     private static final String COURSES = "courses";
     private static final String COURSE_ADD = "course-add";
     private static final String COURSE_EDIT = "course-edit";
+    private ModelAndView mv = new ModelAndView();
     @Autowired
     private CourseServiceImpl courseServiceImpl;
 
     @GetMapping
     public ModelAndView getAll() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(COURSES);
         mv.addObject(COURSES, courseServiceImpl.getAll());
         return mv;
@@ -31,25 +32,20 @@ public class CourseController {
 
     @GetMapping("/add")
     public ModelAndView add() {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(COURSE_ADD);
-        mv.addObject("course", new Course());
         return mv;
     }
 
     @PostMapping("/add")
     public ModelAndView add(Course course, BindingResult result) {
         courseServiceImpl.create(course);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(COURSES);
-        mv.addObject(COURSES, courseServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id) {
-        ModelAndView mv = new ModelAndView();
+        mv.clear();
         mv.setViewName(COURSE_EDIT);
         mv.addObject("course", courseServiceImpl.getById(id));
         return mv;
@@ -58,20 +54,12 @@ public class CourseController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@PathVariable("id") int id, Course course) {
         courseServiceImpl.update(course);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(COURSES);
-        mv.addObject(COURSES, courseServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         courseServiceImpl.delete(courseServiceImpl.getById(id));
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(COURSES);
-        mv.addObject(COURSES, courseServiceImpl.getAll());
-        return mv;
+        return getAll();
     }
 }

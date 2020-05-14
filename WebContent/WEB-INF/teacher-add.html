@@ -23,11 +23,17 @@
         <form th:action="@{/teachers/add}" method="post">
             <div class="form-group">
                 <label>First Name:</label>
-                <input type="text" class="form-control" th:name="name" required>
+                <input type="text" class="form-control" th:name="firstName" required>
                 <p></p>
                 <label>Last Name:</label>
-                <input type="text" class="form-control" th:name="name" required>
+                <input type="text" class="form-control" th:name="lastName" required>
                 <p></p>
+                <div class="box">
+                    <label>Course Name:</label>
+                    <select class="form-control" th:name="course.id" required>
+                        <option th:each="course: ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                    </select>
+                </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Create">
         </form>

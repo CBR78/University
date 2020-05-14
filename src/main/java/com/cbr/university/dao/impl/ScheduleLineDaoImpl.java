@@ -32,7 +32,7 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(SQL_INSERT, new String[] { "id" });
+            PreparedStatement ps = connection.prepareStatement(SQL_INSERT, new String[]{"id"});
             ps.setObject(1, scheduleLine.getDate());
             ps.setString(2, scheduleLine.getLessonPair().getPairStartTime());
             ps.setInt(3, scheduleLine.getGroup().getId());
@@ -66,7 +66,7 @@ public class ScheduleLineDaoImpl implements BaseDao<ScheduleLine> {
 
     @Override
     public ScheduleLine getById(int id) {
-        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[] { id },
+        return jdbcTemplate.queryForObject(SQL_GET_BY_ID, new Object[]{id},
                 new ScheduleLineRowMapper());
     }
 }
