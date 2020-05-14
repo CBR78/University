@@ -22,13 +22,16 @@
         <h2>All Courses</h2>
         <table class="table table-striped">
             <thead>
+                <a th:href="@{/courses/add}">Add Course</a>
                 <tr>
                     <th>Course Name</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="course: ${courses}">
-                    <td th:text="${course.name}"/>
+                    <td th:text="${course.name}" />
+                    <td><a th:href="@{/courses/edit/{id}(id=${course.id})}">edit</a></td>
+                    <td><a th:href="@{/courses/delete/{id}(id=${course.id})}">delete</a></td>
                 </tr>
             </tbody>
         </table>

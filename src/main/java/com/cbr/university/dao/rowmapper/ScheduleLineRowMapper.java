@@ -6,8 +6,12 @@ import java.time.LocalDate;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.cbr.university.model.Course;
+import com.cbr.university.model.Group;
 import com.cbr.university.model.LessonPair;
+import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.model.Teacher;
 
 public class ScheduleLineRowMapper implements RowMapper<ScheduleLine> {
 
@@ -18,10 +22,27 @@ public class ScheduleLineRowMapper implements RowMapper<ScheduleLine> {
         scheduleLine.setId(resultSet.getInt("schedule_line_id"));
         scheduleLine.setDate(resultSet.getObject("schedule_line_date", LocalDate.class));
         scheduleLine.setLessonPair(LessonPair.valueOf(resultSet.getString("lesson_pair")));
-        scheduleLine.setGroupId(resultSet.getInt("group_id"));
-        scheduleLine.setTeacherId(resultSet.getInt("teacher_id"));
-        scheduleLine.setCourseId(resultSet.getInt("course_id"));
-        scheduleLine.setRoomId(resultSet.getInt("room_id"));
+
+        Group group = new Group();
+        group.setId(resultSet.getInt("groups_group_id"));
+        group.setName(resultSet.getString("groups_group_name"));
+        scheduleLine.setGroup(group);
+
+        Course course = new Course();
+        course.setId(resultSet.getInt("courses_course_id"));
+        course.setName(resultSet.getString("courses_course_name"));
+        scheduleLine.setCourse(course);
+
+        Room room = new Room();
+        room.setId(resultSet.getInt("rooms_room_id"));
+        room.setName(resultSet.getString("rooms_room_name"));
+        scheduleLine.setRoom(room);
+
+        Teacher teacher = new Teacher();
+        teacher.setId(resultSet.getInt("teachers_teacher_id"));
+        teacher.setFirstName(resultSet.getString("teachers_teacher_first_name"));
+        teacher.setLastName(resultSet.getString("teachers_teacher_last_name"));
+        scheduleLine.setTeacher(teacher);
 
         return scheduleLine;
     }

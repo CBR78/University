@@ -16,13 +16,21 @@ public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> 
 
     @Override
     public List<Group> extractData(ResultSet rs) throws SQLException {
-        Map<Group, List<Student>> groupaAndStudentsMap = new HashMap<>();
-        Group group = new Group();
+        Map<Integer, Group> groupsMap = new HashMap<>();
+        Group group = null;
 
         while (rs.next()) {
-            group.setId(rs.getInt("groups_group_id"));
+            int groupId = rs.getInt("groups_group_id");
+
+            if (!groupsMap.containsKey(groupId)) {
+                group = new Group();
+                group.setStudents(new ArrayList<Student>());
+                groupsMap.put(groupId, group);
+            }
+
+            group = groupsMap.get(groupId);
+            group.setId(groupId);
             group.setName(rs.getString("group_name"));
-            groupaAndStudentsMap.putIfAbsent(group, new ArrayList<>());
 
             int studentId = rs.getInt("student_id");
             if (studentId > 0) {
@@ -31,18 +39,16 @@ public class GroupResultSetExtractor implements ResultSetExtractor<List<Group>> 
                 student.setFirstName(rs.getString("student_first_name"));
                 student.setLastName(rs.getString("student_last_name"));
                 student.setGroup(group);
-                groupaAndStudentsMap.get(group).add(student);
+                group.getStudents().add(student);
             }
         }
-        return extractMapToList(groupaAndStudentsMap);
+        return extractMapToList(groupsMap);
     }
 
-    private List<Group> extractMapToList(Map<Group, List<Student>> groupaAndStudentsMap) {
+    private List<Group> extractMapToList(Map<Integer, Group> groupsMap) {
         List<Group> groups = new ArrayList<>();
-
-        for (Map.Entry<Group, List<Student>> entry : groupaAndStudentsMap.entrySet()) {
-            Group group = entry.getKey();
-            group.setStudents(entry.getValue());
+        for (Map.Entry<Integer, Group> entry : groupsMap.entrySet()) {
+            Group group = entry.getValue();
             groups.add(group);
         }
         return groups;

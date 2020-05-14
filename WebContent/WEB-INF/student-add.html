@@ -15,26 +15,28 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-<title>Groups</title>
+<title>Add Student</title>
 </head>
 <body>
     <div class="container">
-        <h2>All Groups</h2>
-        <table class="table table-striped">
-            <thead>
-                <a th:href="@{/groups/add}">Add Course</a>
-                <tr>
-                    <th>Group Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="group: ${groups}">
-                    <td th:text="${group.name}" />
-                    <td><a th:href="@{/groups/edit/{id}(id=${group.id})}">edit</a></td>
-                    <td><a th:href="@{/groups/delete/{id}(id=${group.id})}">delete</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <h2>Add Student</h2>
+        <form th:action="@{/students/add}" method="post">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" class="form-control" th:name="firstName" required>
+                <p></p>
+                <label>Last Name:</label>
+                <input type="text" class="form-control" th:name="lastName" required>
+                <p></p>
+                <div class="box">
+                    <label>Group Name:</label>
+                    <select class="form-control" th:name="group.id" required>
+                        <option th:each="group: ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Create">
+        </form>
     </div>
 </body>
 </html>
