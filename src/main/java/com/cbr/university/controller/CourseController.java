@@ -18,9 +18,13 @@ public class CourseController {
     private static final String COURSES = "courses";
     private static final String COURSE_ADD = "course-add";
     private static final String COURSE_EDIT = "course-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private CourseServiceImpl courseServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public CourseController(CourseServiceImpl courseServiceImpl) {
+        this.courseServiceImpl = courseServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {

@@ -18,9 +18,13 @@ public class RoomController {
     private static final String ROOMS = "rooms";
     private static final String ROOMS_ADD = "room-add";
     private static final String ROOMS_EDIT = "room-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private RoomServiceImpl roomServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public RoomController(RoomServiceImpl roomServiceImpl) {
+        this.roomServiceImpl = roomServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {

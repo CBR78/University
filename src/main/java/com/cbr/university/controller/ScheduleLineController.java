@@ -21,15 +21,21 @@ public class ScheduleLineController {
     private static final String SCHEDULE_LINES = "schedule-lines";
     private static final String SCHEDULE_LINES_ADD = "schedule-line-add";
     private static final String SCHEDULE_LINES_EDIT = "schedule-line-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private ScheduleLineServiceImpl scheduleLineServiceImpl;
-    @Autowired
     private GroupServiceImpl groupServiceImpl;
-    @Autowired
     private RoomServiceImpl roomServiceImpl;
-    @Autowired
     private TeacherServiceImpl teacherServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public ScheduleLineController(ScheduleLineServiceImpl scheduleLineServiceImpl,
+            GroupServiceImpl groupServiceImpl, RoomServiceImpl roomServiceImpl,
+            TeacherServiceImpl teacherServiceImpl) {
+        this.scheduleLineServiceImpl = scheduleLineServiceImpl;
+        this.groupServiceImpl = groupServiceImpl;
+        this.roomServiceImpl = roomServiceImpl;
+        this.teacherServiceImpl = teacherServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {
@@ -44,8 +50,8 @@ public class ScheduleLineController {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_ADD);
         mv.addObject("groups", groupServiceImpl.getAll());
-        mv.addObject("rooms", roomServiceImpl.getAll());
         mv.addObject("teachers", teacherServiceImpl.getAll());
+        mv.addObject("rooms", roomServiceImpl.getAll());
         return mv;
     }
 
@@ -60,6 +66,9 @@ public class ScheduleLineController {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_EDIT);
         mv.addObject("scheduleLine", scheduleLineServiceImpl.getById(id));
+        mv.addObject("groups", groupServiceImpl.getAll());
+        mv.addObject("teachers", teacherServiceImpl.getAll());
+        mv.addObject("rooms", roomServiceImpl.getAll());
         return mv;
     }
 

@@ -5,7 +5,7 @@
 <body>
     <div class="container">
         <h2>Edit Teacher</h2>
-                <form th:action="@{/teachers/edit/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
+        <form th:action="@{/teachers/edit/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
             <div class="form-group">
                 <label>Id:</label>
                 <input class="form-control" th:placeholder="${teacher.id}" readonly>
@@ -21,7 +21,8 @@
                 <div class="box">
                     <label>Course Name:</label>
                     <select class="form-control" th:name="course.id" required>
-                        <option th:each="course: ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                        <option th:each="course: ${courses}" th:value="${course.id}"
+                            th:text="${course.name}"></option>
                     </select>
                 </div>
             </div>

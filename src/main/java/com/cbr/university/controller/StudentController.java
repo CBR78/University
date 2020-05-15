@@ -19,11 +19,15 @@ public class StudentController {
     private static final String STUDENTS = "students";
     private static final String STUDENTS_ADD = "student-add";
     private static final String STUDENTS_EDIT = "student-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private StudentServiceImpl studentServiceImpl;
-    @Autowired
     private GroupServiceImpl groupServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public StudentController(StudentServiceImpl studentServiceImpl, GroupServiceImpl groupServiceImpl) {
+        this.studentServiceImpl = studentServiceImpl;
+        this.groupServiceImpl = groupServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {

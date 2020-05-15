@@ -18,9 +18,13 @@ public class GroupController {
     private static final String GROUPS = "groups";
     private static final String GROUPS_ADD = "group-add";
     private static final String GROUPS_EDIT = "group-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private GroupServiceImpl groupServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public GroupController(GroupServiceImpl groupServiceImpl) {
+        this.groupServiceImpl = groupServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {

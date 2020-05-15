@@ -19,11 +19,16 @@ public class TeacherController {
     private static final String TEACHERS = "teachers";
     private static final String TEACHERS_ADD = "teacher-add";
     private static final String TEACHERS_EDIT = "teacher-edit";
-    private ModelAndView mv = new ModelAndView();
-    @Autowired
     private TeacherServiceImpl teacherServiceImpl;
-    @Autowired
     private CourseServiceImpl courseServiceImpl;
+    private ModelAndView mv = new ModelAndView();
+
+    @Autowired
+    public TeacherController(TeacherServiceImpl teacherServiceImpl,
+            CourseServiceImpl courseServiceImpl) {
+        this.teacherServiceImpl = teacherServiceImpl;
+        this.courseServiceImpl = courseServiceImpl;
+    }
 
     @GetMapping
     public ModelAndView getAll() {

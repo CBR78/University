@@ -23,7 +23,7 @@
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
-                        <option th:each="group: ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+                        <option th:each="group: ${groups}" th:text="${group.name}" th:value="${group.id}"></option>
                     </select>
                 </div>
                 <div class="box">

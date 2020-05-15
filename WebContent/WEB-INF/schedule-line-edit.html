@@ -5,16 +5,45 @@
 <body>
     <div class="container">
         <h2>Edit Schedule Line</h2>
-        <form th:action="@{/courses/edit/{id}(id=${course.id})}" th:object="${course}"
+        <form th:action="@{/schedule-lines/edit/{id}(id=${scheduleLine.id})}" th:object="${scheduleLine}"
             method="post">
             <div class="form-group">
-                <label>Id:</label>
-                <input class="form-control" th:placeholder="${course.id}" readonly>
-                <p></p>
-                <label>Name:</label>
-                <input type="text" class="form-control" th:placeholder="${course.name}"
-                    th:field="*{name}" required>
-                <p></p>
+
+
+                <div class="box">
+                    <label>Date:</label>
+                    <input type="date" th:type="date" class="form-control" th:name="date" required>
+                </div>
+
+
+                <div class="box">
+                    <label>Lesson Pair:</label>
+                    <select class="form-control" th:name="lessonPair" required>
+                        <option th:each="lessonPair : ${T(com.cbr.university.model.LessonPair).values()}"
+                            th:text="${lessonPair.getPairStartTime()}" th:value="${lessonPair}"></option>
+                    </select>
+                </div>
+                <div class="box">
+                    <label>Group Name:</label>
+                    <select class="form-control" th:name="group.id" required>
+                        <option th:each="group : ${groups}" th:text="${group.name}"
+                            th:value="${group.id}"></option>
+                    </select>
+                </div>
+                <div class="box">
+                    <label>Teacher Name:</label>
+                    <select class="form-control" th:name="teacher.id" required>
+                        <option th:each="teacher : ${teachers}"
+                            th:text="${teacher.firstName + ' ' + teacher.lastName}"
+                            th:value="${teacher.id}"></option>
+                    </select>
+                </div>
+                <div class="box">
+                    <label>Room Name:</label>
+                    <select class="form-control" th:name="room.id" required>
+                        <option th:each="room: ${rooms}" th:text="${room.name}" th:value="${room.id}"></option>
+                    </select>
+                </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>
