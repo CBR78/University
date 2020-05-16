@@ -1,14 +1,16 @@
 package com.cbr.university.config;
 
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,21 +24,14 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @PropertySource("classpath:database.properties")
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
-    private static final String URL = "url";
-    private static final String USER = "dbuser";
-    private static final String PASSWORD = "dbpassword";
-    private static final String DRIVER = "driver";
     @Autowired
     private ApplicationContext applicationContext;
-    
+
     @Bean
-    public JdbcTemplate jdbcTemplate(Environment environment) {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setUrl(environment.getProperty(URL));
-        driverManagerDataSource.setUsername(environment.getProperty(USER));
-        driverManagerDataSource.setPassword(environment.getProperty(PASSWORD));
-        driverManagerDataSource.setDriverClassName(environment.getProperty(DRIVER));
-        return new JdbcTemplate(driverManagerDataSource);
+    public JdbcTemplate jdbcTemplate() throws NamingException {
+        JndiTemplate jndiTemplate = new JndiTemplate();
+        DataSource dataSource = (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/postgres");
+        return new JdbcTemplate(dataSource);
     }
 
     private SpringResourceTemplateResolver templateResolver() {
@@ -60,5 +55,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         registry.viewResolver(viewResolver);
-    }   
+    }
 }
