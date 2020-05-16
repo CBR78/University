@@ -30,7 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private ApplicationContext applicationContext;
     
     @Bean
-    JdbcTemplate jdbcTemplate(Environment environment) {
+    public JdbcTemplate jdbcTemplate(Environment environment) {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setUrl(environment.getProperty(URL));
         driverManagerDataSource.setUsername(environment.getProperty(USER));
@@ -39,7 +39,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return new JdbcTemplate(driverManagerDataSource);
     }
 
-    //@Bean
     private SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.applicationContext);
@@ -48,7 +47,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
-    //@Bean
     private SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
