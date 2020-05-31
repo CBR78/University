@@ -3,18 +3,53 @@ package com.cbr.university.model;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "students")
-public class Student extends Person {
-    
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    private int id;
+    @Column(name = "student_first_name")
+    private String firstName;
+    @Column(name = "student_last_name")
+    private String lastName;
     @OneToOne(optional = true, cascade = CascadeType.DETACH)
     @JoinColumn(name = "group_id")
     private Group group;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public Group getGroup() {
         return group;
@@ -28,7 +63,7 @@ public class Student extends Person {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(group);
+        result = prime * result + Objects.hash(firstName, group, id, lastName);
         return result;
     }
 
@@ -41,11 +76,13 @@ public class Student extends Person {
         if (getClass() != obj.getClass())
             return false;
         Student other = (Student) obj;
-        return Objects.equals(group, other.group);
+        return Objects.equals(firstName, other.firstName) && Objects.equals(group, other.group)
+                && id == other.id && Objects.equals(lastName, other.lastName);
     }
 
     @Override
     public String toString() {
-        return "Student [group=" + group + "]";
+        return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", group="
+                + group + "]";
     }
 }

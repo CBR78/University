@@ -14,6 +14,11 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cbr.university.model.Course;
+import com.cbr.university.model.Group;
+import com.cbr.university.model.Room;
+import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.model.Student;
+import com.cbr.university.model.Teacher;
 
 @Configuration
 @ComponentScan("com.cbr.university")
@@ -21,32 +26,28 @@ import com.cbr.university.model.Course;
 public class HibernateConfig {
 
     @Bean
-    public DataSource getDataSource() {
+    public DataSource getDataSource() throws NamingException {
         JndiTemplate jndiTemplate = new JndiTemplate();
-        DataSource dataSource = (DataSource) new Object();
-        try {
-            dataSource = (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/postgres");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
+        DataSource dataSource = (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/postgres");
         return dataSource;
     }
 
     @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
+    public LocalSessionFactoryBean getSessionFactory() throws NamingException {
         Properties properties = new Properties();
         properties.put("hibernate.showSql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
-        
+
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
         factoryBean.setHibernateProperties(properties);
-        factoryBean.setAnnotatedClasses(Course.class);  //----------------------------------
+        factoryBean.setAnnotatedClasses(Course.class, Group.class, Room.class, Teacher.class,
+                Student.class, ScheduleLine.class);
         return factoryBean;
     }
 
     @Bean
-    public HibernateTransactionManager getTransactionManager() {
+    public HibernateTransactionManager getTransactionManager() throws NamingException {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(getSessionFactory().getObject());
         return transactionManager;

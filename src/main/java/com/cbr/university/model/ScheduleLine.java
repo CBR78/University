@@ -6,6 +6,8 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,15 +24,12 @@ public class ScheduleLine {
     @Column(name = "schedule_line_id")
     private int id;
     
-    //------------
-    
     @Column(name = "schedule_line_date")
     private LocalDate date;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "lesson_pair")
     private LessonPair lessonPair;
-    
-    //------------
     
     @OneToOne(optional = true, cascade = CascadeType.DETACH)
     @JoinColumn(name = "group_id")
@@ -43,8 +42,6 @@ public class ScheduleLine {
     @OneToOne(optional = true, cascade = CascadeType.DETACH)
     @JoinColumn(name = "room_id")
     private Room room;
-
-    
     
     public int getId() {
         return id;
