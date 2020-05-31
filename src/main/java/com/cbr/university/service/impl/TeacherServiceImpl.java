@@ -5,42 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.impl.TeacherDaoImpl;
+import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class TeacherServiceImpl implements BaseService<Teacher> {
 
-    private TeacherDaoImpl teacherDaoImpl;
+    private BaseDao<Teacher> teacherDao;
 
     @Autowired
-    public TeacherServiceImpl(TeacherDaoImpl teacherDaoImpl) {
-        this.teacherDaoImpl = teacherDaoImpl;
+    public TeacherServiceImpl(BaseDao<Teacher> teacherDao) {
+        this.teacherDao = teacherDao;
     }
 
     @Override
     public void create(Teacher teacher) {
-        teacherDaoImpl.create(teacher);
+        teacherDao.create(teacher);
     }
 
     @Override
     public void update(Teacher teacher) {
-        teacherDaoImpl.update(teacher);
+        teacherDao.update(teacher);
     }
 
     @Override
     public void delete(Teacher teacher) {
-        teacherDaoImpl.delete(teacher);
+        teacherDao.delete(teacher);
     }
 
     @Override
     public List<Teacher> getAll() {
-        return teacherDaoImpl.getAll();
+        return teacherDao.getAll();
     }
 
     @Override
     public Teacher getById(int id) {
-        return teacherDaoImpl.getById(id);
+        return teacherDao.getById(id);
     }
 }

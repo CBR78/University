@@ -3,14 +3,49 @@ package com.cbr.university.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "schedule_lines")
 public class ScheduleLine {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "schedule_line_id")
     private int id;
+    
+    //------------
+    
+    @Column(name = "schedule_line_date")
     private LocalDate date;
+    
+    @Column(name = "lesson_pair")
     private LessonPair lessonPair;
+    
+    //------------
+    
+    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "group_id")
     private Group group;
+    
+    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+        
+    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "room_id")
     private Room room;
 
+    
+    
     public int getId() {
         return id;
     }

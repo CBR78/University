@@ -5,46 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.impl.StudentDaoImpl;
+import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class StudentServiceImpl implements BaseService<Student> {
 
-    private StudentDaoImpl studentDaoImpl;
+    private BaseDao<Student> studentDao;
 
     @Autowired
-    public StudentServiceImpl(StudentDaoImpl studentDaoImpl) {
-        this.studentDaoImpl = studentDaoImpl;
+    public StudentServiceImpl(BaseDao<Student> studentDao) {
+        this.studentDao = studentDao;
     }
 
     @Override
     public void create(Student student) {
-        studentDaoImpl.create(student);
+        studentDao.create(student);
     }
 
     @Override
     public void update(Student student) {
-        studentDaoImpl.update(student);
+        studentDao.update(student);
     }
 
     @Override
     public void delete(Student student) {
-        studentDaoImpl.delete(student);
+        studentDao.delete(student);
     }
 
     @Override
     public List<Student> getAll() {
-        return studentDaoImpl.getAll();
+        return studentDao.getAll();
     }
 
     @Override
     public Student getById(int id) {
-        return studentDaoImpl.getById(id);
-    }
-
-    public List<Student> getByGroup(int groupId) {
-        return studentDaoImpl.getByGroup(groupId);
+        return studentDao.getById(id);
     }
 }

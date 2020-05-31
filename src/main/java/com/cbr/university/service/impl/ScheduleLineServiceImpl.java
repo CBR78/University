@@ -5,42 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.impl.ScheduleLineDaoImpl;
+import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
-    private ScheduleLineDaoImpl scheduleLineDaoImpl;
+    private BaseDao<ScheduleLine> scheduleLineDao;
 
     @Autowired
-    public ScheduleLineServiceImpl(ScheduleLineDaoImpl scheduleLineDaoImpl) {
-        this.scheduleLineDaoImpl = scheduleLineDaoImpl;
+    public ScheduleLineServiceImpl(BaseDao<ScheduleLine> scheduleLineDao) {
+        this.scheduleLineDao = scheduleLineDao;
     }
 
     @Override
     public void create(ScheduleLine scheduleLine) {
-        scheduleLineDaoImpl.create(scheduleLine);
+        scheduleLineDao.create(scheduleLine);
     }
 
     @Override
     public void update(ScheduleLine scheduleLine) {
-        scheduleLineDaoImpl.update(scheduleLine);
+        scheduleLineDao.update(scheduleLine);
     }
 
     @Override
     public void delete(ScheduleLine scheduleLine) {
-        scheduleLineDaoImpl.delete(scheduleLine);
+        scheduleLineDao.delete(scheduleLine);
     }
 
     @Override
     public List<ScheduleLine> getAll() {
-        return scheduleLineDaoImpl.getAll();
+        return scheduleLineDao.getAll();
     }
 
     @Override
     public ScheduleLine getById(int id) {
-        return scheduleLineDaoImpl.getById(id);
+        return scheduleLineDao.getById(id);
     }
 }

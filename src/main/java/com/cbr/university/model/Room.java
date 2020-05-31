@@ -2,8 +2,21 @@ package com.cbr.university.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "rooms")
 public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "room_id")
     private int id;
+    @Column(name = "room_name")
     private String name;
 
     public int getId() {

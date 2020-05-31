@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cbr.university.model.Course;
 import com.cbr.university.model.Teacher;
-import com.cbr.university.service.impl.CourseServiceImpl;
-import com.cbr.university.service.impl.TeacherServiceImpl;
+import com.cbr.university.service.BaseService;
 
 @Controller
 @RequestMapping("teachers")
@@ -19,22 +19,21 @@ public class TeacherController {
     private static final String TEACHERS = "teachers";
     private static final String TEACHERS_ADD = "teacher-add";
     private static final String TEACHERS_EDIT = "teacher-edit";
-    private TeacherServiceImpl teacherServiceImpl;
-    private CourseServiceImpl courseServiceImpl;
+    private BaseService<Teacher> teacherService;
+    private BaseService<Course> courseService;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public TeacherController(TeacherServiceImpl teacherServiceImpl,
-            CourseServiceImpl courseServiceImpl) {
-        this.teacherServiceImpl = teacherServiceImpl;
-        this.courseServiceImpl = courseServiceImpl;
+    public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService) {
+        this.teacherService = teacherService;
+        this.courseService = courseService;
     }
 
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
         mv.setViewName(TEACHERS);
-        mv.addObject(TEACHERS, teacherServiceImpl.getAll());
+        mv.addObject(TEACHERS, teacherService.getAll());
         return mv;
     }
 
@@ -42,13 +41,13 @@ public class TeacherController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(TEACHERS_ADD);
-        mv.addObject("courses", courseServiceImpl.getAll());
+        mv.addObject("courses", courseService.getAll());
         return mv;
     }
 
     @PostMapping("/add")
     public ModelAndView add(Teacher teacher, BindingResult result) {
-        teacherServiceImpl.create(teacher);
+        teacherService.create(teacher);
         return getAll();
     }
 
@@ -56,20 +55,20 @@ public class TeacherController {
     public ModelAndView edit(@PathVariable("id") int id) {
         mv.clear();
         mv.setViewName(TEACHERS_EDIT);
-        mv.addObject("teacher", teacherServiceImpl.getById(id));
-        mv.addObject("courses", courseServiceImpl.getAll());
+        mv.addObject("teacher", teacherService.getById(id));
+        mv.addObject("courses", courseService.getAll());
         return mv;
     }
 
     @PostMapping("edit/{id}")
     public ModelAndView edit(Teacher teacher, BindingResult result) {
-        teacherServiceImpl.update(teacher);
+        teacherService.update(teacher);
         return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
-        teacherServiceImpl.delete(teacherServiceImpl.getById(id));
+        teacherService.delete(teacherService.getById(id));
         return getAll();
     }
 }

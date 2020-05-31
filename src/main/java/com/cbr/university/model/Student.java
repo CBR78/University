@@ -2,7 +2,18 @@ package com.cbr.university.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "students")
 public class Student extends Person {
+    
+    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "group_id")
     private Group group;
 
     public Group getGroup() {

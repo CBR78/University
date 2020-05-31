@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cbr.university.model.Group;
+import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
-import com.cbr.university.service.impl.GroupServiceImpl;
-import com.cbr.university.service.impl.RoomServiceImpl;
-import com.cbr.university.service.impl.ScheduleLineServiceImpl;
-import com.cbr.university.service.impl.TeacherServiceImpl;
+import com.cbr.university.model.Teacher;
+import com.cbr.university.service.BaseService;
 
 @Controller
 @RequestMapping("schedule-lines")
@@ -21,27 +21,27 @@ public class ScheduleLineController {
     private static final String SCHEDULE_LINES = "schedule-lines";
     private static final String SCHEDULE_LINES_ADD = "schedule-line-add";
     private static final String SCHEDULE_LINES_EDIT = "schedule-line-edit";
-    private ScheduleLineServiceImpl scheduleLineServiceImpl;
-    private GroupServiceImpl groupServiceImpl;
-    private RoomServiceImpl roomServiceImpl;
-    private TeacherServiceImpl teacherServiceImpl;
+    private BaseService<ScheduleLine> scheduleLineService;
+    private BaseService<Group> groupService;
+    private BaseService<Room> roomService;
+    private BaseService<Teacher> teacherService;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public ScheduleLineController(ScheduleLineServiceImpl scheduleLineServiceImpl,
-            GroupServiceImpl groupServiceImpl, RoomServiceImpl roomServiceImpl,
-            TeacherServiceImpl teacherServiceImpl) {
-        this.scheduleLineServiceImpl = scheduleLineServiceImpl;
-        this.groupServiceImpl = groupServiceImpl;
-        this.roomServiceImpl = roomServiceImpl;
-        this.teacherServiceImpl = teacherServiceImpl;
+    public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService,
+            BaseService<Group> groupService, BaseService<Room> roomService,
+            BaseService<Teacher> teacherService) {
+        this.scheduleLineService = scheduleLineService;
+        this.groupService = groupService;
+        this.roomService = roomService;
+        this.teacherService = teacherService;
     }
 
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES);
-        mv.addObject("scheduleLines", scheduleLineServiceImpl.getAll());
+        mv.addObject("scheduleLines", scheduleLineService.getAll());
         return mv;
     }
 
@@ -49,15 +49,15 @@ public class ScheduleLineController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_ADD);
-        mv.addObject("groups", groupServiceImpl.getAll());
-        mv.addObject("teachers", teacherServiceImpl.getAll());
-        mv.addObject("rooms", roomServiceImpl.getAll());
+        mv.addObject("groups", groupService.getAll());
+        mv.addObject("teachers", teacherService.getAll());
+        mv.addObject("rooms", roomService.getAll());
         return mv;
     }
 
     @PostMapping("/add")
     public ModelAndView add(ScheduleLine scheduleLine, BindingResult result) {
-        scheduleLineServiceImpl.create(scheduleLine);
+        scheduleLineService.create(scheduleLine);
         return getAll();
     }
 
@@ -65,22 +65,22 @@ public class ScheduleLineController {
     public ModelAndView edit(@PathVariable("id") int id) {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_EDIT);
-        mv.addObject("scheduleLine", scheduleLineServiceImpl.getById(id));
-        mv.addObject("groups", groupServiceImpl.getAll());
-        mv.addObject("teachers", teacherServiceImpl.getAll());
-        mv.addObject("rooms", roomServiceImpl.getAll());
+        mv.addObject("scheduleLine", scheduleLineService.getById(id));
+        mv.addObject("groups", groupService.getAll());
+        mv.addObject("teachers", teacherService.getAll());
+        mv.addObject("rooms", roomService.getAll());
         return mv;
     }
 
     @PostMapping("edit/{id}")
     public ModelAndView edit(ScheduleLine scheduleLine, BindingResult result) {
-        scheduleLineServiceImpl.update(scheduleLine);
+        scheduleLineService.update(scheduleLine);
         return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
-        scheduleLineServiceImpl.delete(scheduleLineServiceImpl.getById(id));
+        scheduleLineService.delete(scheduleLineService.getById(id));
         return getAll();
     }
 }

@@ -2,7 +2,16 @@ package com.cbr.university.model;
 
 import java.util.Objects;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name = "schedule_line_id")
     private int id;
     private String firstName;
     private String lastName;

@@ -2,51 +2,47 @@ package com.cbr.university.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cbr.university.dao.BaseDao;
-import com.cbr.university.dao.resultsetextractor.GroupResultSetExtractor;
 import com.cbr.university.model.Group;
 
 @Repository
+@Transactional
 public class GroupDaoImpl implements BaseDao<Group> {
-    private static final String SQL_INSERT = "INSERT INTO groups(group_name) VALUES(?)";
-    private static final String SQL_UPDATE = "UPDATE groups SET group_name = ? WHERE group_id = ?";
-    private static final String SQL_DELETE = "DELETE FROM groups WHERE group_id = ?";
-    private static final String SQL_GET_ALL = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id";
-    private static final String SQL_GET_BY_ID = "SELECT groups.group_id AS groups_group_id, groups.group_name, students.student_id, students.student_first_name, students.student_last_name, students.group_id AS students_group_id FROM groups LEFT JOIN students ON groups.group_id = students.group_id WHERE groups.group_id = ?";
-    private JdbcTemplate jdbcTemplate;
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public GroupDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public GroupDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void create(Group group) {
-        jdbcTemplate.update(SQL_INSERT, group.getName());
+        sessionFactory.getCurrentSession().save(group);
     }
 
     @Override
     public void update(Group group) {
-        jdbcTemplate.update(SQL_UPDATE, group.getName(), group.getId());
+        sessionFactory.getCurrentSession().update(group);
     }
 
     @Override
     public void delete(Group group) {
-        jdbcTemplate.update(SQL_DELETE, group.getId());
+        sessionFactory.getCurrentSession().delete(group);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Group> getAll() {
-        return jdbcTemplate.query(SQL_GET_ALL, new GroupResultSetExtractor());
+        return sessionFactory.getCurrentSession().createQuery("from Group").list();
     }
 
     @Override
     public Group getById(int id) {
-        List<Group> groups = jdbcTemplate.query(SQL_GET_BY_ID, new Object[] { id }, new GroupResultSetExtractor());
-        return groups.get(0);
+        return sessionFactory.getCurrentSession().get(Group.class, id);
     }
 }

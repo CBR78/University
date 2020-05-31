@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
-import com.cbr.university.service.impl.GroupServiceImpl;
-import com.cbr.university.service.impl.StudentServiceImpl;
+import com.cbr.university.service.BaseService;
 
 @Controller
 @RequestMapping("students")
@@ -19,21 +19,21 @@ public class StudentController {
     private static final String STUDENTS = "students";
     private static final String STUDENTS_ADD = "student-add";
     private static final String STUDENTS_EDIT = "student-edit";
-    private StudentServiceImpl studentServiceImpl;
-    private GroupServiceImpl groupServiceImpl;
+    private BaseService<Student> studentService;
+    private BaseService<Group> groupService;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public StudentController(StudentServiceImpl studentServiceImpl, GroupServiceImpl groupServiceImpl) {
-        this.studentServiceImpl = studentServiceImpl;
-        this.groupServiceImpl = groupServiceImpl;
+    public StudentController(BaseService<Student> studentService, BaseService<Group> groupService) {
+        this.studentService = studentService;
+        this.groupService = groupService;
     }
 
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
         mv.setViewName(STUDENTS);
-        mv.addObject(STUDENTS, studentServiceImpl.getAll());
+        mv.addObject(STUDENTS, studentService.getAll());
         return mv;
     }
 
@@ -41,13 +41,13 @@ public class StudentController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(STUDENTS_ADD);
-        mv.addObject("groups", groupServiceImpl.getAll());
+        mv.addObject("groups", groupService.getAll());
         return mv;
     }
 
     @PostMapping("/add")
     public ModelAndView add(Student student, BindingResult result) {
-        studentServiceImpl.create(student);
+        studentService.create(student);
         return getAll();
     }
 
@@ -55,20 +55,20 @@ public class StudentController {
     public ModelAndView edit(@PathVariable("id") int id) {
         mv.clear();
         mv.setViewName(STUDENTS_EDIT);
-        mv.addObject("student", studentServiceImpl.getById(id));
-        mv.addObject("groups", groupServiceImpl.getAll());
+        mv.addObject("student", studentService.getById(id));
+        mv.addObject("groups", groupService.getAll());
         return mv;
     }
 
     @PostMapping("edit/{id}")
     public ModelAndView edit(Student student, BindingResult result) {
-        studentServiceImpl.update(student);
+        studentService.update(student);
         return getAll();
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
-        studentServiceImpl.delete(studentServiceImpl.getById(id));
+        studentService.delete(studentService.getById(id));
         return getAll();
     }
 }

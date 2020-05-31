@@ -1,12 +1,23 @@
 package com.cbr.university.model;
 
-import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "groups")
 public class Group {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
     private int id;
+    @Column(name = "group_name")
     private String name;
-    private List<Student> students;
 
     public int getId() {
         return id;
@@ -22,14 +33,6 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 
     @Override
@@ -51,6 +54,6 @@ public class Group {
 
     @Override
     public String toString() {
-        return "Group [id=" + id + ", name=" + name + ", students=" + students + "]";
+        return "Group [id=" + id + ", name=" + name + "]";
     }
 }

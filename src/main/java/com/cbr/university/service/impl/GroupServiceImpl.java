@@ -5,42 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.impl.GroupDaoImpl;
+import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Group;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class GroupServiceImpl implements BaseService<Group> {
 
-    private GroupDaoImpl groupDaoImpl;
+    private BaseDao<Group> groupDao;
 
     @Autowired
-    public GroupServiceImpl(GroupDaoImpl groupDaoImpl) {
-        this.groupDaoImpl = groupDaoImpl;
+    public GroupServiceImpl(BaseDao<Group> groupDao) {
+        this.groupDao = groupDao;
     }
 
     @Override
     public void create(Group group) {
-        groupDaoImpl.create(group);
+        groupDao.create(group);
     }
 
     @Override
     public void update(Group group) {
-        groupDaoImpl.update(group);
+        groupDao.update(group);
     }
 
     @Override
     public void delete(Group group) {
-        groupDaoImpl.delete(group);
+        groupDao.delete(group);
     }
 
     @Override
     public List<Group> getAll() {
-        return groupDaoImpl.getAll();
+        return groupDao.getAll();
     }
 
     @Override
     public Group getById(int id) {
-        return groupDaoImpl.getById(id);
+        return groupDao.getById(id);
     }
 }

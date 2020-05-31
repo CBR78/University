@@ -6,12 +6,12 @@ public class WebMvcInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { WebMvcConfig.class };
+        return new Class[] { HibernateConfig.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return null;
+        return new Class[] { WebMvcConfig.class };
     }
 
     @Override

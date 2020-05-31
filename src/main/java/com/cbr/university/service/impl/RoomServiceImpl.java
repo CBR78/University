@@ -5,42 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.impl.RoomDaoImpl;
+import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class RoomServiceImpl implements BaseService<Room> {
 
-    private RoomDaoImpl roomDaoImpl;
+    private BaseDao<Room> roomDao;
 
     @Autowired
-    public RoomServiceImpl(RoomDaoImpl roomDaoImpl) {
-        this.roomDaoImpl = roomDaoImpl;
+    public RoomServiceImpl(BaseDao<Room> roomDao) {
+        this.roomDao = roomDao;
     }
 
     @Override
     public void create(Room room) {
-        roomDaoImpl.create(room);
+        roomDao.create(room);
     }
 
     @Override
     public void update(Room room) {
-        roomDaoImpl.update(room);
+        roomDao.update(room);
     }
 
     @Override
     public void delete(Room room) {
-        roomDaoImpl.delete(room);
+        roomDao.delete(room);
     }
 
     @Override
     public List<Room> getAll() {
-        return roomDaoImpl.getAll();
+        return roomDao.getAll();
     }
 
     @Override
     public Room getById(int id) {
-        return roomDaoImpl.getById(id);
+        return roomDao.getById(id);
     }
 }
