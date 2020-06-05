@@ -48,7 +48,11 @@ public class StudentController {
     @PostMapping("/add")
     public ModelAndView add(Student student, BindingResult result) {
         studentService.create(student);
-        return getAll();
+        mv.clear();
+        mv.setViewName(STUDENTS);
+        mv.addObject(STUDENTS, studentService.getAll());
+        return mv;
+        //return getAll();
     }
 
     @GetMapping("edit/{id}")

@@ -5,42 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.StudentRepositroy;
 import com.cbr.university.model.Student;
+import com.cbr.university.repository.StudentRepository;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class StudentServiceImpl implements BaseService<Student> {
 
-    private StudentRepositroy studentDao;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentServiceImpl(StudentRepositroy studentDao) {
-        this.studentDao = studentDao;
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @Override
     public void create(Student student) {
-        studentDao.saveAndFlush(student);
+        studentRepository.saveAndFlush(student);
     }
 
     @Override
     public void update(Student student) {
-        studentDao.saveAndFlush(student);
+        studentRepository.saveAndFlush(student);
     }
 
     @Override
     public void delete(Student student) {
-        studentDao.delete(student);
+        studentRepository.delete(student);
     }
 
     @Override
     public List<Student> getAll() {
-        return (List<Student>) studentDao.findAll();
+        return studentRepository.findAll();
     }
 
     @Override
     public Student getById(int id) {
-        return studentDao.findById(id).get();
+        return studentRepository.findById(id).get();
     }
 }
