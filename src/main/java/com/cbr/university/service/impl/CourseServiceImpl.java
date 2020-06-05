@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cbr.university.dao.CourseRepositroy;
 import com.cbr.university.model.Course;
-import com.cbr.university.repository.CourseRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
@@ -21,12 +21,12 @@ public class CourseServiceImpl implements BaseService<Course> {
 
     @Override
     public void create(Course course) {
-        courseDao.save(course);
+        courseDao.saveAndFlush(course);
     }
 
     @Override
     public void update(Course course) {
-        courseDao.save(course);
+        courseDao.saveAndFlush(course);
     }
 
     @Override

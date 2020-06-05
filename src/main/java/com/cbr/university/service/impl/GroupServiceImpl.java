@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cbr.university.dao.GroupRepositroy;
 import com.cbr.university.model.Group;
-import com.cbr.university.repository.GroupRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
@@ -21,12 +21,12 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public void create(Group group) {
-        groupDao.save(group);
+        groupDao.saveAndFlush(group);
     }
 
     @Override
     public void update(Group group) {
-        groupDao.save(group);
+        groupDao.saveAndFlush(group);
     }
 
     @Override

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cbr.university.dao.ScheduleLineRepositroy;
 import com.cbr.university.model.ScheduleLine;
-import com.cbr.university.repository.ScheduleLineRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
@@ -21,12 +21,12 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
     @Override
     public void create(ScheduleLine scheduleLine) {
-        scheduleLineDao.save(scheduleLine);
+        scheduleLineDao.saveAndFlush(scheduleLine);
     }
 
     @Override
     public void update(ScheduleLine scheduleLine) {
-        scheduleLineDao.save(scheduleLine);
+        scheduleLineDao.saveAndFlush(scheduleLine);
     }
 
     @Override

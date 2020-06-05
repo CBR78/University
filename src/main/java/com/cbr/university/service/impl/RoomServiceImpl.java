@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cbr.university.dao.RoomRepositroy;
 import com.cbr.university.model.Room;
-import com.cbr.university.repository.RoomRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
@@ -21,12 +21,12 @@ public class RoomServiceImpl implements BaseService<Room> {
 
     @Override
     public void create(Room room) {
-        roomDao.save(room);
+        roomDao.saveAndFlush(room);
     }
 
     @Override
     public void update(Room room) {
-        roomDao.save(room);
+        roomDao.saveAndFlush(room);
     }
 
     @Override
