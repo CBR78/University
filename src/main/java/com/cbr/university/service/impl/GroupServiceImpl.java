@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Group;
+import com.cbr.university.repository.GroupRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class GroupServiceImpl implements BaseService<Group> {
 
-    private BaseDao<Group> groupDao;
+    private GroupRepositroy groupDao;
 
     @Autowired
-    public GroupServiceImpl(BaseDao<Group> groupDao) {
+    public GroupServiceImpl(GroupRepositroy groupDao) {
         this.groupDao = groupDao;
     }
 
     @Override
     public void create(Group group) {
-        groupDao.create(group);
+        groupDao.save(group);
     }
 
     @Override
     public void update(Group group) {
-        groupDao.update(group);
+        groupDao.save(group);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public List<Group> getAll() {
-        return groupDao.getAll();
+        return (List<Group>) groupDao.findAll();
     }
 
     @Override
     public Group getById(int id) {
-        return groupDao.getById(id);
+        return groupDao.findById(id).get();
     }
 }

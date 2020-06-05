@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Course;
+import com.cbr.university.repository.CourseRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class CourseServiceImpl implements BaseService<Course> {
 
-    private BaseDao<Course> courseDao;
+    private CourseRepositroy courseDao;
 
     @Autowired
-    public CourseServiceImpl(BaseDao<Course> courseDao) {
+    public CourseServiceImpl(CourseRepositroy courseDao) {
         this.courseDao = courseDao;
     }
 
     @Override
     public void create(Course course) {
-        courseDao.create(course);
+        courseDao.save(course);
     }
 
     @Override
     public void update(Course course) {
-        courseDao.update(course);
+        courseDao.save(course);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class CourseServiceImpl implements BaseService<Course> {
 
     @Override
     public List<Course> getAll() {
-        return courseDao.getAll();
+        return (List<Course>) courseDao.findAll();
     }
 
     @Override
     public Course getById(int id) {
-        return courseDao.getById(id);
+        return courseDao.findById(id).get();
     }
 }

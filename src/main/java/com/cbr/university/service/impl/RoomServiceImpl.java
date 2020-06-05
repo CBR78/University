@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Room;
+import com.cbr.university.repository.RoomRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class RoomServiceImpl implements BaseService<Room> {
 
-    private BaseDao<Room> roomDao;
+    private RoomRepositroy roomDao;
 
     @Autowired
-    public RoomServiceImpl(BaseDao<Room> roomDao) {
+    public RoomServiceImpl(RoomRepositroy roomDao) {
         this.roomDao = roomDao;
     }
 
     @Override
     public void create(Room room) {
-        roomDao.create(room);
+        roomDao.save(room);
     }
 
     @Override
     public void update(Room room) {
-        roomDao.update(room);
+        roomDao.save(room);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class RoomServiceImpl implements BaseService<Room> {
 
     @Override
     public List<Room> getAll() {
-        return roomDao.getAll();
+        return (List<Room>) roomDao.findAll();
     }
 
     @Override
     public Room getById(int id) {
-        return roomDao.getById(id);
+        return roomDao.findById(id).get();
     }
 }

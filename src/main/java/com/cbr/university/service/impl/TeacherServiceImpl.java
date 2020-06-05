@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.Teacher;
+import com.cbr.university.repository.TeacherRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class TeacherServiceImpl implements BaseService<Teacher> {
 
-    private BaseDao<Teacher> teacherDao;
+    private TeacherRepositroy teacherDao;
 
     @Autowired
-    public TeacherServiceImpl(BaseDao<Teacher> teacherDao) {
+    public TeacherServiceImpl(TeacherRepositroy teacherDao) {
         this.teacherDao = teacherDao;
     }
 
     @Override
     public void create(Teacher teacher) {
-        teacherDao.create(teacher);
+        teacherDao.save(teacher);
     }
 
     @Override
     public void update(Teacher teacher) {
-        teacherDao.update(teacher);
+        teacherDao.save(teacher);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
 
     @Override
     public List<Teacher> getAll() {
-        return teacherDao.getAll();
+        return (List<Teacher>) teacherDao.findAll();
     }
 
     @Override
     public Teacher getById(int id) {
-        return teacherDao.getById(id);
+        return teacherDao.findById(id).get();
     }
 }

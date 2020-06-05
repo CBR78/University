@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cbr.university.dao.BaseDao;
 import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.repository.ScheduleLineRepositroy;
 import com.cbr.university.service.BaseService;
 
 @Service
 public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
-    private BaseDao<ScheduleLine> scheduleLineDao;
+    private ScheduleLineRepositroy scheduleLineDao;
 
     @Autowired
-    public ScheduleLineServiceImpl(BaseDao<ScheduleLine> scheduleLineDao) {
+    public ScheduleLineServiceImpl(ScheduleLineRepositroy scheduleLineDao) {
         this.scheduleLineDao = scheduleLineDao;
     }
 
     @Override
     public void create(ScheduleLine scheduleLine) {
-        scheduleLineDao.create(scheduleLine);
+        scheduleLineDao.save(scheduleLine);
     }
 
     @Override
     public void update(ScheduleLine scheduleLine) {
-        scheduleLineDao.update(scheduleLine);
+        scheduleLineDao.save(scheduleLine);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
     @Override
     public List<ScheduleLine> getAll() {
-        return scheduleLineDao.getAll();
+        return (List<ScheduleLine>) scheduleLineDao.findAll();
     }
 
     @Override
     public ScheduleLine getById(int id) {
-        return scheduleLineDao.getById(id);
+        return scheduleLineDao.findById(id).get();
     }
 }
