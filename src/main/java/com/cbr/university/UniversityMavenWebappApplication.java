@@ -32,8 +32,7 @@ public class UniversityMavenWebappApplication {
     @Bean
     public DataSource getDataSource() throws NamingException {
         JndiTemplate jndiTemplate = new JndiTemplate();
-        DataSource dataSource = (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/postgres");
-        return dataSource;
+        return (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/postgres");
     }
 
     @Bean
