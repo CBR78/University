@@ -3,7 +3,6 @@ package com.cbr.university.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,15 +30,15 @@ public class ScheduleLine {
     @Column(name = "lesson_pair")
     private LessonPair lessonPair;
     
-    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @OneToOne
     @JoinColumn(name = "group_id")
     private Group group;
     
-    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @OneToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
         
-    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
     

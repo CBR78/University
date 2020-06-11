@@ -1,5 +1,7 @@
 package com.cbr.university.controller;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,16 +27,18 @@ public class ScheduleLineController {
     private BaseService<Group> groupService;
     private BaseService<Room> roomService;
     private BaseService<Teacher> teacherService;
+    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
     public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService,
             BaseService<Group> groupService, BaseService<Room> roomService,
-            BaseService<Teacher> teacherService) {
+            BaseService<Teacher> teacherService, EntityManager entityManager) {
         this.scheduleLineService = scheduleLineService;
         this.groupService = groupService;
         this.roomService = roomService;
         this.teacherService = teacherService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping
@@ -58,6 +62,7 @@ public class ScheduleLineController {
     @PostMapping("/add")
     public ModelAndView add(ScheduleLine scheduleLine, BindingResult result) {
         scheduleLineService.create(scheduleLine);
+        entityManager.clear();
         return getAll();
     }
 

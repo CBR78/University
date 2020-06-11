@@ -2,7 +2,6 @@ package com.cbr.university.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +22,7 @@ public class Teacher {
     private String firstName;
     @Column(name = "teacher_last_name")
     private String lastName;
-    @OneToOne(optional = true, cascade = CascadeType.DETACH)
+    @OneToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
