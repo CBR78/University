@@ -34,14 +34,14 @@ public class RoomController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(ROOMS_ADD);
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(Room room, BindingResult result) {
         roomService.create(room);
         return getAll();
@@ -61,7 +61,7 @@ public class RoomController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         roomService.delete(roomService.getById(id));
         return getAll();

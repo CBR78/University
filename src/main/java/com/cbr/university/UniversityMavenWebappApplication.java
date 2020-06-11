@@ -2,11 +2,18 @@ package com.cbr.university;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class UniversityMavenWebappApplication {
+public class UniversityMavenWebappApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(UniversityMavenWebappApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(UniversityMavenWebappApplication.class);
     }
 }

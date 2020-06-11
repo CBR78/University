@@ -21,12 +21,12 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public void create(Group group) {
-        groupRepository.saveAndFlush(group);
+        groupRepository.save(group);
     }
 
     @Override
     public void update(Group group) {
-        groupRepository.saveAndFlush(group);
+        groupRepository.save(group);
     }
 
     @Override

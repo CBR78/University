@@ -34,14 +34,14 @@ public class CourseController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(COURSE_ADD);
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(Course course, BindingResult result) {
         courseService.create(course);
         return getAll();
@@ -61,7 +61,7 @@ public class CourseController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         courseService.delete(courseService.getById(id));
         return getAll();

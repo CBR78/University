@@ -49,7 +49,7 @@ public class ScheduleLineController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_ADD);
@@ -59,7 +59,7 @@ public class ScheduleLineController {
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(ScheduleLine scheduleLine, BindingResult result) {
         scheduleLineService.create(scheduleLine);
         entityManager.clear();
@@ -83,7 +83,7 @@ public class ScheduleLineController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         scheduleLineService.delete(scheduleLineService.getById(id));
         return getAll();

@@ -21,12 +21,12 @@ public class CourseServiceImpl implements BaseService<Course> {
 
     @Override
     public void create(Course course) {
-        courseRepository.saveAndFlush(course);
+        courseRepository.save(course);
     }
 
     @Override
     public void update(Course course) {
-        courseRepository.saveAndFlush(course);
+        courseRepository.save(course);
     }
 
     @Override

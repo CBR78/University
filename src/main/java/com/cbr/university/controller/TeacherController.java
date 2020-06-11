@@ -42,7 +42,7 @@ public class TeacherController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(TEACHERS_ADD);
@@ -50,7 +50,7 @@ public class TeacherController {
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(Teacher teacher, BindingResult result) {
         teacherService.create(teacher);
         entityManager.clear();
@@ -72,7 +72,7 @@ public class TeacherController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         teacherService.delete(teacherService.getById(id));
         return getAll();

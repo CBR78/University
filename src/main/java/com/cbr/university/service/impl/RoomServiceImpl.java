@@ -21,12 +21,12 @@ public class RoomServiceImpl implements BaseService<Room> {
 
     @Override
     public void create(Room room) {
-        roomRepository.saveAndFlush(room);
+        roomRepository.save(room);
     }
 
     @Override
     public void update(Room room) {
-        roomRepository.saveAndFlush(room);
+        roomRepository.save(room);
     }
 
     @Override

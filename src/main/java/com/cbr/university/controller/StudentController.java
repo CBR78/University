@@ -42,7 +42,7 @@ public class StudentController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(STUDENTS_ADD);
@@ -50,7 +50,7 @@ public class StudentController {
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(Student student, BindingResult result) {
         studentService.create(student);
         entityManager.clear();
@@ -72,7 +72,7 @@ public class StudentController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         studentService.delete(studentService.getById(id));
         return getAll();

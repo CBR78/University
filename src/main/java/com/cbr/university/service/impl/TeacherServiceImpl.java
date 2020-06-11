@@ -21,12 +21,12 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
 
     @Override
     public void create(Teacher teacher) {
-        teacherRepository.saveAndFlush(teacher);
+        teacherRepository.save(teacher);
     }
 
     @Override
     public void update(Teacher teacher) {
-        teacherRepository.saveAndFlush(teacher);
+        teacherRepository.save(teacher);
     }
 
     @Override

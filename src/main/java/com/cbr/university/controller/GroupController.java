@@ -34,14 +34,14 @@ public class GroupController {
         return mv;
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
         mv.setViewName(GROUPS_ADD);
         return mv;
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ModelAndView add(Group group, BindingResult result) {
         groupService.create(group);
         return getAll();
@@ -61,7 +61,7 @@ public class GroupController {
         return getAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable("id") int id) {
         groupService.delete(groupService.getById(id));
         return getAll();

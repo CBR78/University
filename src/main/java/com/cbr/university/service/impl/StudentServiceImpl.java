@@ -21,12 +21,12 @@ public class StudentServiceImpl implements BaseService<Student> {
 
     @Override
     public void create(Student student) {
-        studentRepository.saveAndFlush(student);
+        studentRepository.save(student);
     }
 
     @Override
     public void update(Student student) {
-        studentRepository.saveAndFlush(student);
+        studentRepository.save(student);
     }
 
     @Override
