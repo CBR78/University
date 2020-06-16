@@ -20,13 +20,13 @@ public class CourseServiceImpl implements BaseService<Course> {
     }
 
     @Override
-    public void create(Course course) {
-        courseRepository.save(course);
+    public Course create(Course course) {
+        return courseRepository.save(course);
     }
 
     @Override
-    public void update(Course course) {
-        courseRepository.save(course);
+    public Course update(Course course) {
+        return courseRepository.save(course);
     }
 
     @Override

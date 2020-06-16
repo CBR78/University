@@ -20,13 +20,13 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
     }
 
     @Override
-    public void create(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public Teacher create(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
     @Override
-    public void update(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public Teacher update(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
     @Override

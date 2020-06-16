@@ -20,13 +20,13 @@ public class GroupServiceImpl implements BaseService<Group> {
     }
 
     @Override
-    public void create(Group group) {
-        groupRepository.save(group);
+    public Group create(Group group) {
+        return groupRepository.save(group);
     }
 
     @Override
-    public void update(Group group) {
-        groupRepository.save(group);
+    public Group update(Group group) {
+        return groupRepository.save(group);
     }
 
     @Override

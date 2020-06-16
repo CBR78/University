@@ -20,13 +20,13 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
     }
 
     @Override
-    public void create(ScheduleLine scheduleLine) {
-        scheduleLineRepository.save(scheduleLine);
+    public ScheduleLine create(ScheduleLine scheduleLine) {
+        return scheduleLineRepository.save(scheduleLine);
     }
 
     @Override
-    public void update(ScheduleLine scheduleLine) {
-        scheduleLineRepository.save(scheduleLine);
+    public ScheduleLine update(ScheduleLine scheduleLine) {
+        return scheduleLineRepository.save(scheduleLine);
     }
 
     @Override
