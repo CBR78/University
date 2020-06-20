@@ -1,5 +1,7 @@
 package com.cbr.university.controller;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,15 +21,18 @@ public class RoomController {
     private static final String ROOMS_ADD = "room-add";
     private static final String ROOMS_EDIT = "room-edit";
     private BaseService<Room> roomService;
+    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public RoomController(BaseService<Room> roomService) {
+    public RoomController(BaseService<Room> roomService, EntityManager entityManager) {
         this.roomService = roomService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
+        entityManager.clear();
         mv.clear();
         mv.setViewName(ROOMS);
         mv.addObject(ROOMS, roomService.getAll());
@@ -48,7 +53,7 @@ public class RoomController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id) {
+    public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName(ROOMS_EDIT);
         mv.addObject("room", roomService.getById(id));
@@ -56,13 +61,13 @@ public class RoomController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id, Room room) {
+    public ModelAndView edit(Room room) {
         roomService.update(room);
         return getAll();
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id) {
+    public ModelAndView delete(@PathVariable int id) {
         roomService.delete(roomService.getById(id));
         return getAll();
     }

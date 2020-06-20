@@ -60,7 +60,7 @@ public class ScheduleLineRestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ScheduleLine> delete(@PathVariable("id") int id) {
+    public ResponseEntity<ScheduleLine> delete(@PathVariable int id) {
         scheduleLineService.delete(scheduleLineService.getById(id));
         headers.clear();
         headers.add(NAME_CUSTOM_HEADER, "Deleted ScheduleLine object with id " + id);

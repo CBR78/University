@@ -36,6 +36,7 @@ public class StudentController {
 
     @GetMapping
     public ModelAndView getAll() {
+        entityManager.clear();
         mv.clear();
         mv.setViewName(STUDENTS);
         mv.addObject(STUDENTS, studentService.getAll());
@@ -53,12 +54,11 @@ public class StudentController {
     @PostMapping("add")
     public ModelAndView add(Student student, BindingResult result) {
         studentService.create(student);
-        entityManager.clear();
         return getAll();
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id) {
+    public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName(STUDENTS_EDIT);
         mv.addObject("student", studentService.getById(id));
@@ -67,13 +67,13 @@ public class StudentController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(Student student, BindingResult result) {
+    public ModelAndView edit(Student student) {
         studentService.update(student);
         return getAll();
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id) {
+    public ModelAndView delete(@PathVariable int id) {
         studentService.delete(studentService.getById(id));
         return getAll();
     }

@@ -58,7 +58,7 @@ public class StudentRestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Student> delete(@PathVariable int id) {
         studentService.delete(studentService.getById(id));
         headers.clear();
         headers.add(NAME_CUSTOM_HEADER, "Deleted Student object with id " + id);

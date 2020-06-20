@@ -43,6 +43,7 @@ public class ScheduleLineController {
 
     @GetMapping
     public ModelAndView getAll() {
+        entityManager.clear();
         mv.clear();
         mv.setViewName(SCHEDULE_LINES);
         mv.addObject("scheduleLines", scheduleLineService.getAll());
@@ -62,12 +63,11 @@ public class ScheduleLineController {
     @PostMapping("add")
     public ModelAndView add(ScheduleLine scheduleLine, BindingResult result) {
         scheduleLineService.create(scheduleLine);
-        entityManager.clear();
         return getAll();
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id) {
+    public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName(SCHEDULE_LINES_EDIT);
         mv.addObject("scheduleLine", scheduleLineService.getById(id));
@@ -84,7 +84,7 @@ public class ScheduleLineController {
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id) {
+    public ModelAndView delete(@PathVariable int id) {
         scheduleLineService.delete(scheduleLineService.getById(id));
         return getAll();
     }

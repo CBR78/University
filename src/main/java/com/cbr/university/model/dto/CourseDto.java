@@ -1,7 +1,9 @@
 package com.cbr.university.model.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
+
 
 public class CourseDto {
     

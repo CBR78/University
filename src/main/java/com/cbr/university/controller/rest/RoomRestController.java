@@ -57,7 +57,7 @@ public class RoomRestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Room> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Room> delete(@PathVariable int id) {
         roomService.delete(roomService.getById(id));
         headers.clear();
         headers.add(NAME_CUSTOM_HEADER, "Deleted Room object with id " + id);

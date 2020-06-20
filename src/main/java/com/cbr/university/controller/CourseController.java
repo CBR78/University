@@ -1,5 +1,7 @@
 package com.cbr.university.controller;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,15 +21,18 @@ public class CourseController {
     private static final String COURSE_ADD = "course-add";
     private static final String COURSE_EDIT = "course-edit";
     private BaseService<Course> courseService;
+    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public CourseController(BaseService<Course> courseService) {
+    public CourseController(BaseService<Course> courseService, EntityManager entityManager) {
         this.courseService = courseService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
+        entityManager.clear();
         mv.clear();
         mv.setViewName(COURSES);
         mv.addObject(COURSES, courseService.getAll());
@@ -48,7 +53,7 @@ public class CourseController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id) {
+    public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName(COURSE_EDIT);
         mv.addObject("course", courseService.getById(id));
@@ -56,13 +61,13 @@ public class CourseController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id, Course course) {
+    public ModelAndView edit(Course course) {
         courseService.update(course);
         return getAll();
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id) {
+    public ModelAndView delete(@PathVariable int id) {
         courseService.delete(courseService.getById(id));
         return getAll();
     }

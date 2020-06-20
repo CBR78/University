@@ -1,5 +1,7 @@
 package com.cbr.university.controller;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,15 +21,18 @@ public class GroupController {
     private static final String GROUPS_ADD = "group-add";
     private static final String GROUPS_EDIT = "group-edit";
     private BaseService<Group> groupService;
+    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public GroupController(BaseService<Group> groupService) {
+    public GroupController(BaseService<Group> groupService, EntityManager entityManager) {
         this.groupService = groupService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
+        entityManager.clear();
         mv.clear();
         mv.setViewName(GROUPS);
         mv.addObject(GROUPS, groupService.getAll());
@@ -48,7 +53,7 @@ public class GroupController {
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id) {
+    public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName(GROUPS_EDIT);
         mv.addObject("group", groupService.getById(id));
@@ -56,13 +61,13 @@ public class GroupController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable("id") int id, Group group) {
+    public ModelAndView edit(Group group) {
         groupService.update(group);
         return getAll();
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") int id) {
+    public ModelAndView delete(@PathVariable int id) {
         groupService.delete(groupService.getById(id));
         return getAll();
     }

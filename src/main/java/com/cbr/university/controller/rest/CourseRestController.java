@@ -55,7 +55,7 @@ public class CourseRestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Course> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Course> delete(@PathVariable int id) {
         courseService.delete(courseService.getById(id));
         headers.clear();
         headers.add(NAME_CUSTOM_HEADER, "Deleted Course object with id " + id);

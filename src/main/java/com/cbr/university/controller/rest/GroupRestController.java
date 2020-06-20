@@ -57,7 +57,7 @@ public class GroupRestController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Group> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Group> delete(@PathVariable int id) {
         groupService.delete(groupService.getById(id));
         headers.clear();
         headers.add(NAME_CUSTOM_HEADER, "Deleted Group object with id " + id);
