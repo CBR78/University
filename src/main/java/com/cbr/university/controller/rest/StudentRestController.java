@@ -2,10 +2,13 @@ package com.cbr.university.controller.rest;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.IdExistsInDb;
+import com.cbr.university.validation.group.Create;
+import com.cbr.university.validation.group.Update;
 
 @RestController
 @RequestMapping("rest/students")
+@Validated
 public class StudentRestController {
-    private static final String NAME_CUSTOM_HEADER = "X-Query-Result";
+    private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private HttpHeaders headers = new HttpHeaders();
     private BaseService<Student> studentService;
 
@@ -35,33 +42,34 @@ public class StudentRestController {
     public ResponseEntity<List<Student>> getAll() {
         List<Student> students = studentService.getAll();
         headers.clear();
-        headers.add(NAME_CUSTOM_HEADER,
+        headers.add(CUSTOM_HEADER_NAME,
                 "All objects Student found. Number of objects " + students.size());
         return new ResponseEntity<>(students, headers, HttpStatus.OK);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Student> add(@RequestBody Student student) {
+    public ResponseEntity<Student> add(@Validated(Create.class) @RequestBody Student student) {
         Student createdStudent = studentService.create(student);
         headers.clear();
-        headers.add(NAME_CUSTOM_HEADER, "Created Student object with id " + createdStudent.getId());
+        headers.add(CUSTOM_HEADER_NAME, "Created Student object with id " + createdStudent.getId());
         return new ResponseEntity<>(createdStudent, headers, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Student> update(@RequestBody Student student) {
+    public ResponseEntity<Student> update(@Validated(Update.class) @RequestBody Student student) {
         Student updatedStudent = studentService.update(student);
         headers.clear();
-        headers.add(NAME_CUSTOM_HEADER, "Updated Student object with id " + updatedStudent.getId());
+        headers.add(CUSTOM_HEADER_NAME, "Updated Student object with id " + updatedStudent.getId());
         return new ResponseEntity<>(updatedStudent, headers, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> delete(@PathVariable int id) {
+    public ResponseEntity<Student> delete(
+            @NotNull(message = "Request must include a Student id") @IdExistsInDb(typeObject = "Student", message = "This Student id is not in the database") @PathVariable Integer id) {
         studentService.delete(studentService.getById(id));
         headers.clear();
-        headers.add(NAME_CUSTOM_HEADER, "Deleted Student object with id " + id);
+        headers.add(CUSTOM_HEADER_NAME, "Deleted Student object with id " + id);
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
 }

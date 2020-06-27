@@ -1,7 +1,5 @@
 package com.cbr.university.controller;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,18 +19,15 @@ public class RoomController {
     private static final String ROOMS_ADD = "room-add";
     private static final String ROOMS_EDIT = "room-edit";
     private BaseService<Room> roomService;
-    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public RoomController(BaseService<Room> roomService, EntityManager entityManager) {
+    public RoomController(BaseService<Room> roomService) {
         this.roomService = roomService;
-        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
-        entityManager.clear();
         mv.clear();
         mv.setViewName(ROOMS);
         mv.addObject(ROOMS, roomService.getAll());

@@ -2,6 +2,8 @@ package com.cbr.university.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import com.cbr.university.service.BaseService;
 public class GroupServiceImpl implements BaseService<Group> {
 
     private GroupRepository groupRepository;
+    private EntityManager entityManager;
 
     @Autowired
-    public GroupServiceImpl(GroupRepository groupRepository) {
+    public GroupServiceImpl(GroupRepository groupRepository, EntityManager entityManager) {
         this.groupRepository = groupRepository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -36,11 +40,17 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public List<Group> getAll() {
+        entityManager.clear();
         return groupRepository.findAll();
     }
 
     @Override
     public Group getById(int id) {
         return groupRepository.findById(id).get();
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return groupRepository.existsById(id);
     }
 }

@@ -1,7 +1,5 @@
 package com.cbr.university.controller;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,18 +19,15 @@ public class GroupController {
     private static final String GROUPS_ADD = "group-add";
     private static final String GROUPS_EDIT = "group-edit";
     private BaseService<Group> groupService;
-    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public GroupController(BaseService<Group> groupService, EntityManager entityManager) {
+    public GroupController(BaseService<Group> groupService) {
         this.groupService = groupService;
-        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
-        entityManager.clear();
         mv.clear();
         mv.setViewName(GROUPS);
         mv.addObject(GROUPS, groupService.getAll());

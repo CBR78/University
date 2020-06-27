@@ -1,7 +1,5 @@
 package com.cbr.university.controller;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,18 +19,15 @@ public class CourseController {
     private static final String COURSE_ADD = "course-add";
     private static final String COURSE_EDIT = "course-edit";
     private BaseService<Course> courseService;
-    private EntityManager entityManager;
     private ModelAndView mv = new ModelAndView();
 
     @Autowired
-    public CourseController(BaseService<Course> courseService, EntityManager entityManager) {
+    public CourseController(BaseService<Course> courseService) {
         this.courseService = courseService;
-        this.entityManager = entityManager;
     }
 
     @GetMapping
     public ModelAndView getAll() {
-        entityManager.clear();
         mv.clear();
         mv.setViewName(COURSES);
         mv.addObject(COURSES, courseService.getAll());

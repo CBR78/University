@@ -2,6 +2,8 @@ package com.cbr.university.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import com.cbr.university.service.BaseService;
 public class TeacherServiceImpl implements BaseService<Teacher> {
 
     private TeacherRepository teacherRepository;
+    private EntityManager entityManager;
 
     @Autowired
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, EntityManager entityManager) {
         this.teacherRepository = teacherRepository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -36,11 +40,17 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
 
     @Override
     public List<Teacher> getAll() {
+        entityManager.clear();
         return teacherRepository.findAll();
     }
 
     @Override
     public Teacher getById(int id) {
         return teacherRepository.findById(id).get();
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return teacherRepository.existsById(id);
     }
 }

@@ -3,7 +3,7 @@ package com.cbr.university.service;
 import java.util.List;
 
 public interface BaseService<T> {
-    
+
     T create(T t);
 
     T update(T t);
@@ -13,5 +13,7 @@ public interface BaseService<T> {
     List<T> getAll();
 
     T getById(int id);
+
+    boolean existsById(int id);
 
 }

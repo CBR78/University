@@ -2,6 +2,8 @@ package com.cbr.university.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import com.cbr.university.service.BaseService;
 public class RoomServiceImpl implements BaseService<Room> {
 
     private RoomRepository roomRepository;
+    private EntityManager entityManager;
 
     @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, EntityManager entityManager) {
         this.roomRepository = roomRepository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -36,11 +40,17 @@ public class RoomServiceImpl implements BaseService<Room> {
 
     @Override
     public List<Room> getAll() {
+        entityManager.clear();
         return roomRepository.findAll();
     }
 
     @Override
     public Room getById(int id) {
         return roomRepository.findById(id).get();
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return roomRepository.existsById(id);
     }
 }
