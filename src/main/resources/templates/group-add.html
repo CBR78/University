@@ -2,14 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/headTag :: head ('Add Group')" />
 
-<body> 
+<body>
     <div class="container">
         <h2>Add Group</h2>
-        <form th:action="@{/groups/add}" method="post">
+        <form th:action="@{/groups/add}" th:object="${group}" method="post">
             <div class="form-group">
+
                 <label>Name:</label>
-                <input type="text" class="form-control" th:name="name" required>
+                <input type="text" class="form-control" th:placeholder="${group.name}" th:name="name"
+                    required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </label>
                 <p></p>
+
             </div>
             <input type="submit" class="btn btn-primary" value="Create">
         </form>

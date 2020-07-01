@@ -7,23 +7,36 @@
         <h2>Edit Student</h2>
         <form th:action="@{/students/edit/{id}(id=${student.id})}" th:object="${student}" method="post">
             <div class="form-group">
+
                 <label>Id:</label>
                 <input class="form-control" th:placeholder="${student.id}" readonly>
                 <p></p>
+
                 <label>First Name:</label>
                 <input type="text" class="form-control" th:placeholder="${student.firstName}"
                     th:field="*{firstName}" required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('firstName')}"
+                        th:errors="*{firstName}"></div>
+                </label>
                 <p></p>
+
                 <label>Last Name:</label>
                 <input type="text" class="form-control" th:placeholder="${student.lastName}"
                     th:field="*{lastName}" required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('lastName')}"
+                        th:errors="*{lastName}"></div>
+                </label>
                 <p></p>
+
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
                         <option th:each="group: ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
                     </select>
                 </div>
+
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>

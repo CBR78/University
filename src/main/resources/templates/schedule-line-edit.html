@@ -9,12 +9,14 @@
             method="post">
             <div class="form-group">
 
+                <label>Id:</label>
+                <input class="form-control" th:placeholder="${scheduleLine.id}" readonly>
+                <p></p>
 
                 <div class="box">
                     <label>Date:</label>
                     <input type="date" th:type="date" class="form-control" th:name="date" required>
                 </div>
-
 
                 <div class="box">
                     <label>Lesson Pair:</label>
@@ -23,6 +25,7 @@
                             th:text="${lessonPair.getPairStartTime()}" th:value="${lessonPair}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
@@ -30,6 +33,7 @@
                             th:value="${group.id}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Teacher Name:</label>
                     <select class="form-control" th:name="teacher.id" required>
@@ -38,12 +42,14 @@
                             th:value="${teacher.id}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Room Name:</label>
                     <select class="form-control" th:name="room.id" required>
                         <option th:each="room: ${rooms}" th:text="${room.name}" th:value="${room.id}"></option>
                     </select>
                 </div>
+
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>

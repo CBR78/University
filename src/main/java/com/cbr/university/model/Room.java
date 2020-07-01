@@ -13,8 +13,9 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Cascade;
+import com.cbr.university.validation.group.Create;
+import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
 
 @Entity
@@ -24,17 +25,17 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
-    @Null(groups = { Create.class }, message = "Request must not include a Room id")
-    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Room id")
+    @Null(groups = { Create.class }, message = "Request must not include a Room id.")
+    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Room id.")
     @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "Room", message = "This Room id is not in the database")
+            Update.class }, typeObject = "Room", message = "This Room id is not in the database.")
     private Integer id;
 
     @Column(name = "room_name")
-    @Null(groups = { Cascade.class }, message = "Request must not include a Room name")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room name")
-    @Size(groups = { Create.class,
-            Update.class }, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters")
+    @Null(groups = { Cascade.class }, message = "Request must not include a Room name.")
+    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room name.")
+    @Size(groups = { Create.class, Update.class,
+            RequestUI.class }, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters.")
     private String name;
 
     public Integer getId() {

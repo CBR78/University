@@ -20,12 +20,14 @@
                             th:value="${lessonPair}" th:text="${lessonPair.getPairStartTime()}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
                         <option th:each="group: ${groups}" th:text="${group.name}" th:value="${group.id}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Teacher Name:</label>
                     <select class="form-control" th:name="teacher.id" required>
@@ -33,11 +35,13 @@
                             th:text="${teacher.firstName + ' ' + teacher.lastName}"></option>
                     </select>
                 </div>
+
                 <div class="box">
                     <label>Room Name:</label>
                     <select class="form-control" th:name="room.id" required>
                         <option th:each="room: ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
                     </select>
+
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Create">

@@ -5,20 +5,34 @@
 <body>
     <div class="container">
         <h2>Add Student</h2>
-        <form th:action="@{/students/add}" method="post">
+        <form th:action="@{/students/add}" th:object="${student}" method="post">
             <div class="form-group">
+
                 <label>First Name:</label>
-                <input type="text" class="form-control" th:name="firstName" required>
+                <input type="text" class="form-control" th:placeholder="${student.firstName}"
+                    th:name="firstName" required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('firstName')}"
+                        th:errors="*{firstName}"></div>
+                </label>
                 <p></p>
+
                 <label>Last Name:</label>
-                <input type="text" class="form-control" th:name="lastName" required>
+                <input type="text" class="form-control" th:placeholder="${student.lastName}"
+                    th:name="lastName" required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('lastName')}"
+                        th:errors="*{lastName}"></div>
+                </label>
                 <p></p>
+
                 <div class="box">
                     <label>Group Name:</label>
                     <select class="form-control" th:name="group.id" required>
                         <option th:each="group: ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
                     </select>
                 </div>
+
             </div>
             <input type="submit" class="btn btn-primary" value="Create">
         </form>

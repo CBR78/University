@@ -31,29 +31,29 @@ public class ScheduleLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_line_id")
-    @Null(groups = { Create.class }, message = "Request must not include a ScheduleLine id")
+    @Null(groups = { Create.class }, message = "Request must not include a ScheduleLine id.")
     @NotNull(groups = { Cascade.class,
-            Update.class }, message = "Request must include a ScheduleLine id")
+            Update.class }, message = "Request must include a ScheduleLine id.")
     @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database")
+            Update.class }, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database.")
     private Integer id;
 
     @Column(name = "schedule_line_date")
     @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a ScheduleLine date")
+            Update.class }, message = "Request must include a ScheduleLine date.")
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "lesson_pair")
     @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a ScheduleLine lessonPair")
+            Update.class }, message = "Request must include a ScheduleLine lessonPair.")
     @LessonPairEnum(groups = { Create.class,
-            Update.class }, message = "ScheduleLine typeObject is invalid. The parameter accepts only 1 of 4 values - FIRST_PAIR, SECOND_PAIR, THIRD_PAIR, FOURTH_PAIR")
+            Update.class }, message = "ScheduleLine typeObject is invalid. The parameter accepts only 1 of 4 values - FIRST_PAIR, SECOND_PAIR, THIRD_PAIR, FOURTH_PAIR.")
     private LessonPair lessonPair;
 
     @OneToOne
     @JoinColumn(name = "group_id")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id")
+    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id.")
     @Valid
     @ConvertGroup(from = Create.class, to = Cascade.class)
     @ConvertGroup(from = Update.class, to = Cascade.class)
@@ -61,7 +61,7 @@ public class ScheduleLine {
 
     @OneToOne
     @JoinColumn(name = "teacher_id")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Teacher id")
+    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Teacher id.")
     @Valid
     @ConvertGroup(from = Create.class, to = Cascade.class)
     @ConvertGroup(from = Update.class, to = Cascade.class)
@@ -69,7 +69,7 @@ public class ScheduleLine {
 
     @OneToOne
     @JoinColumn(name = "room_id")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room id")
+    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room id.")
     @Valid
     @ConvertGroup(from = Create.class, to = Cascade.class)
     @ConvertGroup(from = Update.class, to = Cascade.class)

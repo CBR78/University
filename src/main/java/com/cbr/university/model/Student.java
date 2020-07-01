@@ -17,8 +17,9 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.ConvertGroup;
 
 import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Cascade;
+import com.cbr.university.validation.group.Create;
+import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
 
 @Entity
@@ -28,31 +29,31 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    @Null(groups = { Create.class }, message = "Request must not include a Student id")
-    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Student id")
+    @Null(groups = { Create.class }, message = "Request must not include a Student id.")
+    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Student id.")
     @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "Student", message = "This Student id is not in the database")
+            Update.class }, typeObject = "Student", message = "This Student id is not in the database.")
     private Integer id;
 
     @Column(name = "student_first_name")
-    @Null(groups = { Cascade.class }, message = "Request must not include a Student firstName")
+    @Null(groups = { Cascade.class }, message = "Request must not include a Student firstName.")
     @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a Student firstName")
-    @Size(groups = { Create.class,
-            Update.class }, min = 2, max = 50, message = "Student firstName should contain from {min} to {max} letters")
+            Update.class }, message = "Request must include a Student firstName.")
+    @Size(groups = { Create.class, Update.class,
+            RequestUI.class }, min = 2, max = 50, message = "Student firstName should contain from {min} to {max} letters.")
     private String firstName;
 
     @Column(name = "student_last_name")
-    @Null(groups = { Cascade.class }, message = "Request must not include a Student lastName")
+    @Null(groups = { Cascade.class }, message = "Request must not include a Student lastName.")
     @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a Student lastName")
-    @Size(groups = { Create.class,
-            Update.class }, min = 2, max = 50, message = "Student lastName should contain from {min} to {max} letters")
+            Update.class }, message = "Request must include a Student lastName.")
+    @Size(groups = { Create.class, Update.class,
+            RequestUI.class }, min = 2, max = 50, message = "Student lastName should contain from {min} to {max} letters.")
     private String lastName;
 
     @OneToOne
     @JoinColumn(name = "group_id")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id")
+    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id.")
     @Valid
     @ConvertGroup(from = Create.class, to = Cascade.class)
     @ConvertGroup(from = Update.class, to = Cascade.class)

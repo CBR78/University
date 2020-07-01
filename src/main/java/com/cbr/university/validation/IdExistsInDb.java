@@ -19,7 +19,6 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = IdExistsInDbValidator.class)
-//@Constraint(validatedBy = {ExistValidator.class, ExistValidatorTeacher.class})
 public @interface IdExistsInDb {
 
     String typeObject();

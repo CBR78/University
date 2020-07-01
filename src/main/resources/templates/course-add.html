@@ -5,11 +5,17 @@
 <body>
     <div class="container">
         <h2>Add Course</h2>
-        <form th:action="@{/courses/add}" method="post">
+        <form th:action="@{/courses/add}" th:object="${course}" method="post">
             <div class="form-group">
+
                 <label>Name:</label>
-                <input type="text" class="form-control" th:name="name" required>
+                <input type="text" class="form-control" th:placeholder="${course.name}" th:name="name"
+                    required>
+                <label>
+                    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </label>
                 <p></p>
+
             </div>
             <input type="submit" class="btn btn-primary" value="Create">
         </form>
