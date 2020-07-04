@@ -8,41 +8,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
-
-import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.Cascade;
-import com.cbr.university.validation.group.Create;
-import com.cbr.university.validation.group.RequestUI;
-import com.cbr.university.validation.group.Update;
 
 @Entity
 @Table(name = "groups")
 public class Group {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
-    @Null(groups = { Create.class }, message = "Request must not include a Group id.")
-    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Group id.")
-    @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "Group", message = "This Group id is not in the database.")
-    private Integer id;
+    private int id;
 
     @Column(name = "group_name")
-    @Null(groups = { Cascade.class }, message = "Request must not include a Group name.")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group name.")
-    @Size(groups = { Create.class, Update.class,
-            RequestUI.class }, min = 2, max = 20, message = "Group name should contain from {min} to {max} letters.")
     private String name;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

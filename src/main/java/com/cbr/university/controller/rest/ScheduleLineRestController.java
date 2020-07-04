@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.model.dto.ScheduleLineDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
@@ -31,11 +33,14 @@ import com.cbr.university.validation.group.Update;
 public class ScheduleLineRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private HttpHeaders headers = new HttpHeaders();
+    private ModelMapper modelMapper;
     private BaseService<ScheduleLine> scheduleLineService;
 
     @Autowired
-    public ScheduleLineRestController(BaseService<ScheduleLine> scheduleLineService) {
+    public ScheduleLineRestController(BaseService<ScheduleLine> scheduleLineService,
+            ModelMapper modelMapper) {
         this.scheduleLineService = scheduleLineService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -50,7 +55,8 @@ public class ScheduleLineRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ScheduleLine> add(
-            @Validated(Create.class) @RequestBody ScheduleLine scheduleLine) {
+            @Validated(Create.class) @RequestBody ScheduleLineDtoRest scheduleLineDtoRest) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
         ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,
@@ -60,7 +66,8 @@ public class ScheduleLineRestController {
 
     @PutMapping
     public ResponseEntity<ScheduleLine> update(
-            @Validated(Update.class) @RequestBody ScheduleLine scheduleLine) {
+            @Validated(Update.class) @RequestBody ScheduleLineDtoRest scheduleLineDtoRest) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
         ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,

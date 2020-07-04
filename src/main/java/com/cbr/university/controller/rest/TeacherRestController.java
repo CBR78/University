@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbr.university.model.Teacher;
+import com.cbr.university.model.dto.TeacherDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
@@ -31,11 +33,13 @@ import com.cbr.university.validation.group.Update;
 public class TeacherRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private HttpHeaders headers = new HttpHeaders();
+    private ModelMapper modelMapper;
     private BaseService<Teacher> teacherService;
 
     @Autowired
-    public TeacherRestController(BaseService<Teacher> teacherService) {
+    public TeacherRestController(BaseService<Teacher> teacherService, ModelMapper modelMapper) {
         this.teacherService = teacherService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -49,7 +53,9 @@ public class TeacherRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Teacher> add(@Validated(Create.class) @RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> add(
+            @Validated(Create.class) @RequestBody TeacherDtoRest teacherDtoRest) {
+        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
         Teacher createdTeacher = teacherService.create(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Teacher object with id " + createdTeacher.getId());
@@ -57,7 +63,9 @@ public class TeacherRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Teacher> update(@Validated(Update.class) @RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> update(
+            @Validated(Update.class) @RequestBody TeacherDtoRest teacherDtoRest) {
+        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
         Teacher updatedTeacher = teacherService.update(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Teacher object with id " + updatedTeacher.getId());

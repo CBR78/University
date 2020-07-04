@@ -1,5 +1,6 @@
 package com.cbr.university.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cbr.university.model.Room;
+import com.cbr.university.model.dto.RoomDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 
@@ -18,12 +20,15 @@ import com.cbr.university.validation.group.RequestUI;
 @RequestMapping("rooms")
 @Validated
 public class RoomController {
+    private static final String ROOM = "room";
     private ModelAndView mv = new ModelAndView();
+    private ModelMapper modelMapper;
     private BaseService<Room> roomService;
 
     @Autowired
-    public RoomController(BaseService<Room> roomService) {
+    public RoomController(BaseService<Room> roomService, ModelMapper modelMapper) {
         this.roomService = roomService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -38,17 +43,17 @@ public class RoomController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("room-add");
-        mv.addObject("room", new Room());
+        mv.addObject(ROOM, new Room());
         return mv;
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Room room, BindingResult result) {
-
+    public ModelAndView add(@Validated(RequestUI.class) RoomDtoRest roomDtoRest, BindingResult result) {
+        Room room = modelMapper.map(roomDtoRest, Room.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("room-add");
-            mv.addObject("room", room);
+            mv.addObject(ROOM, room);
             return mv;
         } else {
             roomService.create(room);
@@ -60,17 +65,17 @@ public class RoomController {
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName("room-edit");
-        mv.addObject("room", roomService.getById(id));
+        mv.addObject(ROOM, roomService.getById(id));
         return mv;
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) Room room, BindingResult result) {
-
+    public ModelAndView edit(@Validated(RequestUI.class) RoomDtoRest roomDtoRest, BindingResult result) {
+        Room room = modelMapper.map(roomDtoRest, Room.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("room-edit");
-            mv.addObject("room", room);
+            mv.addObject(ROOM, room);
             return mv;
         } else {
             roomService.update(room);

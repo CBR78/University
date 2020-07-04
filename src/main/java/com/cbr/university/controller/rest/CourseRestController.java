@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbr.university.model.Course;
+import com.cbr.university.model.dto.CourseDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
@@ -30,11 +32,13 @@ import com.cbr.university.validation.group.Update;
 public class CourseRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private HttpHeaders headers = new HttpHeaders();
+    private ModelMapper modelMapper;
     private BaseService<Course> courseService;
 
     @Autowired
-    public CourseRestController(BaseService<Course> courseService) {
+    public CourseRestController(BaseService<Course> courseService, ModelMapper modelMapper) {
         this.courseService = courseService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -46,7 +50,9 @@ public class CourseRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> add(@Validated(Create.class) @RequestBody Course course) {
+    public ResponseEntity<Course> add(
+            @Validated(Create.class) @RequestBody CourseDtoRest courseDtoRest) {
+        Course course = modelMapper.map(courseDtoRest, Course.class);
         Course createdCourse = courseService.create(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId());
@@ -54,7 +60,9 @@ public class CourseRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Course> update(@Validated(Update.class) @RequestBody Course course) {
+    public ResponseEntity<Course> update(
+            @Validated(Update.class) @RequestBody CourseDtoRest courseDtoRest) {
+        Course course = modelMapper.map(courseDtoRest, Course.class);
         Course updatedCourse = courseService.update(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId());

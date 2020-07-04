@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbr.university.model.Group;
+import com.cbr.university.model.dto.GroupDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
@@ -31,11 +33,13 @@ import com.cbr.university.validation.group.Update;
 public class GroupRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private HttpHeaders headers = new HttpHeaders();
+    private ModelMapper modelMapper;
     private BaseService<Group> groupService;
 
     @Autowired
-    public GroupRestController(BaseService<Group> groupService) {
+    public GroupRestController(BaseService<Group> groupService, ModelMapper modelMapper) {
         this.groupService = groupService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -48,7 +52,8 @@ public class GroupRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody Group group) {
+    public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody GroupDtoRest groupDtoRest) {
+        Group group = modelMapper.map(groupDtoRest, Group.class);
         Group createdGroup = groupService.create(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Group object with id " + createdGroup.getId());
@@ -56,7 +61,9 @@ public class GroupRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Group> update(@Validated(Update.class) @RequestBody Group group) {
+    public ResponseEntity<Group> update(
+            @Validated(Update.class) @RequestBody GroupDtoRest groupDtoRest) {
+        Group group = modelMapper.map(groupDtoRest, Group.class);
         Group updatedGroup = groupService.update(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Group object with id " + updatedGroup.getId());

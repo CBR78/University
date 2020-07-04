@@ -1,5 +1,6 @@
 package com.cbr.university.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cbr.university.model.Course;
+import com.cbr.university.model.dto.CourseDtoRest;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 
@@ -18,12 +20,15 @@ import com.cbr.university.validation.group.RequestUI;
 @RequestMapping("courses")
 @Validated
 public class CourseController {
+    private static final String COURSE = "course";
     private ModelAndView mv = new ModelAndView();
+    private ModelMapper modelMapper;
     private BaseService<Course> courseService;
 
     @Autowired
-    public CourseController(BaseService<Course> courseService) {
+    public CourseController(BaseService<Course> courseService, ModelMapper modelMapper) {
         this.courseService = courseService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -38,17 +43,18 @@ public class CourseController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("course-add");
-        mv.addObject("course", new Course());
+        mv.addObject(COURSE, new Course());
         return mv;
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Course course, BindingResult result) {
-
+    public ModelAndView add(@Validated(RequestUI.class) CourseDtoRest courseDtoRest,
+            BindingResult result) {
+        Course course = modelMapper.map(courseDtoRest, Course.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("course-add");
-            mv.addObject("course", course);
+            mv.addObject(COURSE, course);
             return mv;
         } else {
             courseService.create(course);
@@ -60,17 +66,18 @@ public class CourseController {
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
         mv.setViewName("course-edit");
-        mv.addObject("course", courseService.getById(id));
+        mv.addObject(COURSE, courseService.getById(id));
         return mv;
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) Course course, BindingResult result) {
-
+    public ModelAndView edit(@Validated(RequestUI.class) CourseDtoRest courseDtoRest,
+            BindingResult result) {
+        Course course = modelMapper.map(courseDtoRest, Course.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("course-edit");
-            mv.addObject("course", course);
+            mv.addObject(COURSE, course);
             return mv;
         } else {
             courseService.update(course);
