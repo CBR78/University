@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -15,17 +16,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@Import({ springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class })
+@Import(BeanValidatorPluginsConfiguration.class)
 public class UniversityWebApp extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(UniversityWebApp.class, args);
     }
-
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return application.sources(UniversityWebApp.class);
-//    }
 
     @Bean
     public Docket api() {
