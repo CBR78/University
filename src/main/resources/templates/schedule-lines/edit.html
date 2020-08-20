@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/headTag :: head ('Edit Schedule Line')" />
+<head th:replace="fragments::head ('Edit Schedule Line')" />
 
 <body>
     <div class="container">
-        <h2>Edit Schedule Line</h2>
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{scheduleLines.edit}"></h2>
         <form th:action="@{/schedule-lines/edit/{id}(id=${scheduleLine.id})}" th:object="${scheduleLine}"
             method="post">
             <div class="form-group">
 
-                <label>Id:</label>
-                <input class="form-control" th:placeholder="${scheduleLine.id}" readonly>
+                <label>Id:</label> <input class="form-control" th:placeholder="${scheduleLine.id}"
+                    readonly>
                 <p></p>
 
                 <div class="box">
-                    <label>Date:</label>
-                    <input type="date" th:type="date" class="form-control" th:name="date" required>
+                    <label th:text="#{date}"></label> <input type="date" th:type="date"
+                        class="form-control" th:name="date" required>
                 </div>
 
                 <div class="box">
-                    <label>Lesson Pair:</label>
-                    <select class="form-control" th:name="lessonPair" required>
+                    <label th:text="#{timeLessonPair}"></label> <select class="form-control"
+                        th:name="lessonPair" required>
                         <option th:each="lessonPair : ${T(com.cbr.university.model.LessonPair).values()}"
                             th:text="${lessonPair.getPairStartTime()}" th:value="${lessonPair}"></option>
                     </select>
                 </div>
 
                 <div class="box">
-                    <label>Group Name:</label>
-                    <select class="form-control" th:name="group.id" required>
+                    <label th:text="#{group}"></label> <select class="form-control" th:name="group.id"
+                        required>
                         <option th:each="group : ${groups}" th:text="${group.name}"
                             th:value="${group.id}"></option>
                     </select>
                 </div>
 
                 <div class="box">
-                    <label>Teacher Name:</label>
-                    <select class="form-control" th:name="teacher.id" required>
+                    <label th:text="#{teacher}"></label> <select class="form-control"
+                        th:name="teacher.id" required>
                         <option th:each="teacher : ${teachers}"
                             th:text="${teacher.firstName + ' ' + teacher.lastName}"
                             th:value="${teacher.id}"></option>
@@ -44,8 +45,8 @@
                 </div>
 
                 <div class="box">
-                    <label>Room Name:</label>
-                    <select class="form-control" th:name="room.id" required>
+                    <label th:text="#{room}"></label> <select class="form-control" th:name="room.id"
+                        required>
                         <option th:each="room: ${rooms}" th:text="${room.name}" th:value="${room.id}"></option>
                     </select>
                 </div>
@@ -53,6 +54,7 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>
+        <footer th:insert="fragments::footer"></footer>
     </div>
 </body>
 </html>

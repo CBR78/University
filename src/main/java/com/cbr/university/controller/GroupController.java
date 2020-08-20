@@ -34,7 +34,7 @@ public class GroupController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("groups");
+        mv.setViewName("groups/view");
         mv.addObject("groups", groupService.getAll());
         return mv;
     }
@@ -42,7 +42,7 @@ public class GroupController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("group-add");
+        mv.setViewName("groups/add");
         mv.addObject(GROUP, new Group());
         return mv;
     }
@@ -53,7 +53,7 @@ public class GroupController {
         Group group = modelMapper.map(groupDtoRest, Group.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("group-add");
+            mv.setViewName("groups/add");
             mv.addObject(GROUP, group);
             return mv;
         } else {
@@ -65,7 +65,7 @@ public class GroupController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("group-edit");
+        mv.setViewName("groups/edit");
         mv.addObject(GROUP, groupService.getById(id));
         return mv;
     }
@@ -76,7 +76,7 @@ public class GroupController {
         Group group = modelMapper.map(groupDtoRest, Group.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("group-edit");
+            mv.setViewName("groups/edit");
             mv.addObject(GROUP, group);
             return mv;
         } else {

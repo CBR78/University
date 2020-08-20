@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/headTag :: head ('Add Room')" />
+<head th:replace="fragments::head ('Add Room')" />
 
 <body>
     <div class="container">
-        <h2>Add Room</h2>
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{rooms.add}"></h2>
         <form th:action="@{/rooms/add}" th:object="${room}" method="post">
             <div class="form-group">
 
-                <label>Name:</label>
-                <input type="text" class="form-control" th:placeholder="${room.name}" th:name="name"
-                    required>
-                <label>
+                <label th:text="#{rooms.thRoomName}"></label> <input type="text" class="form-control"
+                    th:placeholder="${room.name}" th:name="name" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </label>
                 <p></p>
@@ -19,6 +18,7 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Create">
         </form>
+        <footer th:insert="fragments::footer"></footer>
     </div>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class CourseController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("courses");
+        mv.setViewName("courses/view");
         mv.addObject("courses", courseService.getAll());
         return mv;
     }
@@ -42,7 +42,7 @@ public class CourseController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("course-add");
+        mv.setViewName("courses/add");
         mv.addObject(COURSE, new Course());
         return mv;
     }
@@ -53,7 +53,7 @@ public class CourseController {
         Course course = modelMapper.map(courseDtoRest, Course.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("course-add");
+            mv.setViewName("courses/add");
             mv.addObject(COURSE, course);
             return mv;
         } else {
@@ -65,7 +65,7 @@ public class CourseController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("course-edit");
+        mv.setViewName("courses/edit");
         mv.addObject(COURSE, courseService.getById(id));
         return mv;
     }
@@ -76,7 +76,7 @@ public class CourseController {
         Course course = modelMapper.map(courseDtoRest, Course.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("course-edit");
+            mv.setViewName("courses/edit");
             mv.addObject(COURSE, course);
             return mv;
         } else {

@@ -1,38 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/headTag :: head ('Edit Teacher')" />
+<head th:replace="fragments::head ('Edit Teacher')" />
 
 <body>
     <div class="container">
-        <h2>Edit Teacher</h2>
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{teachers.edit}"></h2>
         <form th:action="@{/teachers/edit/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
             <div class="form-group">
 
-                <label>Id:</label>
-                <input class="form-control" th:placeholder="${teacher.id}" readonly>
+                <label>Id:</label> <input class="form-control" th:placeholder="${teacher.id}" readonly>
                 <p></p>
 
-                <label>First Name:</label>
-                <input type="text" class="form-control" th:placeholder="${teacher.firstName}"
-                    th:field="*{firstName}" required>
-                <label>
+                <label th:text="#{firstName}"></label> <input type="text" class="form-control"
+                    th:placeholder="${teacher.firstName}" th:field="*{firstName}" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('firstName')}"
                         th:errors="*{firstName}"></div>
                 </label>
                 <p></p>
 
-                <label>Last Name:</label>
-                <input type="text" class="form-control" th:placeholder="${teacher.lastName}"
-                    th:field="*{lastName}" required>
-                <label>
+                <label th:text="#{lastName}"></label> <input type="text" class="form-control"
+                    th:placeholder="${teacher.lastName}" th:field="*{lastName}" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('lastName')}"
                         th:errors="*{lastName}"></div>
                 </label>
                 <p></p>
 
                 <div class="box">
-                    <label>Course Name:</label>
-                    <select class="form-control" th:name="course.id" required>
+                    <label th:text="#{course}"></label> <select class="form-control" th:name="course.id"
+                        required>
                         <option th:each="course: ${courses}" th:value="${course.id}"
                             th:text="${course.name}"></option>
                     </select>
@@ -41,6 +37,7 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>
+        <footer th:insert="fragments::footer"></footer>
     </div>
 </body>
 </html>

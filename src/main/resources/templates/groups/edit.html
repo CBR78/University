@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/headTag :: head ('Edit Group')" />
+<head th:replace="fragments::head ('Edit Group')" />
 
 <body>
     <div class="container">
-        <h2>Edit Group</h2>
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{groups.edit}"></h2>
         <form th:action="@{/groups/edit/{id}(id=${group.id})}" th:object="${group}" method="post">
             <div class="form-group">
 
-                <label>Id:</label>
-                <input class="form-control" th:placeholder="${group.id}" readonly>
+                <label>Id:</label> <input class="form-control" th:placeholder="${group.id}" readonly>
                 <p></p>
 
-                <label>Name:</label>
-                <input type="text" class="form-control" th:placeholder="${group.name}" th:field="*{name}"
-                    required>
-                <label>
+                <label th:text="#{groups.thGroupName}"></label> <input type="text" class="form-control"
+                    th:placeholder="${group.name}" th:field="*{name}" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </label>
                 <p></p>
@@ -23,6 +21,7 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Update">
         </form>
+        <footer th:insert="fragments::footer"></footer>
     </div>
 </body>
 </html>

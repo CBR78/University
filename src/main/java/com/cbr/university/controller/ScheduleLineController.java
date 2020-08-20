@@ -42,7 +42,7 @@ public class ScheduleLineController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("schedule-lines");
+        mv.setViewName("schedule-lines/view");
         mv.addObject("scheduleLines", scheduleLineService.getAll());
         return mv;
     }
@@ -50,7 +50,7 @@ public class ScheduleLineController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("schedule-line-add");
+        mv.setViewName("schedule-lines/add");
         mv.addObject(SCHEDULELINE, new ScheduleLine());
         mv.addObject("groups", groupService.getAll());
         mv.addObject("teachers", teacherService.getAll());
@@ -68,7 +68,7 @@ public class ScheduleLineController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("schedule-line-edit");
+        mv.setViewName("schedule-lines/edit");
         mv.addObject(SCHEDULELINE, scheduleLineService.getById(id));
         mv.addObject("groups", groupService.getAll());
         mv.addObject("teachers", teacherService.getAll());

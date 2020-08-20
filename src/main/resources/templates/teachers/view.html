@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head ('All Teachers')" />
+
+<body>
+    <div class="container">
+        <header th:insert="fragments::header"></header>
+        <div th:insert="fragments::menu"></div>
+        <h2 th:text="#{teachers.pageName}"></h2>
+        <table class="table table-striped">
+            <thead>
+                <a th:href="@{/teachers/add}" th:text="#{teachers.add}"></a>
+                <tr>
+                    <th th:text="#{firstName}"></th>
+                    <th th:text="#{lastName}"></th>
+                    <th th:text="#{course}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teacher: ${teachers}">
+                    <td th:text="${teacher.firstName}" />
+                    <td th:text="${teacher.lastName}" />
+                    <td th:text="${teacher.course.name}" />
+                    <td><a th:href="@{/teachers/edit/{id}(id=${teacher.id})}" th:text="#{edit}"></a></td>
+                    <td><a th:href="@{/teachers/delete/{id}(id=${teacher.id})}" th:text="#{delete}"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <footer th:insert="fragments::footer"></footer>
+    </div>
+</body>
+</html>

@@ -39,7 +39,7 @@ public class StudentController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("students");
+        mv.setViewName("students/view");
         mv.addObject("students", studentService.getAll());
         return mv;
     }
@@ -47,7 +47,7 @@ public class StudentController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("student-add");
+        mv.setViewName("students/add");
         mv.addObject(STUDENT, new Student());
         mv.addObject(GROUPS, groupService.getAll());
         return mv;
@@ -59,7 +59,7 @@ public class StudentController {
         Student student = modelMapper.map(studentDtoRest, Student.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("student-add");
+            mv.setViewName("students/add");
             mv.addObject(STUDENT, student);
             mv.addObject(GROUPS, groupService.getAll());
             return mv;
@@ -72,7 +72,7 @@ public class StudentController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("student-edit");
+        mv.setViewName("students/edit");
         mv.addObject(STUDENT, studentService.getById(id));
         mv.addObject(GROUPS, groupService.getAll());
         return mv;
@@ -84,7 +84,7 @@ public class StudentController {
         Student student = modelMapper.map(studentDtoRest, Student.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("student-edit");
+            mv.setViewName("students/edit");
             mv.addObject(STUDENT, student);
             mv.addObject(GROUPS, groupService.getAll());
             return mv;
