@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::head ('Edit Teacher')" />
+<head th:replace="fragments::head ('Add Teacher')" />
 
 <body>
     <div class="container">
         <header th:insert="fragments::header"></header>
-        <h2 th:text="#{teachers.edit}"></h2>
-        <form th:action="@{/teachers/edit/{id}(id=${teacher.id})}" th:object="${teacher}" method="post">
+        <h2 th:text="#{teachers.add}"></h2>
+        <form th:action="@{/editing/teachers/add}" th:object="${teacher}" method="post">
             <div class="form-group">
 
-                <label>Id:</label> <input class="form-control" th:placeholder="${teacher.id}" readonly>
-                <p></p>
-
                 <label th:text="#{firstName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${teacher.firstName}" th:field="*{firstName}" required> <label>
+                    th:placeholder="${teacher.firstName}" th:name="firstName" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('firstName')}"
                         th:errors="*{firstName}"></div>
                 </label>
                 <p></p>
 
                 <label th:text="#{lastName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${teacher.lastName}" th:field="*{lastName}" required> <label>
+                    th:placeholder="${teacher.lastName}" th:name="lastName" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('lastName')}"
                         th:errors="*{lastName}"></div>
                 </label>
@@ -35,7 +32,7 @@
                 </div>
 
             </div>
-            <input type="submit" class="btn btn-primary" value="Update">
+            <input type="submit" class="btn btn-primary" value="Create">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>

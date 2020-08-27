@@ -18,7 +18,7 @@ import com.cbr.university.model.dto.ScheduleLineDtoRest;
 import com.cbr.university.service.BaseService;
 
 @Controller
-@RequestMapping("schedule-lines")
+@RequestMapping("editing/schedule-lines")
 public class ScheduleLineController {
     private static final String SCHEDULELINE = "scheduleLine";
     private ModelAndView mv = new ModelAndView();
@@ -42,7 +42,7 @@ public class ScheduleLineController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("schedule-lines/view");
+        mv.setViewName("editing/schedule-lines/view");
         mv.addObject("scheduleLines", scheduleLineService.getAll());
         return mv;
     }
@@ -50,7 +50,7 @@ public class ScheduleLineController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("schedule-lines/add");
+        mv.setViewName("editing/schedule-lines/add");
         mv.addObject(SCHEDULELINE, new ScheduleLine());
         mv.addObject("groups", groupService.getAll());
         mv.addObject("teachers", teacherService.getAll());
@@ -68,7 +68,7 @@ public class ScheduleLineController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("schedule-lines/edit");
+        mv.setViewName("editing/schedule-lines/edit");
         mv.addObject(SCHEDULELINE, scheduleLineService.getById(id));
         mv.addObject("groups", groupService.getAll());
         mv.addObject("teachers", teacherService.getAll());

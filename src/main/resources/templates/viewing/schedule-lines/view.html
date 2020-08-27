@@ -5,11 +5,10 @@
 <body>
     <div class="container">
         <header th:insert="fragments::header"></header>
-        <div th:insert="fragments::menu"></div>
+        <div th:insert="fragments::menu_view"></div>
         <h2 th:text="#{scheduleLines.pageName}"></h2>
         <table class="table table-striped">
             <thead>
-                <a th:href="@{/schedule-lines/add}" th:text="#{scheduleLines.add}"></a>
                 <tr>
                     <th th:text="#{date}"></th>
                     <th th:text="#{timeLessonPair}"></th>
@@ -27,10 +26,6 @@
                     <td th:text="${scheduleLine.teacher.course.name}" />
                     <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}" />
                     <td th:text="${scheduleLine.room.name}" />
-                    <td><a th:href="@{/schedule-lines/edit/{id}(id=${scheduleLine.id})}"
-                        th:text="#{edit}"></a></td>
-                    <td><a th:href="@{/schedule-lines/delete/{id}(id=${scheduleLine.id})}"
-                        th:text="#{delete}"></a></td>
                 </tr>
             </tbody>
         </table>

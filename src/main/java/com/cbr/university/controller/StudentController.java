@@ -18,7 +18,7 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 
 @Controller
-@RequestMapping("students")
+@RequestMapping("editing/students")
 @Validated
 public class StudentController {
     private static final String STUDENT = "student";
@@ -39,7 +39,7 @@ public class StudentController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("students/view");
+        mv.setViewName("editing/students/view");
         mv.addObject("students", studentService.getAll());
         return mv;
     }
@@ -47,7 +47,7 @@ public class StudentController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("students/add");
+        mv.setViewName("editing/students/add");
         mv.addObject(STUDENT, new Student());
         mv.addObject(GROUPS, groupService.getAll());
         return mv;
@@ -59,7 +59,7 @@ public class StudentController {
         Student student = modelMapper.map(studentDtoRest, Student.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("students/add");
+            mv.setViewName("editing/students/add");
             mv.addObject(STUDENT, student);
             mv.addObject(GROUPS, groupService.getAll());
             return mv;
@@ -72,7 +72,7 @@ public class StudentController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("students/edit");
+        mv.setViewName("editing/students/edit");
         mv.addObject(STUDENT, studentService.getById(id));
         mv.addObject(GROUPS, groupService.getAll());
         return mv;
@@ -84,7 +84,7 @@ public class StudentController {
         Student student = modelMapper.map(studentDtoRest, Student.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("students/edit");
+            mv.setViewName("editing/students/edit");
             mv.addObject(STUDENT, student);
             mv.addObject(GROUPS, groupService.getAll());
             return mv;

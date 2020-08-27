@@ -17,7 +17,7 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 
 @Controller
-@RequestMapping("rooms")
+@RequestMapping("editing/rooms")
 @Validated
 public class RoomController {
     private static final String ROOM = "room";
@@ -34,7 +34,7 @@ public class RoomController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("rooms/view");
+        mv.setViewName("editing/rooms/view");
         mv.addObject("rooms", roomService.getAll());
         return mv;
     }
@@ -42,7 +42,7 @@ public class RoomController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("rooms/add");
+        mv.setViewName("editing/rooms/add");
         mv.addObject(ROOM, new Room());
         return mv;
     }
@@ -52,7 +52,7 @@ public class RoomController {
         Room room = modelMapper.map(roomDtoRest, Room.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("rooms/add");
+            mv.setViewName("editing/rooms/add");
             mv.addObject(ROOM, room);
             return mv;
         } else {
@@ -64,7 +64,7 @@ public class RoomController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("rooms/edit");
+        mv.setViewName("editing/rooms/edit");
         mv.addObject(ROOM, roomService.getById(id));
         return mv;
     }
@@ -74,7 +74,7 @@ public class RoomController {
         Room room = modelMapper.map(roomDtoRest, Room.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("rooms/edit");
+            mv.setViewName("editing/rooms/edit");
             mv.addObject(ROOM, room);
             return mv;
         } else {

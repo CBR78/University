@@ -18,7 +18,7 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 
 @Controller
-@RequestMapping("teachers")
+@RequestMapping("editing/teachers")
 @Validated
 public class TeacherController {
     private static final String TEACHER = "teacher";
@@ -39,7 +39,7 @@ public class TeacherController {
     @GetMapping
     public ModelAndView getAll() {
         mv.clear();
-        mv.setViewName("teachers/view");
+        mv.setViewName("editing/teachers/view");
         mv.addObject("teachers", teacherService.getAll());
         return mv;
     }
@@ -47,7 +47,7 @@ public class TeacherController {
     @GetMapping("add")
     public ModelAndView add() {
         mv.clear();
-        mv.setViewName("teachers/add");
+        mv.setViewName("editing/teachers/add");
         mv.addObject(TEACHER, new Teacher());
         mv.addObject(COURSES, courseService.getAll());
         return mv;
@@ -59,7 +59,7 @@ public class TeacherController {
         Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("teachers/add");
+            mv.setViewName("editing/teachers/add");
             mv.addObject(TEACHER, teacher);
             mv.addObject(COURSES, courseService.getAll());
             return mv;
@@ -72,7 +72,7 @@ public class TeacherController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@PathVariable int id) {
         mv.clear();
-        mv.setViewName("teachers/edit");
+        mv.setViewName("editing/teachers/edit");
         mv.addObject(TEACHER, teacherService.getById(id));
         mv.addObject(COURSES, courseService.getAll());
         return mv;
@@ -84,7 +84,7 @@ public class TeacherController {
         Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
         if (result.hasErrors()) {
             mv.clear();
-            mv.setViewName("teachers/edit");
+            mv.setViewName("editing/teachers/edit");
             mv.addObject(TEACHER, teacher);
             mv.addObject(COURSES, courseService.getAll());
             return mv;

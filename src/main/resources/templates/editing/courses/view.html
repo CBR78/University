@@ -5,11 +5,11 @@
 <body>
     <div class="container">
         <header th:insert="fragments::header"></header>
-        <div th:insert="fragments::menu"></div>
+        <div th:insert="fragments::menu_edit"></div>
         <h2 th:text="#{courses.pageName}"></h2>
         <table class="table table-striped">
             <thead>
-                <a th:href="@{/courses/add}" th:text="#{courses.add}"></a>
+                <a th:href="@{/editing/courses/add}" th:text="#{courses.add}"></a>
                 <tr>
                     <th th:text="#{courses.thCourseName}"></th>
                 </tr>
@@ -17,8 +17,10 @@
             <tbody>
                 <tr th:each="course: ${courses}">
                     <td th:text="${course.name}" />
-                    <td><a th:href="@{/courses/edit/{id}(id=${course.id})}" th:text="#{edit}"></a></td>
-                    <td><a th:href="@{/courses/delete/{id}(id=${course.id})}" th:text="#{delete}"></a></td>
+                    <td><a th:href="@{/editing/courses/edit/{id}(id=${course.id})}"
+                        th:text="#{edit}"></a></td>
+                    <td><a th:href="@{/editing/courses/delete/{id}(id=${course.id})}"
+                        th:text="#{delete}"></a></td>
                 </tr>
             </tbody>
         </table>

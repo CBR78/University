@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::head ('Add Room')" />
+<head th:replace="fragments::head ('Add Group')" />
 
 <body>
     <div class="container">
         <header th:insert="fragments::header"></header>
-        <h2 th:text="#{rooms.add}"></h2>
-        <form th:action="@{/rooms/add}" th:object="${room}" method="post">
+        <h2 th:text="#{groups.add}"></h2>
+        <form th:action="@{/editing/groups/add}" th:object="${group}" method="post">
             <div class="form-group">
 
-                <label th:text="#{rooms.thRoomName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${room.name}" th:name="name" required> <label>
+                <label th:text="#{groups.thGroupName}"></label> <input type="text" class="form-control"
+                    th:placeholder="${group.name}" th:name="name" required> <label>
                     <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </label>
                 <p></p>
