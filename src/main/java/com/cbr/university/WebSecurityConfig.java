@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -20,18 +20,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .withUser("student").password(encoder.encode("1234")).roles("STUDENT").and()
           .withUser("editor").password(encoder.encode("4321")).roles("EDITOR");
     }
-    
+
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/swagger-ui.html",
-                             "/swagger-resources/**",
-                             "/configuration/ui",
-                             "/configuration/security",
-                             "/webjars/**",
-                             "/v2/api-docs");
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/webjars/**",
+                        "/v2/api-docs");
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

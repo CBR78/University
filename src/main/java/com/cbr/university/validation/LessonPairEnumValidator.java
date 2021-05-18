@@ -1,9 +1,9 @@
 package com.cbr.university.validation;
 
+import com.cbr.university.model.LessonPair;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
-import com.cbr.university.model.LessonPair;
 
 public class LessonPairEnumValidator implements ConstraintValidator<LessonPairEnum, LessonPair> {
     @Override
@@ -18,6 +18,7 @@ public class LessonPairEnumValidator implements ConstraintValidator<LessonPairEn
         for (LessonPair value : allValues) {
             if (value.equals(lessonPair)) {
                 result = true;
+                break;
             }
         }
         return result;

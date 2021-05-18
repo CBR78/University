@@ -1,5 +1,9 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.RoomDtoRest;
+import com.cbr.university.model.Room;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.group.RequestUI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,19 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Room;
-import com.cbr.university.model.dto.RoomDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.group.RequestUI;
-
 @Controller
 @RequestMapping("editing/rooms")
 @Validated
 public class RoomController {
     private static final String ROOM = "room";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<Room> roomService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<Room> roomService;
 
     @Autowired
     public RoomController(BaseService<Room> roomService, ModelMapper modelMapper) {

@@ -1,5 +1,10 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.StudentDtoRest;
+import com.cbr.university.model.Group;
+import com.cbr.university.model.Student;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.group.RequestUI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,26 +16,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Group;
-import com.cbr.university.model.Student;
-import com.cbr.university.model.dto.StudentDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.group.RequestUI;
-
 @Controller
 @RequestMapping("editing/students")
 @Validated
 public class StudentController {
     private static final String STUDENT = "student";
     private static final String GROUPS = "groups";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<Student> studentService;
-    private BaseService<Group> groupService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<Student> studentService;
+    private final BaseService<Group> groupService;
 
     @Autowired
     public StudentController(BaseService<Student> studentService, BaseService<Group> groupService,
-            ModelMapper modelMapper) {
+                             ModelMapper modelMapper) {
         this.studentService = studentService;
         this.groupService = groupService;
         this.modelMapper = modelMapper;

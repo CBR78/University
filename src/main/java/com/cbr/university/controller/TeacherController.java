@@ -1,5 +1,10 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.TeacherDtoRest;
+import com.cbr.university.model.Course;
+import com.cbr.university.model.Teacher;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.group.RequestUI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,26 +16,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Course;
-import com.cbr.university.model.Teacher;
-import com.cbr.university.model.dto.TeacherDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.group.RequestUI;
-
 @Controller
 @RequestMapping("editing/teachers")
 @Validated
 public class TeacherController {
     private static final String TEACHER = "teacher";
     private static final String COURSES = "courses";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<Teacher> teacherService;
-    private BaseService<Course> courseService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<Teacher> teacherService;
+    private final BaseService<Course> courseService;
 
     @Autowired
     public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService,
-            ModelMapper modelMapper) {
+                             ModelMapper modelMapper) {
         this.teacherService = teacherService;
         this.courseService = courseService;
         this.modelMapper = modelMapper;

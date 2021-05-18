@@ -1,5 +1,11 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.ScheduleLineDtoRest;
+import com.cbr.university.model.Group;
+import com.cbr.university.model.Room;
+import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.model.Teacher;
+import com.cbr.university.service.BaseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,28 +16,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Group;
-import com.cbr.university.model.Room;
-import com.cbr.university.model.ScheduleLine;
-import com.cbr.university.model.Teacher;
-import com.cbr.university.model.dto.ScheduleLineDtoRest;
-import com.cbr.university.service.BaseService;
-
 @Controller
 @RequestMapping("editing/schedule-lines")
 public class ScheduleLineController {
     private static final String SCHEDULELINE = "scheduleLine";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<ScheduleLine> scheduleLineService;
-    private BaseService<Group> groupService;
-    private BaseService<Room> roomService;
-    private BaseService<Teacher> teacherService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<ScheduleLine> scheduleLineService;
+    private final BaseService<Group> groupService;
+    private final BaseService<Room> roomService;
+    private final BaseService<Teacher> teacherService;
 
     @Autowired
     public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService,
-            BaseService<Group> groupService, BaseService<Room> roomService,
-            BaseService<Teacher> teacherService, ModelMapper modelMapper) {
+                                  BaseService<Group> groupService, BaseService<Room> roomService,
+                                  BaseService<Teacher> teacherService, ModelMapper modelMapper) {
         this.scheduleLineService = scheduleLineService;
         this.groupService = groupService;
         this.roomService = roomService;

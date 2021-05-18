@@ -1,39 +1,30 @@
 package com.cbr.university.controller.rest;
 
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
+import com.cbr.university.dto.CourseDtoRest;
+import com.cbr.university.model.Course;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.IdExistsInDb;
+import com.cbr.university.validation.group.Create;
+import com.cbr.university.validation.group.Update;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.cbr.university.model.Course;
-import com.cbr.university.model.dto.CourseDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.Create;
-import com.cbr.university.validation.group.Update;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("rest/courses")
 @Validated
 public class CourseRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
-    private HttpHeaders headers = new HttpHeaders();
-    private ModelMapper modelMapper;
-    private BaseService<Course> courseService;
+    private final HttpHeaders headers = new HttpHeaders();
+    private final ModelMapper modelMapper;
+    private final BaseService<Course> courseService;
 
     @Autowired
     public CourseRestController(BaseService<Course> courseService, ModelMapper modelMapper) {
@@ -71,7 +62,9 @@ public class CourseRestController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Course> delete(
-            @NotNull(message = "Request must include a Course id") @IdExistsInDb(typeObject = "Course", message = "This Course id is not in the database") @PathVariable Integer id) {
+            @NotNull(message = "Request must include a Course id")
+            @IdExistsInDb(typeObject = "Course", message = "This Course id is not in the database")
+            @PathVariable Integer id) {
         courseService.delete(courseService.getById(id));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted Course object with id " + id);

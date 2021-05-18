@@ -43,15 +43,17 @@
 Добавьте в проект REST Endpoints. Все функции пользовательского интерфейса должны быть доступны в REST Endpoints.  
 Результат - в ветке https://github.com/v-malzam/Tasks_8-22-Spring_max-stack/tree/REST
 
-Task 20 - Validation  
+#### Task 20 - Validation
+
 Добавьте валидацию к вашим моделям.  
 Это может быть проверка имени, проверка времени, количество студентов в группах и т.д.  
 Спросите своего ментора о проверках, которые следует реализовать в вашем коде.  
 Результат - в ветке https://github.com/v-malzam/Tasks_8-22-Spring_max-stack/tree/Validation
 
 #### Task 22 - Swagger  
+
 Добавьте документацию Swagger в свой проект.  
-Вы можете использовать 2 или 3 версии или спросить своего ментора.  
+Вы можете использовать 2 или 3 версии, или спросить своего ментора.  
 https://swagger.io/  
 Результат - в ветке https://github.com/v-malzam/Tasks_8-22-Spring_max-stack/tree/Swagger
 

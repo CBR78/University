@@ -1,21 +1,19 @@
 package com.cbr.university.service.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cbr.university.model.Student;
 import com.cbr.university.repository.StudentRepository;
 import com.cbr.university.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements BaseService<Student> {
 
-    private StudentRepository studentRepository;
-    private EntityManager entityManager;
+    private final StudentRepository studentRepository;
+    private final EntityManager entityManager;
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository, EntityManager entityManager) {

@@ -1,10 +1,4 @@
-package com.cbr.university.model.dto;
-
-import java.util.Objects;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
+package com.cbr.university.dto;
 
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Cascade;
@@ -12,17 +6,22 @@ import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
+import java.util.Objects;
+
 public class RoomDtoRest {
-    @Null(groups = { Create.class }, message = "Request must not include a Room id.")
-    @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Room id.")
-    @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "Room", message = "This Room id is not in the database.")
+    @Null(groups = {Create.class}, message = "Request must not include a Room id.")
+    @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Room id.")
+    @IdExistsInDb(groups = {Cascade.class,
+            Update.class}, typeObject = "Room", message = "This Room id is not in the database.")
     private Integer id;
 
-    @Null(groups = { Cascade.class }, message = "Request must not include a Room name.")
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room name.")
-    @Size(groups = { Create.class, Update.class,
-            RequestUI.class }, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters.")
+    @Null(groups = {Cascade.class}, message = "Request must not include a Room name.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Room name.")
+    @Size(groups = {Create.class, Update.class,
+            RequestUI.class}, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters.")
     private String name;
 
     public Integer getId() {

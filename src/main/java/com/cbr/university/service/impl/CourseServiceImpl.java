@@ -1,21 +1,19 @@
 package com.cbr.university.service.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cbr.university.model.Course;
 import com.cbr.university.repository.CourseRepository;
 import com.cbr.university.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 public class CourseServiceImpl implements BaseService<Course> {
 
-    private CourseRepository courseRepository;
-    private EntityManager entityManager;
+    private final CourseRepository courseRepository;
+    private final EntityManager entityManager;
 
     @Autowired
     public CourseServiceImpl(CourseRepository courseRepository, EntityManager entityManager) {

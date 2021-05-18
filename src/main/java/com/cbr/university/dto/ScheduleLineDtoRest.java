@@ -1,12 +1,4 @@
-package com.cbr.university.model.dto;
-
-import java.time.LocalDate;
-import java.util.Objects;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.groups.ConvertGroup;
+package com.cbr.university.dto;
 
 import com.cbr.university.model.LessonPair;
 import com.cbr.university.validation.IdExistsInDb;
@@ -15,22 +7,29 @@ import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.groups.ConvertGroup;
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class ScheduleLineDtoRest {
-    @Null(groups = { Create.class }, message = "Request must not include a ScheduleLine id.")
-    @NotNull(groups = { Cascade.class,
-            Update.class }, message = "Request must include a ScheduleLine id.")
-    @IdExistsInDb(groups = { Cascade.class,
-            Update.class }, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database.")
+    @Null(groups = {Create.class}, message = "Request must not include a ScheduleLine id.")
+    @NotNull(groups = {Cascade.class,
+            Update.class}, message = "Request must include a ScheduleLine id.")
+    @IdExistsInDb(groups = {Cascade.class,
+            Update.class}, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database.")
     private Integer id;
 
-    @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a ScheduleLine date.")
+    @NotNull(groups = {Create.class,
+            Update.class}, message = "Request must include a ScheduleLine date.")
     private LocalDate date;
 
-    @NotNull(groups = { Create.class,
-            Update.class }, message = "Request must include a ScheduleLine lessonPair.")
-    @LessonPairEnum(groups = { Create.class,
-            Update.class }, message = "ScheduleLine typeObject is invalid. The parameter accepts only 1 of 4 values - FIRST_PAIR, SECOND_PAIR, THIRD_PAIR, FOURTH_PAIR.")
+    @NotNull(groups = {Create.class,
+            Update.class}, message = "Request must include a ScheduleLine lessonPair.")
+    @LessonPairEnum(groups = {Create.class,
+            Update.class}, message = "ScheduleLine typeObject is invalid. The parameter accepts only 1 of 4 values - FIRST_PAIR, SECOND_PAIR, THIRD_PAIR, FOURTH_PAIR.")
     private LessonPair lessonPair;
 
     @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id.")

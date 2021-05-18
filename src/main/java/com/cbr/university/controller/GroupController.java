@@ -1,5 +1,9 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.GroupDtoRest;
+import com.cbr.university.model.Group;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.group.RequestUI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,19 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Group;
-import com.cbr.university.model.dto.GroupDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.group.RequestUI;
-
 @Controller
 @RequestMapping("editing/groups")
 @Validated
 public class GroupController {
     private static final String GROUP = "group";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<Group> groupService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<Group> groupService;
 
     @Autowired
     public GroupController(BaseService<Group> groupService, ModelMapper modelMapper) {

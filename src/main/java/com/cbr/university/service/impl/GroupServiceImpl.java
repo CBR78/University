@@ -1,21 +1,19 @@
 package com.cbr.university.service.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cbr.university.model.Group;
 import com.cbr.university.repository.GroupRepository;
 import com.cbr.university.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 public class GroupServiceImpl implements BaseService<Group> {
 
-    private GroupRepository groupRepository;
-    private EntityManager entityManager;
+    private final GroupRepository groupRepository;
+    private final EntityManager entityManager;
 
     @Autowired
     public GroupServiceImpl(GroupRepository groupRepository, EntityManager entityManager) {

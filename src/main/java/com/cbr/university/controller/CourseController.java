@@ -1,5 +1,9 @@
 package com.cbr.university.controller;
 
+import com.cbr.university.dto.CourseDtoRest;
+import com.cbr.university.model.Course;
+import com.cbr.university.service.BaseService;
+import com.cbr.university.validation.group.RequestUI;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,19 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cbr.university.model.Course;
-import com.cbr.university.model.dto.CourseDtoRest;
-import com.cbr.university.service.BaseService;
-import com.cbr.university.validation.group.RequestUI;
-
 @Controller
 @RequestMapping("editing/courses")
 @Validated
 public class CourseController {
     private static final String COURSE = "course";
-    private ModelAndView mv = new ModelAndView();
-    private ModelMapper modelMapper;
-    private BaseService<Course> courseService;
+    private final ModelAndView mv = new ModelAndView();
+    private final ModelMapper modelMapper;
+    private final BaseService<Course> courseService;
 
     @Autowired
     public CourseController(BaseService<Course> courseService, ModelMapper modelMapper) {

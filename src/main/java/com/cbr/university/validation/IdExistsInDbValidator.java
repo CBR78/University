@@ -1,32 +1,26 @@
 package com.cbr.university.validation;
 
+import com.cbr.university.model.*;
+import com.cbr.university.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.cbr.university.model.Course;
-import com.cbr.university.model.Group;
-import com.cbr.university.model.Room;
-import com.cbr.university.model.ScheduleLine;
-import com.cbr.university.model.Student;
-import com.cbr.university.model.Teacher;
-import com.cbr.university.service.BaseService;
-
 public class IdExistsInDbValidator implements ConstraintValidator<IdExistsInDb, Integer> {
 
-    private BaseService<Course> courseService;
-    private BaseService<Group> groupService;
-    private BaseService<Room> roomService;
-    private BaseService<ScheduleLine> scheduleLineService;
-    private BaseService<Student> studentService;
-    private BaseService<Teacher> teacherService;
+    private final BaseService<Course> courseService;
+    private final BaseService<Group> groupService;
+    private final BaseService<Room> roomService;
+    private final BaseService<ScheduleLine> scheduleLineService;
+    private final BaseService<Student> studentService;
+    private final BaseService<Teacher> teacherService;
     private BaseService<?> currentService;
 
     @Autowired
     private IdExistsInDbValidator(BaseService<Course> courseService, BaseService<Group> groupService,
-            BaseService<Room> roomService, BaseService<ScheduleLine> scheduleLineService,
-            BaseService<Student> studentService, BaseService<Teacher> teacherService) {
+                                  BaseService<Room> roomService, BaseService<ScheduleLine> scheduleLineService,
+                                  BaseService<Student> studentService, BaseService<Teacher> teacherService) {
         this.courseService = courseService;
         this.groupService = groupService;
         this.roomService = roomService;

@@ -1,17 +1,12 @@
-package com.cbr.university.model.dto;
+package com.cbr.university.dto;
 
-import java.util.Objects;
+import com.cbr.university.validation.IdExistsInDb;
+import com.cbr.university.validation.group.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
-
-import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.Cascade;
-import com.cbr.university.validation.group.Create;
-import com.cbr.university.validation.group.None;
-import com.cbr.university.validation.group.RequestUI;
-import com.cbr.university.validation.group.Update;
+import java.util.Objects;
 
 public class CourseDtoRest {
     @Null(groups = { Create.class, None.class }, message = "Request must not include a Course id.")

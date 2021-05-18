@@ -1,21 +1,19 @@
 package com.cbr.university.service.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cbr.university.model.Room;
 import com.cbr.university.repository.RoomRepository;
 import com.cbr.university.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 public class RoomServiceImpl implements BaseService<Room> {
 
-    private RoomRepository roomRepository;
-    private EntityManager entityManager;
+    private final RoomRepository roomRepository;
+    private final EntityManager entityManager;
 
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository, EntityManager entityManager) {
