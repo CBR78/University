@@ -32,22 +32,28 @@ public class ScheduleLineDtoRest {
             Update.class}, message = "ScheduleLine typeObject is invalid. The parameter accepts only 1 of 4 values - FIRST_PAIR, SECOND_PAIR, THIRD_PAIR, FOURTH_PAIR.")
     private LessonPair lessonPair;
 
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Group id.")
     @Valid
-    @ConvertGroup(from = Create.class, to = Cascade.class)
-    @ConvertGroup(from = Update.class, to = Cascade.class)
+    @ConvertGroup.List({
+            @ConvertGroup(from = Create.class, to = Cascade.class),
+            @ConvertGroup(from = Update.class, to = Cascade.class)
+    })
     private GroupDtoRest group;
 
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Teacher id.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Teacher id.")
     @Valid
-    @ConvertGroup(from = Create.class, to = Cascade.class)
-    @ConvertGroup(from = Update.class, to = Cascade.class)
+    @ConvertGroup.List({
+            @ConvertGroup(from = Create.class, to = Cascade.class),
+            @ConvertGroup(from = Update.class, to = Cascade.class)
+    })
     private TeacherDtoRest teacher;
 
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Room id.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Room id.")
     @Valid
-    @ConvertGroup(from = Create.class, to = Cascade.class)
-    @ConvertGroup(from = Update.class, to = Cascade.class)
+    @ConvertGroup.List({
+            @ConvertGroup(from = Create.class, to = Cascade.class),
+            @ConvertGroup(from = Update.class, to = Cascade.class)
+    })
     private RoomDtoRest room;
 
     public Integer getId() {

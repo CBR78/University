@@ -31,11 +31,13 @@ public class TeacherDtoRest {
             RequestUI.class }, min = 2, max = 50, message = "Teacher lastName should contain from {min} to {max} letters.")
     private String lastName;
 
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Course id.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Course id.")
     @Valid
-    @ConvertGroup(from = Cascade.class, to = None.class)
-    @ConvertGroup(from = Create.class, to = Cascade.class)
-    @ConvertGroup(from = Update.class, to = Cascade.class)
+    @ConvertGroup.List({
+            @ConvertGroup(from = Cascade.class, to = None.class),
+            @ConvertGroup(from = Create.class, to = Cascade.class),
+            @ConvertGroup(from = Update.class, to = Cascade.class)
+    })
     private CourseDtoRest course;
 
     public Integer getId() {

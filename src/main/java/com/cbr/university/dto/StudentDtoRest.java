@@ -34,10 +34,12 @@ public class StudentDtoRest {
             RequestUI.class}, min = 2, max = 50, message = "Student lastName should contain from {min} to {max} letters.")
     private String lastName;
 
-    @NotNull(groups = { Create.class, Update.class }, message = "Request must include a Group id.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Group id.")
     @Valid
-    @ConvertGroup(from = Create.class, to = Cascade.class)
-    @ConvertGroup(from = Update.class, to = Cascade.class)
+    @ConvertGroup.List({
+            @ConvertGroup(from = Create.class, to = Cascade.class),
+            @ConvertGroup(from = Update.class, to = Cascade.class)
+    })
     private GroupDtoRest group;
 
     public Integer getId() {
