@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.ConvertGroup;
 import java.util.Objects;
 
-public class TeacherDtoRest {
+public class TeacherDto {
     @Null(groups = { Create.class }, message = "Request must not include a Teacher id.")
     @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Teacher id.")
     @IdExistsInDb(groups = { Cascade.class,
@@ -38,7 +38,7 @@ public class TeacherDtoRest {
             @ConvertGroup(from = Create.class, to = Cascade.class),
             @ConvertGroup(from = Update.class, to = Cascade.class)
     })
-    private CourseDtoRest course;
+    private CourseDto course;
 
     public Integer getId() {
         return id;
@@ -64,11 +64,11 @@ public class TeacherDtoRest {
         this.lastName = lastName;
     }
 
-    public CourseDtoRest getCourse() {
+    public CourseDto getCourse() {
         return course;
     }
 
-    public void setCourse(CourseDtoRest course) {
+    public void setCourse(CourseDto course) {
         this.course = course;
     }
 
@@ -85,7 +85,7 @@ public class TeacherDtoRest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        TeacherDtoRest other = (TeacherDtoRest) obj;
+        TeacherDto other = (TeacherDto) obj;
         return Objects.equals(course, other.course) && Objects.equals(firstName, other.firstName)
                 && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
     }

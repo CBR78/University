@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.GroupDtoRest;
+import com.cbr.university.dto.GroupDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
@@ -47,9 +47,9 @@ public class GroupController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) GroupDtoRest groupDtoRest,
+    public ModelAndView add(@Validated(RequestUI.class) GroupDto groupDto,
             BindingResult result) {
-        Group group = modelMapper.map(groupDtoRest, Group.class);
+        Group group = modelMapper.map(groupDto, Group.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/groups/add");
@@ -70,9 +70,9 @@ public class GroupController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) GroupDtoRest groupDtoRest,
+    public ModelAndView edit(@Validated(RequestUI.class) GroupDto groupDto,
             BindingResult result) {
-        Group group = modelMapper.map(groupDtoRest, Group.class);
+        Group group = modelMapper.map(groupDto, Group.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/groups/edit");

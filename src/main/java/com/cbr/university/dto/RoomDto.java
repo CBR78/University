@@ -11,17 +11,17 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-public class GroupDtoRest {
-    @Null(groups = {Create.class}, message = "Request must not include a Group id.")
-    @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Group id.")
+public class RoomDto {
+    @Null(groups = {Create.class}, message = "Request must not include a Room id.")
+    @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Room id.")
     @IdExistsInDb(groups = {Cascade.class,
-            Update.class}, typeObject = "Group", message = "This Group id is not in the database.")
+            Update.class}, typeObject = "Room", message = "This Room id is not in the database.")
     private Integer id;
 
-    @Null(groups = {Cascade.class}, message = "Request must not include a Group name.")
-    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Group name.")
+    @Null(groups = {Cascade.class}, message = "Request must not include a Room name.")
+    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Room name.")
     @Size(groups = {Create.class, Update.class,
-            RequestUI.class}, min = 2, max = 20, message = "Group name should contain from {min} to {max} letters.")
+            RequestUI.class}, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters.")
     private String name;
 
     public Integer getId() {
@@ -53,12 +53,12 @@ public class GroupDtoRest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GroupDtoRest other = (GroupDtoRest) obj;
+        RoomDto other = (RoomDto) obj;
         return Objects.equals(id, other.id) && Objects.equals(name, other.name);
     }
 
     @Override
     public String toString() {
-        return "GroupDtoRest [id=" + id + ", name=" + name + "]";
+        return "RoomDtoRest [id=" + id + ", name=" + name + "]";
     }
 }

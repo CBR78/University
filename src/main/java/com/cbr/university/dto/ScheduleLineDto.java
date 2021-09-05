@@ -14,7 +14,7 @@ import javax.validation.groups.ConvertGroup;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class ScheduleLineDtoRest {
+public class ScheduleLineDto {
     @Null(groups = {Create.class}, message = "Request must not include a ScheduleLine id.")
     @NotNull(groups = {Cascade.class,
             Update.class}, message = "Request must include a ScheduleLine id.")
@@ -38,7 +38,7 @@ public class ScheduleLineDtoRest {
             @ConvertGroup(from = Create.class, to = Cascade.class),
             @ConvertGroup(from = Update.class, to = Cascade.class)
     })
-    private GroupDtoRest group;
+    private GroupDto group;
 
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Teacher id.")
     @Valid
@@ -46,7 +46,7 @@ public class ScheduleLineDtoRest {
             @ConvertGroup(from = Create.class, to = Cascade.class),
             @ConvertGroup(from = Update.class, to = Cascade.class)
     })
-    private TeacherDtoRest teacher;
+    private TeacherDto teacher;
 
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Room id.")
     @Valid
@@ -54,7 +54,7 @@ public class ScheduleLineDtoRest {
             @ConvertGroup(from = Create.class, to = Cascade.class),
             @ConvertGroup(from = Update.class, to = Cascade.class)
     })
-    private RoomDtoRest room;
+    private RoomDto room;
 
     public Integer getId() {
         return id;
@@ -80,27 +80,27 @@ public class ScheduleLineDtoRest {
         this.lessonPair = lessonPair;
     }
 
-    public GroupDtoRest getGroup() {
+    public GroupDto getGroup() {
         return group;
     }
 
-    public void setGroup(GroupDtoRest group) {
+    public void setGroup(GroupDto group) {
         this.group = group;
     }
 
-    public TeacherDtoRest getTeacher() {
+    public TeacherDto getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(TeacherDtoRest teacher) {
+    public void setTeacher(TeacherDto teacher) {
         this.teacher = teacher;
     }
 
-    public RoomDtoRest getRoom() {
+    public RoomDto getRoom() {
         return room;
     }
 
-    public void setRoom(RoomDtoRest room) {
+    public void setRoom(RoomDto room) {
         this.room = room;
     }
 
@@ -117,7 +117,7 @@ public class ScheduleLineDtoRest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ScheduleLineDtoRest other = (ScheduleLineDtoRest) obj;
+        ScheduleLineDto other = (ScheduleLineDto) obj;
         return Objects.equals(date, other.date) && Objects.equals(group, other.group)
                 && Objects.equals(id, other.id) && lessonPair == other.lessonPair
                 && Objects.equals(room, other.room) && Objects.equals(teacher, other.teacher);

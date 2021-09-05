@@ -1,6 +1,6 @@
 package com.cbr.university.controller.rest;
 
-import com.cbr.university.dto.TeacherDtoRest;
+import com.cbr.university.dto.TeacherDto;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
@@ -44,8 +44,8 @@ public class TeacherRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Teacher> add(
-            @Validated(Create.class) @RequestBody TeacherDtoRest teacherDtoRest) {
-        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
+            @Validated(Create.class) @RequestBody TeacherDto teacherDto) {
+        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
         Teacher createdTeacher = teacherService.create(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Teacher object with id " + createdTeacher.getId());
@@ -54,8 +54,8 @@ public class TeacherRestController {
 
     @PutMapping
     public ResponseEntity<Teacher> update(
-            @Validated(Update.class) @RequestBody TeacherDtoRest teacherDtoRest) {
-        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
+            @Validated(Update.class) @RequestBody TeacherDto teacherDto) {
+        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
         Teacher updatedTeacher = teacherService.update(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Teacher object with id " + updatedTeacher.getId());

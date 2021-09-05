@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.ScheduleLineDtoRest;
+import com.cbr.university.dto.ScheduleLineDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
@@ -58,8 +58,8 @@ public class ScheduleLineController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(ScheduleLineDtoRest scheduleLineDtoRest, BindingResult result) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
+    public ModelAndView add(ScheduleLineDto scheduleLineDto, BindingResult result) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
         scheduleLineService.create(scheduleLine);
         return getAll();
     }
@@ -76,8 +76,8 @@ public class ScheduleLineController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(ScheduleLineDtoRest scheduleLineDtoRest, BindingResult result) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
+    public ModelAndView edit(ScheduleLineDto scheduleLineDto, BindingResult result) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
         scheduleLineService.update(scheduleLine);
         return getAll();
     }

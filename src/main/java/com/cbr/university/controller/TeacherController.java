@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.TeacherDtoRest;
+import com.cbr.university.dto.TeacherDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
@@ -53,9 +53,9 @@ public class TeacherController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) TeacherDtoRest teacherDtoRest,
+    public ModelAndView add(@Validated(RequestUI.class) TeacherDto teacherDto,
             BindingResult result) {
-        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
+        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/add");
@@ -78,9 +78,9 @@ public class TeacherController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) TeacherDtoRest teacherDtoRest,
+    public ModelAndView edit(@Validated(RequestUI.class) TeacherDto teacherDto,
             BindingResult result) {
-        Teacher teacher = modelMapper.map(teacherDtoRest, Teacher.class);
+        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/edit");

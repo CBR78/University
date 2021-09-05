@@ -1,6 +1,6 @@
 package com.cbr.university.controller.rest;
 
-import com.cbr.university.dto.ScheduleLineDtoRest;
+import com.cbr.university.dto.ScheduleLineDto;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
@@ -45,8 +45,8 @@ public class ScheduleLineRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ScheduleLine> add(
-            @Validated(Create.class) @RequestBody ScheduleLineDtoRest scheduleLineDtoRest) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
+            @Validated(Create.class) @RequestBody ScheduleLineDto scheduleLineDto) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
         ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,
@@ -56,8 +56,8 @@ public class ScheduleLineRestController {
 
     @PutMapping
     public ResponseEntity<ScheduleLine> update(
-            @Validated(Update.class) @RequestBody ScheduleLineDtoRest scheduleLineDtoRest) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDtoRest, ScheduleLine.class);
+            @Validated(Update.class) @RequestBody ScheduleLineDto scheduleLineDto) {
+        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
         ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,

@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.CourseDtoRest;
+import com.cbr.university.dto.CourseDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
@@ -47,9 +47,9 @@ public class CourseController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) CourseDtoRest courseDtoRest,
+    public ModelAndView add(@Validated(RequestUI.class) CourseDto courseDto,
             BindingResult result) {
-        Course course = modelMapper.map(courseDtoRest, Course.class);
+        Course course = modelMapper.map(courseDto, Course.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/courses/add");
@@ -70,9 +70,9 @@ public class CourseController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) CourseDtoRest courseDtoRest,
+    public ModelAndView edit(@Validated(RequestUI.class) CourseDto courseDto,
             BindingResult result) {
-        Course course = modelMapper.map(courseDtoRest, Course.class);
+        Course course = modelMapper.map(courseDto, Course.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/courses/edit");

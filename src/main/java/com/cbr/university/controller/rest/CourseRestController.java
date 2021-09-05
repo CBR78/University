@@ -1,6 +1,6 @@
 package com.cbr.university.controller.rest;
 
-import com.cbr.university.dto.CourseDtoRest;
+import com.cbr.university.dto.CourseDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
@@ -42,8 +42,8 @@ public class CourseRestController {
 
     @PostMapping
     public ResponseEntity<Course> add(
-            @Validated(Create.class) @RequestBody CourseDtoRest courseDtoRest) {
-        Course course = modelMapper.map(courseDtoRest, Course.class);
+            @Validated(Create.class) @RequestBody CourseDto courseDto) {
+        Course course = modelMapper.map(courseDto, Course.class);
         Course createdCourse = courseService.create(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId());
@@ -52,8 +52,8 @@ public class CourseRestController {
 
     @PutMapping
     public ResponseEntity<Course> update(
-            @Validated(Update.class) @RequestBody CourseDtoRest courseDtoRest) {
-        Course course = modelMapper.map(courseDtoRest, Course.class);
+            @Validated(Update.class) @RequestBody CourseDto courseDto) {
+        Course course = modelMapper.map(courseDto, Course.class);
         Course updatedCourse = courseService.update(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId());

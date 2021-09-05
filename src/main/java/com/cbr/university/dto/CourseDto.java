@@ -8,7 +8,7 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-public class CourseDtoRest {
+public class CourseDto {
     @Null(groups = { Create.class, None.class }, message = "Request must not include a Course id.")
     @NotNull(groups = { Cascade.class, Update.class }, message = "Request must include a Course id.")
     @IdExistsInDb(groups = { Cascade.class,
@@ -50,7 +50,7 @@ public class CourseDtoRest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CourseDtoRest other = (CourseDtoRest) obj;
+        CourseDto other = (CourseDto) obj;
         return Objects.equals(id, other.id) && Objects.equals(name, other.name);
     }
 

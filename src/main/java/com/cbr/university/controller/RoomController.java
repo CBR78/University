@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.RoomDtoRest;
+import com.cbr.university.dto.RoomDto;
 import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
@@ -47,8 +47,8 @@ public class RoomController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) RoomDtoRest roomDtoRest, BindingResult result) {
-        Room room = modelMapper.map(roomDtoRest, Room.class);
+    public ModelAndView add(@Validated(RequestUI.class) RoomDto roomDto, BindingResult result) {
+        Room room = modelMapper.map(roomDto, Room.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/rooms/add");
@@ -69,8 +69,8 @@ public class RoomController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) RoomDtoRest roomDtoRest, BindingResult result) {
-        Room room = modelMapper.map(roomDtoRest, Room.class);
+    public ModelAndView edit(@Validated(RequestUI.class) RoomDto roomDto, BindingResult result) {
+        Room room = modelMapper.map(roomDto, Room.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/rooms/edit");

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.ConvertGroup;
 import java.util.Objects;
 
-public class StudentDtoRest {
+public class StudentDto {
     @Null(groups = {Create.class}, message = "Request must not include a Student id.")
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Student id.")
     @IdExistsInDb(groups = {Cascade.class,
@@ -40,7 +40,7 @@ public class StudentDtoRest {
             @ConvertGroup(from = Create.class, to = Cascade.class),
             @ConvertGroup(from = Update.class, to = Cascade.class)
     })
-    private GroupDtoRest group;
+    private GroupDto group;
 
     public Integer getId() {
         return id;
@@ -66,11 +66,11 @@ public class StudentDtoRest {
         this.lastName = lastName;
     }
 
-    public GroupDtoRest getGroup() {
+    public GroupDto getGroup() {
         return group;
     }
 
-    public void setGroup(GroupDtoRest group) {
+    public void setGroup(GroupDto group) {
         this.group = group;
     }
 
@@ -87,7 +87,7 @@ public class StudentDtoRest {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        StudentDtoRest other = (StudentDtoRest) obj;
+        StudentDto other = (StudentDto) obj;
         return Objects.equals(firstName, other.firstName) && Objects.equals(group, other.group)
                 && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
     }

@@ -1,6 +1,6 @@
 package com.cbr.university.controller.rest;
 
-import com.cbr.university.dto.GroupDtoRest;
+import com.cbr.university.dto.GroupDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
@@ -42,8 +42,8 @@ public class GroupRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody GroupDtoRest groupDtoRest) {
-        Group group = modelMapper.map(groupDtoRest, Group.class);
+    public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody GroupDto groupDto) {
+        Group group = modelMapper.map(groupDto, Group.class);
         Group createdGroup = groupService.create(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Group object with id " + createdGroup.getId());
@@ -52,8 +52,8 @@ public class GroupRestController {
 
     @PutMapping
     public ResponseEntity<Group> update(
-            @Validated(Update.class) @RequestBody GroupDtoRest groupDtoRest) {
-        Group group = modelMapper.map(groupDtoRest, Group.class);
+            @Validated(Update.class) @RequestBody GroupDto groupDto) {
+        Group group = modelMapper.map(groupDto, Group.class);
         Group updatedGroup = groupService.update(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Group object with id " + updatedGroup.getId());

@@ -1,6 +1,6 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.StudentDtoRest;
+import com.cbr.university.dto.StudentDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
@@ -53,9 +53,9 @@ public class StudentController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) StudentDtoRest studentDtoRest,
+    public ModelAndView add(@Validated(RequestUI.class) StudentDto studentDto,
             BindingResult result) {
-        Student student = modelMapper.map(studentDtoRest, Student.class);
+        Student student = modelMapper.map(studentDto, Student.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/students/add");
@@ -78,9 +78,9 @@ public class StudentController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) StudentDtoRest studentDtoRest,
+    public ModelAndView edit(@Validated(RequestUI.class) StudentDto studentDto,
             BindingResult result) {
-        Student student = modelMapper.map(studentDtoRest, Student.class);
+        Student student = modelMapper.map(studentDto, Student.class);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/students/edit");

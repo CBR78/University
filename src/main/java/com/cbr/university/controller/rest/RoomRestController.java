@@ -1,6 +1,6 @@
 package com.cbr.university.controller.rest;
 
-import com.cbr.university.dto.RoomDtoRest;
+import com.cbr.university.dto.RoomDto;
 import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
@@ -42,8 +42,8 @@ public class RoomRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody RoomDtoRest roomDtoRest) {
-        Room room = modelMapper.map(roomDtoRest, Room.class);
+    public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody RoomDto roomDto) {
+        Room room = modelMapper.map(roomDto, Room.class);
         Room createdRoom = roomService.create(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Room object with id " + createdRoom.getId());
@@ -51,8 +51,8 @@ public class RoomRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody RoomDtoRest roomDtoRest) {
-        Room room = modelMapper.map(roomDtoRest, Room.class);
+    public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody RoomDto roomDto) {
+        Room room = modelMapper.map(roomDto, Room.class);
         Room updatedRoom = roomService.update(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Room object with id " + updatedRoom.getId());
