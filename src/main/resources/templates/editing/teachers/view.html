@@ -18,9 +18,9 @@
             </thead>
             <tbody>
                 <tr th:each="teacher: ${teachers}">
-                    <td th:text="${teacher.firstName}" />
-                    <td th:text="${teacher.lastName}" />
-                    <td th:text="${teacher.course.name}" />
+                    <td th:text="${teacher.firstName}"></td>
+                    <td th:text="${teacher.lastName}"></td>
+                    <td th:text="${teacher.course.name}"></td>
                     <td><a th:href="@{/editing/teachers/edit/{id}(id=${teacher.id})}"
                         th:text="#{edit}"></a></td>
                     <td><a th:href="@{/editing/teachers/delete/{id}(id=${teacher.id})}"

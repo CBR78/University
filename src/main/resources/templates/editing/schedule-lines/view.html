@@ -21,16 +21,16 @@
             </thead>
             <tbody>
                 <tr th:each="scheduleLine: ${scheduleLines}">
-                    <td th:text="${scheduleLine.date}" />
-                    <td th:text="${scheduleLine.lessonPair.pairStartTime}" />
-                    <td th:text="${scheduleLine.group.name}" />
-                    <td th:text="${scheduleLine.teacher.course.name}" />
-                    <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}" />
-                    <td th:text="${scheduleLine.room.name}" />
+                    <td th:text="${scheduleLine.date}"></td>
+                    <td th:text="${scheduleLine.lessonPair.pairStartTime}"></td>
+                    <td th:text="${scheduleLine.group.name}"></td>
+                    <td th:text="${scheduleLine.teacher.course.name}"></td>
+                    <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}"></td>
+                    <td th:text="${scheduleLine.room.name}"></td>
                     <td><a th:href="@{/editing/schedule-lines/edit/{id}(id=${scheduleLine.id})}"
-                        th:text="#{edit}"></a></td>
+                           th:text="#{edit}"></a></td>
                     <td><a th:href="@{/editing/schedule-lines/delete/{id}(id=${scheduleLine.id})}"
-                        th:text="#{delete}"></a></td>
+                           th:text="#{delete}"></a></td>
                 </tr>
             </tbody>
         </table>
