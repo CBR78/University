@@ -7,16 +7,14 @@
         <header th:insert="fragments::header"></header>
         <h2 th:text="#{groups.add}"></h2>
         <form th:action="@{/editing/groups/add}" th:object="${group}" method="post">
+
             <div class="form-group">
-
-                <label th:text="#{groups.thGroupName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${group.name}" th:name="name" required> <label>
-                    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                </label>
-                <p></p>
-
+                <label for="name" th:text="#{groups.thGroupName}"></label>
+                <input id="name" class="form-control" required type="text" name="name">
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
-            <input type="submit" class="btn btn-primary" value="Create">
+
+            <input class="btn btn-primary" type="submit" value="Create">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>

@@ -6,21 +6,22 @@
     <div class="container">
         <header th:insert="fragments::header"></header>
         <h2 th:text="#{courses.edit}"></h2>
-        <form th:action="@{/editing/courses/edit/{id}(id=${course.id})}" th:object="${course}"
-            method="post">
+        <form th:action="@{/editing/courses/edit/{id}(id=${course.id})}" th:object="${course}" method="post">
+
             <div class="form-group">
-
-                <label>Id:</label> <input class="form-control" th:placeholder="${course.id}" readonly>
-                <p></p>
-
-                <label th:text="#{courses.thCourseName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${course.name}" th:field="*{name}" required> <label>
-                    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                </label>
-                <p></p>
-
+                <label for="course.id">Id:</label>
+                <input id="course.id" class="form-control" readonly
+                       th:placeholder="${course.id}">
             </div>
-            <input type="submit" class="btn btn-primary" value="Update">
+
+            <div class="form-group">
+                <label for="course.name" th:text="#{courses.thCourseName}"></label>
+                <input id="course.name" class="form-control" required type="text"
+                       th:field="*{name}" th:placeholder="${course.name}">
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Update">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>

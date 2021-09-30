@@ -7,32 +7,28 @@
         <header th:insert="fragments::header"></header>
         <h2 th:text="#{teachers.add}"></h2>
         <form th:action="@{/editing/teachers/add}" th:object="${teacher}" method="post">
+
             <div class="form-group">
-
-                <label th:text="#{firstName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${teacher.firstName}" th:name="firstName" required> <label>
-                    <div style="color: red;" th:if="${#fields.hasErrors('firstName')}"
-                        th:errors="*{firstName}"></div>
-                </label>
-                <p></p>
-
-                <label th:text="#{lastName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${teacher.lastName}" th:name="lastName" required> <label>
-                    <div style="color: red;" th:if="${#fields.hasErrors('lastName')}"
-                        th:errors="*{lastName}"></div>
-                </label>
-                <p></p>
-
-                <div class="box">
-                    <label th:text="#{course}"></label> <select class="form-control" th:name="course.id"
-                        required>
-                        <option th:each="course: ${courses}" th:value="${course.id}"
-                            th:text="${course.name}"></option>
-                    </select>
-                </div>
-
+                <label for="firstName" th:text="#{firstName}"></label>
+                <input id="firstName" class="form-control" required type="text" name="firstName">
+                <span style="color: red;" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
             </div>
-            <input type="submit" class="btn btn-primary" value="Create">
+
+            <div class="form-group">
+                <label for="lastName" th:text="#{lastName}"></label>
+                <input id="lastName" class="form-control" required type="text" name="lastName">
+                <span style="color: red;" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="course.id" th:text="#{course}"></label>
+                <select id="course.id" class="form-control" required name="course.id">
+                    <option th:each="course: ${courses}"
+                            th:value="${course.id}" th:text="${course.name}"></option>
+                </select>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Create">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>

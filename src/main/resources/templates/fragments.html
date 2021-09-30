@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head (title)">
 <meta charset="UTF-8">
@@ -30,29 +30,42 @@
     </div>
 
     <ul class="nav nav-pills" th:fragment="menu_login">
-        <li class="nav-item"><a class="nav-link active" href="/index" th:text="#{index.pageName}"></a></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
     </ul>
 
     <ul class="nav nav-pills" th:fragment="menu_view">
-        <li class="nav-item"><a class="nav-link active" href="/index" th:text="#{index.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/viewing"
-            th:text="#{scheduleLines.pageName}"></a></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/viewing" th:text="#{scheduleLines.pageName}"></a>
+        </li>
     </ul>
 
     <ul class="nav nav-pills" th:fragment="menu_edit">
-        <li class="nav-item"><a class="nav-link active" href="/index" th:text="#{index.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/schedule-lines"
-            th:text="#{scheduleLines.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/teachers"
-            th:text="#{teachers.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/courses"
-            th:text="#{courses.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/rooms"
-            th:text="#{rooms.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/students"
-            th:text="#{students.pageName}"></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/editing/groups"
-            th:text="#{groups.pageName}"></a></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/schedule-lines" th:text="#{scheduleLines.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/teachers" th:text="#{teachers.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/courses" th:text="#{courses.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/rooms" th:text="#{rooms.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/students" th:text="#{students.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/groups" th:text="#{groups.pageName}"></a>
+        </li>
     </ul>
 
     <footer th:fragment="footer">

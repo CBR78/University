@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::head ('Add Course')" />
+<head th:replace="fragments::head ('Add Course')">
 
 <body>
     <div class="container">
         <header th:insert="fragments::header"></header>
         <h2 th:text="#{courses.add}"></h2>
         <form th:action="@{/editing/courses/add}" th:object="${course}" method="post">
+
             <div class="form-group">
-
-                <label th:text="#{courses.thCourseName}"></label> <input type="text" class="form-control"
-                    th:placeholder="${course.name}" th:name="name" required> <label>
-                    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                </label>
-                <p></p>
-
+                <label for="name" th:text="#{courses.thCourseName}"></label>
+                <input id="name" class="form-control" required type="text" name="name">
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
-            <input type="submit" class="btn btn-primary" value="Create">
+
+            <input class="btn btn-primary" type="submit" value="Create">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>

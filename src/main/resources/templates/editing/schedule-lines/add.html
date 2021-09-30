@@ -7,45 +7,44 @@
         <header th:insert="fragments::header"></header>
         <h2 th:text="#{scheduleLines.add}"></h2>
         <form th:action="@{/editing/schedule-lines/add}" method="post">
+
             <div class="form-group">
-
-                <div class="box">
-                    <label th:text="#{date}"></label> <input type="date" th:type="date"
-                        class="form-control" th:name="date" required>
-                </div>
-
-                <div class="box">
-                    <label th:text="#{timeLessonPair}"></label> <select class="form-control"
-                        th:name="lessonPair" required>
-                        <option th:each="lessonPair : ${T(com.cbr.university.model.LessonPair).values()}"
-                            th:value="${lessonPair}" th:text="${lessonPair.getPairStartTime()}"></option>
-                    </select>
-                </div>
-
-                <div class="box">
-                    <label th:text="#{group}"></label> <select class="form-control" th:name="group.id"
-                        required>
-                        <option th:each="group: ${groups}" th:text="${group.name}" th:value="${group.id}"></option>
-                    </select>
-                </div>
-
-                <div class="box">
-                    <label th:text="#{teacher}"></label> <select class="form-control"
-                        th:name="teacher.id" required>
-                        <option th:each="teacher: ${teachers}" th:value="${teacher.id}"
-                            th:text="${teacher.firstName + ' ' + teacher.lastName}"></option>
-                    </select>
-                </div>
-
-                <div class="box">
-                    <label th:text="#{room}"></label> <select class="form-control" th:name="room.id"
-                        required>
-                        <option th:each="room: ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
-                    </select>
-
-                </div>
+                <label for="date" th:text="#{date}"></label>
+                <input id="date" class="form-control" required type="date" name="date">
             </div>
-            <input type="submit" class="btn btn-primary" value="Create">
+
+            <div class="form-group">
+                <label for="lessonPair" th:text="#{timeLessonPair}"></label>
+                <select id="lessonPair" class="form-control" required name="lessonPair">
+                    <option th:each="lessonPair: ${T(com.cbr.university.model.LessonPair).values()}"
+                            th:value="${lessonPair}" th:text="${lessonPair.getPairStartTime()}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="group.id" th:text="#{group}"></label>
+                <select id="group.id" class="form-control" required name="group.id">
+                    <option th:each="group: ${groups}"
+                            th:value="${group.id}" th:text="${group.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="teacher.id" th:text="#{teacher}"></label>
+                <select id="teacher.id" class="form-control" required name="teacher.id">
+                    <option th:each="teacher: ${teachers}"
+                            th:value="${teacher.id}" th:text="${teacher.firstName + ' ' + teacher.lastName}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="room.id" th:text="#{room}"></label>
+                <select id="room.id" class="form-control" required name="room.id">
+                    <option th:each="room: ${rooms}"
+                            th:value="${room.id}" th:text="${room.name}"></option>
+                </select>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Create">
         </form>
         <footer th:insert="fragments::footer"></footer>
     </div>
