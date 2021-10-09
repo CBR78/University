@@ -70,14 +70,14 @@
 
     <footer th:fragment="footer">
         <p></p>
-        <p>
+        <p></p>
             Copyright ©
             <time datetime="2020">2020</time>
-            <span sec:authorize="isAuthenticated()">| Logged user: <span sec:authentication="name"></span>
+            <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span>
                 | Roles: <span sec:authentication="principal.authorities"></span>
             </span>
         <div th:text="#{footer}"></div>
-        </p>
         <address th:text="#{address}"></address>
     </footer>
 
