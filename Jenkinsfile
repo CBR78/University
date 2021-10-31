@@ -1,9 +1,27 @@
 pipeline {
     agent any
+
     stages {
-        stage('Stage 1') {
+        stage('Build') {
             steps {
-                echo 'Hello world!'
+                checkout scm
+                sh './mvnw compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './mvnw test'
+                junit '**/target/surefire-reports/TEST-*.xml'
+            }
+        }
+        stage('Package') {
+              steps {
+                sh './mvnw package -DskipTests'
+              }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
