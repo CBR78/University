@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class test {
+public class TestForJenkinsPipeline {
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void testForJenkinsPipeline() {
         assertEquals("1", "1");
     }

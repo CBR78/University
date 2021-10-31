@@ -4,8 +4,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                checkout scm
-                sh 'chmod +x ./mvnw'
                 sh './mvnw compile'
             }
         }
