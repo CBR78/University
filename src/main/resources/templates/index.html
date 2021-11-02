@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments::head (title=#{index.title})" />
+
+<body>
+    <div class="container">
+
+        <div class="row justify-content-between">
+            <header class="col-8" th:insert="fragments::header"></header>
+            <span class="col-4" th:insert="fragments::lang"></span>
+        </div>
+
+        <span sec:authorize="isAnonymous()" th:insert="fragments::menu_login"></span>
+        <span sec:authorize="hasRole('STUDENT')" th:insert="fragments::menu_view"></span>
+        <span sec:authorize="hasRole('EDITOR')" th:insert="fragments::menu_edit"></span>
+
+        <form sec:authorize="isAnonymous()" th:action="@{/login}" method="post">
+            <fieldset>
+                <h2>Please Sign In</h2>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid username and password.</div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+
+                <div class="form-group">
+                    <label> User Name : <input type="text" name="username" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label> Password: <input type="password" name="password"/>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign In</button>
+
+            </fieldset>
+        </form>
+
+        <p></p>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button class="btn btn-primary" type="submit">Sign Out</button>
+        </form>
+
+        <footer th:insert="fragments::footer"></footer>
+    </div>
+</body>
+</html>

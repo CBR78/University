@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head ('Edit Course')">
+
+<body>
+    <div class="container">
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{courses.edit}"></h2>
+        <form method="post" th:action="@{/editing/courses/edit/{id}(id=${course.id})}" th:object="${course}">
+
+            <div class="form-group">
+                <label for="course.id">Id:</label>
+                <input id="course.id" class="form-control" readonly
+                       th:placeholder="${course.id}">
+            </div>
+
+            <div class="form-group">
+                <label for="course.name" th:text="#{courses.thCourseName}"></label>
+                <input id="course.name" class="form-control" required type="text"
+                       th:field="*{name}" th:placeholder="${course.name}">
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Update">
+        </form>
+        <footer th:insert="fragments::footer"></footer>
+    </div>
+</body>
+</html>

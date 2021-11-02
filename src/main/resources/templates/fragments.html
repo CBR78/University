@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:fragment="head (title)">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+<title th:text="${title}"></title>
+</head>
+
+<body>
+
+    <header th:fragment="header">
+        <h2 th:text="#{header}"></h2>
+    </header>
+
+    <div th:fragment="lang">
+        <a href="?locale=en">EN</a> | <a href="?locale=ru">RU</a>
+    </div>
+
+    <ul class="nav nav-pills" th:fragment="menu_login">
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-pills" th:fragment="menu_view">
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/viewing" th:text="#{scheduleLines.pageName}"></a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-pills" th:fragment="menu_edit">
+        <li class="nav-item">
+            <a class="nav-link active" href="/index" th:text="#{index.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/schedule-lines" th:text="#{scheduleLines.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/teachers" th:text="#{teachers.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/courses" th:text="#{courses.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/rooms" th:text="#{rooms.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/students" th:text="#{students.pageName}"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/editing/groups" th:text="#{groups.pageName}"></a>
+        </li>
+    </ul>
+
+    <footer th:fragment="footer">
+        <p></p>
+        <p></p>
+            Copyright ©
+            <time datetime="2020">2020</time>
+            <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span>
+                | Roles: <span sec:authentication="principal.authorities"></span>
+            </span>
+        <div th:text="#{footer}"></div>
+        <address th:text="#{address}"></address>
+    </footer>
+
+</body>
+</html>

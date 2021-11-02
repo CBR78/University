@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head ('All Groups')" />
+
+<body>
+    <div class="container">
+        <header th:insert="fragments::header"></header>
+        <div th:insert="fragments::menu_edit"></div>
+        <h2 th:text="#{groups.pageName}"></h2>
+        <table class="table table-striped">
+            <thead>
+                <a th:href="@{/editing/groups/add}" th:text="#{groups.add}"></a>
+                <tr>
+                    <th th:text="#{groups.thGroupName}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="group: ${groups}">
+                    <td th:text="${group.name}"></td>
+                    <td><a th:href="@{/editing/groups/edit/{id}(id=${group.id})}" th:text="#{edit}"></a></td>
+                    <td><a th:href="@{/editing/groups/delete/{id}(id=${group.id})}" th:text="#{delete}"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <footer th:insert="fragments::footer"></footer>
+    </div>
+</body>
+</html>
