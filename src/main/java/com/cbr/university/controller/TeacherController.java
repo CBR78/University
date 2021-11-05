@@ -5,7 +5,6 @@ import com.cbr.university.model.Course;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,16 +22,13 @@ public class TeacherController {
     private static final String TEACHER = "teacher";
     private static final String COURSES = "courses";
     private final ModelAndView mv = new ModelAndView();
-    private final ModelMapper modelMapper;
     private final BaseService<Teacher> teacherService;
     private final BaseService<Course> courseService;
 
     @Autowired
-    public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService,
-                             ModelMapper modelMapper) {
+    public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService) {
         this.teacherService = teacherService;
         this.courseService = courseService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -55,7 +51,7 @@ public class TeacherController {
     @PostMapping("add")
     public ModelAndView add(@Validated(RequestUI.class) TeacherDto teacherDto,
             BindingResult result) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        Teacher teacher = new Teacher(teacherDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/add");
@@ -80,7 +76,7 @@ public class TeacherController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@Validated(RequestUI.class) TeacherDto teacherDto,
             BindingResult result) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        Teacher teacher = new Teacher(teacherDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/edit");

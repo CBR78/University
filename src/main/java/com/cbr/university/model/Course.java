@@ -1,10 +1,14 @@
 package com.cbr.university.model;
 
+import com.cbr.university.dto.CourseDto;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "courses")
+@NoArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +17,11 @@ public class Course {
 
     @Column(name = "course_name")
     private String name;
+
+    public Course(CourseDto courseDto) {
+        this.id = courseDto.getId();
+        this.name = courseDto.getName();
+    }
 
     public int getId() {
         return id;

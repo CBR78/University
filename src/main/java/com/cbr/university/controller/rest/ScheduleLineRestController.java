@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,14 +22,11 @@ import java.util.List;
 public class ScheduleLineRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<ScheduleLine> scheduleLineService;
 
     @Autowired
-    public ScheduleLineRestController(BaseService<ScheduleLine> scheduleLineService,
-                                      ModelMapper modelMapper) {
+    public ScheduleLineRestController(BaseService<ScheduleLine> scheduleLineService) {
         this.scheduleLineService = scheduleLineService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -46,7 +42,7 @@ public class ScheduleLineRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ScheduleLine> add(
             @Validated(Create.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
+        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,
@@ -57,7 +53,7 @@ public class ScheduleLineRestController {
     @PutMapping
     public ResponseEntity<ScheduleLine> update(
             @Validated(Update.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
+        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME,

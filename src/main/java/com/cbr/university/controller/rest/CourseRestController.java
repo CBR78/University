@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,11 @@ import java.util.List;
 public class CourseRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<Course> courseService;
 
     @Autowired
-    public CourseRestController(BaseService<Course> courseService, ModelMapper modelMapper) {
+    public CourseRestController(BaseService<Course> courseService) {
         this.courseService = courseService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -43,7 +40,7 @@ public class CourseRestController {
     @PostMapping
     public ResponseEntity<Course> add(
             @Validated(Create.class) @RequestBody CourseDto courseDto) {
-        Course course = modelMapper.map(courseDto, Course.class);
+        Course course = new Course(courseDto);
         Course createdCourse = courseService.create(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId());
@@ -53,7 +50,7 @@ public class CourseRestController {
     @PutMapping
     public ResponseEntity<Course> update(
             @Validated(Update.class) @RequestBody CourseDto courseDto) {
-        Course course = modelMapper.map(courseDto, Course.class);
+        Course course = new Course(courseDto);
         Course updatedCourse = courseService.update(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId());

@@ -4,7 +4,6 @@ import com.cbr.university.dto.CourseDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,13 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class CourseController {
     private static final String COURSE = "course";
     private final ModelAndView mv = new ModelAndView();
-    private final ModelMapper modelMapper;
     private final BaseService<Course> courseService;
 
     @Autowired
-    public CourseController(BaseService<Course> courseService, ModelMapper modelMapper) {
+    public CourseController(BaseService<Course> courseService) {
         this.courseService = courseService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -49,7 +46,7 @@ public class CourseController {
     @PostMapping("add")
     public ModelAndView add(@Validated(RequestUI.class) CourseDto courseDto,
             BindingResult result) {
-        Course course = modelMapper.map(courseDto, Course.class);
+        Course course = new Course(courseDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/courses/add");
@@ -72,7 +69,7 @@ public class CourseController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@Validated(RequestUI.class) CourseDto courseDto,
             BindingResult result) {
-        Course course = modelMapper.map(courseDto, Course.class);
+        Course course = new Course(courseDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/courses/edit");

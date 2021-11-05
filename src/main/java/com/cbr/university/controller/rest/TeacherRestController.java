@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,11 @@ import java.util.List;
 public class TeacherRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<Teacher> teacherService;
 
     @Autowired
-    public TeacherRestController(BaseService<Teacher> teacherService, ModelMapper modelMapper) {
+    public TeacherRestController(BaseService<Teacher> teacherService) {
         this.teacherService = teacherService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -45,7 +42,7 @@ public class TeacherRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Teacher> add(
             @Validated(Create.class) @RequestBody TeacherDto teacherDto) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        Teacher teacher = new Teacher(teacherDto);
         Teacher createdTeacher = teacherService.create(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Teacher object with id " + createdTeacher.getId());
@@ -55,7 +52,7 @@ public class TeacherRestController {
     @PutMapping
     public ResponseEntity<Teacher> update(
             @Validated(Update.class) @RequestBody TeacherDto teacherDto) {
-        Teacher teacher = modelMapper.map(teacherDto, Teacher.class);
+        Teacher teacher = new Teacher(teacherDto);
         Teacher updatedTeacher = teacherService.update(teacher);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Teacher object with id " + updatedTeacher.getId());

@@ -4,7 +4,6 @@ import com.cbr.university.dto.GroupDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,13 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class GroupController {
     private static final String GROUP = "group";
     private final ModelAndView mv = new ModelAndView();
-    private final ModelMapper modelMapper;
     private final BaseService<Group> groupService;
 
     @Autowired
-    public GroupController(BaseService<Group> groupService, ModelMapper modelMapper) {
+    public GroupController(BaseService<Group> groupService) {
         this.groupService = groupService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -49,7 +46,7 @@ public class GroupController {
     @PostMapping("add")
     public ModelAndView add(@Validated(RequestUI.class) GroupDto groupDto,
             BindingResult result) {
-        Group group = modelMapper.map(groupDto, Group.class);
+        Group group = new Group(groupDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/groups/add");
@@ -72,7 +69,7 @@ public class GroupController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@Validated(RequestUI.class) GroupDto groupDto,
             BindingResult result) {
-        Group group = modelMapper.map(groupDto, Group.class);
+        Group group = new Group(groupDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/groups/edit");

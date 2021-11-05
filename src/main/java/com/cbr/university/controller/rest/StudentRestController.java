@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,11 @@ import java.util.List;
 public class StudentRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<Student> studentService;
 
     @Autowired
-    public StudentRestController(BaseService<Student> studentService, ModelMapper modelMapper) {
+    public StudentRestController(BaseService<Student> studentService) {
         this.studentService = studentService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -45,7 +42,7 @@ public class StudentRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Student> add(
             @Validated(Create.class) @RequestBody StudentDto studentDto) {
-        Student student = modelMapper.map(studentDto, Student.class);
+        Student student = new Student(studentDto);
         Student createdStudent = studentService.create(student);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Student object with id " + createdStudent.getId());
@@ -55,7 +52,7 @@ public class StudentRestController {
     @PutMapping
     public ResponseEntity<Student> update(
             @Validated(Update.class) @RequestBody StudentDto studentDto) {
-        Student student = modelMapper.map(studentDto, Student.class);
+        Student student = new Student(studentDto);
         Student updatedStudent = studentService.update(student);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Student object with id " + updatedStudent.getId());

@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,11 @@ import java.util.List;
 public class GroupRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<Group> groupService;
 
     @Autowired
-    public GroupRestController(BaseService<Group> groupService, ModelMapper modelMapper) {
+    public GroupRestController(BaseService<Group> groupService) {
         this.groupService = groupService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -43,7 +40,7 @@ public class GroupRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody GroupDto groupDto) {
-        Group group = modelMapper.map(groupDto, Group.class);
+        Group group = new Group(groupDto);
         Group createdGroup = groupService.create(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Group object with id " + createdGroup.getId());
@@ -53,7 +50,7 @@ public class GroupRestController {
     @PutMapping
     public ResponseEntity<Group> update(
             @Validated(Update.class) @RequestBody GroupDto groupDto) {
-        Group group = modelMapper.map(groupDto, Group.class);
+        Group group = new Group(groupDto);
         Group updatedGroup = groupService.update(group);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Group object with id " + updatedGroup.getId());

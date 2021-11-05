@@ -1,11 +1,15 @@
 package com.cbr.university.model;
 
+import com.cbr.university.dto.ScheduleLineDto;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 @Table(name = "schedule_lines")
+@NoArgsConstructor
 public class ScheduleLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +34,15 @@ public class ScheduleLine {
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+    public ScheduleLine(ScheduleLineDto scheduleLineDto) {
+        this.id = scheduleLineDto.getId();
+        this.date = scheduleLineDto.getDate();
+        this.lessonPair = scheduleLineDto.getLessonPair();
+        this.group = new Group(scheduleLineDto.getGroup());  //------------------------------------------------
+        this.teacher = new Teacher(scheduleLineDto.getTeacher());  //------------------------------------------------
+        this.room = new Room(scheduleLineDto.getRoom());  //------------------------------------------------
+    }
 
     public int getId() {
         return id;

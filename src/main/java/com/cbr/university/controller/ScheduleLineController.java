@@ -6,10 +6,8 @@ import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class ScheduleLineController {
     private static final String SCHEDULELINE = "scheduleLine";
     private final ModelAndView mv = new ModelAndView();
-    private final ModelMapper modelMapper;
     private final BaseService<ScheduleLine> scheduleLineService;
     private final BaseService<Group> groupService;
     private final BaseService<Room> roomService;
@@ -30,12 +27,11 @@ public class ScheduleLineController {
     @Autowired
     public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService,
                                   BaseService<Group> groupService, BaseService<Room> roomService,
-                                  BaseService<Teacher> teacherService, ModelMapper modelMapper) {
+                                  BaseService<Teacher> teacherService) {
         this.scheduleLineService = scheduleLineService;
         this.groupService = groupService;
         this.roomService = roomService;
         this.teacherService = teacherService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -58,8 +54,8 @@ public class ScheduleLineController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(ScheduleLineDto scheduleLineDto, BindingResult result) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
+    public ModelAndView add(ScheduleLineDto scheduleLineDto) {
+        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         scheduleLineService.create(scheduleLine);
         return getAll();
     }
@@ -76,8 +72,8 @@ public class ScheduleLineController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(ScheduleLineDto scheduleLineDto, BindingResult result) {
-        ScheduleLine scheduleLine = modelMapper.map(scheduleLineDto, ScheduleLine.class);
+    public ModelAndView edit(ScheduleLineDto scheduleLineDto) {
+        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         scheduleLineService.update(scheduleLine);
         return getAll();
     }

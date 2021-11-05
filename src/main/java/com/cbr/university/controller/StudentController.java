@@ -5,7 +5,6 @@ import com.cbr.university.model.Group;
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,16 +22,13 @@ public class StudentController {
     private static final String STUDENT = "student";
     private static final String GROUPS = "groups";
     private final ModelAndView mv = new ModelAndView();
-    private final ModelMapper modelMapper;
     private final BaseService<Student> studentService;
     private final BaseService<Group> groupService;
 
     @Autowired
-    public StudentController(BaseService<Student> studentService, BaseService<Group> groupService,
-                             ModelMapper modelMapper) {
+    public StudentController(BaseService<Student> studentService, BaseService<Group> groupService) {
         this.studentService = studentService;
         this.groupService = groupService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -55,7 +51,7 @@ public class StudentController {
     @PostMapping("add")
     public ModelAndView add(@Validated(RequestUI.class) StudentDto studentDto,
             BindingResult result) {
-        Student student = modelMapper.map(studentDto, Student.class);
+        Student student = new Student(studentDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/students/add");
@@ -80,7 +76,7 @@ public class StudentController {
     @PostMapping("edit/{id}")
     public ModelAndView edit(@Validated(RequestUI.class) StudentDto studentDto,
             BindingResult result) {
-        Student student = modelMapper.map(studentDto, Student.class);
+        Student student = new Student(studentDto);
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/students/edit");

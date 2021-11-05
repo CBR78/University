@@ -6,7 +6,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,11 @@ import java.util.List;
 public class RoomRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final HttpHeaders headers = new HttpHeaders();
-    private final ModelMapper modelMapper;
     private final BaseService<Room> roomService;
 
     @Autowired
-    public RoomRestController(BaseService<Room> roomService, ModelMapper modelMapper) {
+    public RoomRestController(BaseService<Room> roomService) {
         this.roomService = roomService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -43,7 +40,7 @@ public class RoomRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody RoomDto roomDto) {
-        Room room = modelMapper.map(roomDto, Room.class);
+        Room room = new Room(roomDto);
         Room createdRoom = roomService.create(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Room object with id " + createdRoom.getId());
@@ -52,7 +49,7 @@ public class RoomRestController {
 
     @PutMapping
     public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody RoomDto roomDto) {
-        Room room = modelMapper.map(roomDto, Room.class);
+        Room room = new Room(roomDto);
         Room updatedRoom = roomService.update(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Room object with id " + updatedRoom.getId());

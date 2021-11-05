@@ -1,6 +1,5 @@
 package com.cbr.university;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -54,10 +53,10 @@ public class UniversityWebApp extends SpringBootServletInitializer implements We
         return messageSource;
     }
 
-    @Bean
+    /*@Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
-    }
+    }*/
 
 /*    @Bean
     public Docket api() {
