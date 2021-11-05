@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'chmod +x ./mvnw'
                 sh './mvnw clean package'
-                junit '**/target/surefire-reports/TEST-*.xml'
+                junit 'target/surefire-reports/*.xml'
             }
         }
         stage('Deploy') {
