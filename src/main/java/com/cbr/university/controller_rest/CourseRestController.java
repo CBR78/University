@@ -1,4 +1,4 @@
-package com.cbr.university.controller.rest;
+package com.cbr.university.controller_rest;
 
 import com.cbr.university.dto.CourseDto;
 import com.cbr.university.model.Course;

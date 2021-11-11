@@ -1,4 +1,4 @@
-package com.cbr.university.controller.rest;
+package com.cbr.university.controller_rest;
 
 import com.cbr.university.dto.ScheduleLineDto;
 import com.cbr.university.model.ScheduleLine;
