@@ -1,14 +1,12 @@
 package com.cbr.university.model;
 
 import com.cbr.university.dto.TeacherDto;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "teachers")
-@NoArgsConstructor
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +22,9 @@ public class Teacher {
     @OneToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    public Teacher() {
+    }
 
     public Teacher(TeacherDto teacherDto) {
         this.id = teacherDto.getId();

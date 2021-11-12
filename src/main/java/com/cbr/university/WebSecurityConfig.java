@@ -20,17 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .withUser("editor").password(encoder.encode("4321")).roles("EDITOR");
     }
 
-    /*@Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers("/swagger-ui.html",
-                        "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security",
-                        "/webjars/**",
-                        "/v2/api-docs");
-    }*/
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

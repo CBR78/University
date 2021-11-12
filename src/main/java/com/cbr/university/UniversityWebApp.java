@@ -16,8 +16,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import java.util.Locale;
 
 @SpringBootApplication
-//@EnableSwagger2
-//@Import(BeanValidatorPluginsConfiguration.class)
 public class UniversityWebApp extends SpringBootServletInitializer implements WebMvcConfigurer {
     private static final String INDEX = "index";
 
@@ -52,18 +50,4 @@ public class UniversityWebApp extends SpringBootServletInitializer implements We
         messageSource.setDefaultLocale(Locale.US);
         return messageSource;
     }
-
-    /*@Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }*/
-
-/*    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-    }*/
 }

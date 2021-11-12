@@ -1,7 +1,6 @@
 package com.cbr.university.model;
 
 import com.cbr.university.dto.ScheduleLineDto;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "schedule_lines")
-@NoArgsConstructor
 public class ScheduleLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +32,9 @@ public class ScheduleLine {
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+    public ScheduleLine() {
+    }
 
     public ScheduleLine(ScheduleLineDto scheduleLineDto) {
         this.id = scheduleLineDto.getId();

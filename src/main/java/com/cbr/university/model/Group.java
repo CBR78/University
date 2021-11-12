@@ -1,14 +1,12 @@
 package com.cbr.university.model;
 
 import com.cbr.university.dto.GroupDto;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "groups")
-@NoArgsConstructor
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +15,9 @@ public class Group {
 
     @Column(name = "group_name")
     private String name;
+
+    public Group() {
+    }
 
     public Group(GroupDto groupDto) {
         this.id = groupDto.getId();

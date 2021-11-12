@@ -1,14 +1,12 @@
 package com.cbr.university.model;
 
 import com.cbr.university.dto.RoomDto;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "rooms")
-@NoArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +15,9 @@ public class Room {
 
     @Column(name = "room_name")
     private String name;
+
+    public Room() {
+    }
 
     public Room(RoomDto roomDto) {
         this.id = roomDto.getId();
