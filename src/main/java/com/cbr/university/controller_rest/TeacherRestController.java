@@ -33,8 +33,7 @@ public class TeacherRestController {
     public ResponseEntity<List<Teacher>> getAll() {
         List<Teacher> teachers = teacherService.getAll();
         headers.clear();
-        headers.add(CUSTOM_HEADER_NAME,
-                "All objects Teacher found. Number of objects " + teachers.size());
+        headers.add(CUSTOM_HEADER_NAME, "All objects Teacher found. Number of objects " + teachers.size());
         return new ResponseEntity<>(teachers, headers, HttpStatus.OK);
     }
 
@@ -61,7 +60,9 @@ public class TeacherRestController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Teacher> delete(
-            @NotNull(message = "Request must include a Teacher id") @IdExistsInDb(typeObject = "Teacher", message = "This Teacher id is not in the database") @PathVariable Integer id) {
+            @NotNull(message = "Request must include a Teacher id")
+            @IdExistsInDb(typeObject = "Teacher", message = "This Teacher id is not in the database")
+            @PathVariable Integer id) {
         teacherService.delete(teacherService.getById(id));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted Teacher object with id " + id);

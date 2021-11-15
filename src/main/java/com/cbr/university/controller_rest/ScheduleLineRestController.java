@@ -33,8 +33,7 @@ public class ScheduleLineRestController {
     public ResponseEntity<List<ScheduleLine>> getAll() {
         List<ScheduleLine> scheduleLines = scheduleLineService.getAll();
         headers.clear();
-        headers.add(CUSTOM_HEADER_NAME,
-                "All objects ScheduleLine found. Number of objects " + scheduleLines.size());
+        headers.add(CUSTOM_HEADER_NAME, "All objects ScheduleLine found. Number of objects " + scheduleLines.size());
         return new ResponseEntity<>(scheduleLines, headers, HttpStatus.OK);
     }
 
@@ -45,8 +44,7 @@ public class ScheduleLineRestController {
         ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
         headers.clear();
-        headers.add(CUSTOM_HEADER_NAME,
-                "Created ScheduleLine object with id " + createdScheduleLine.getId());
+        headers.add(CUSTOM_HEADER_NAME, "Created ScheduleLine object with id " + createdScheduleLine.getId());
         return new ResponseEntity<>(createdScheduleLine, headers, HttpStatus.CREATED);
     }
 
@@ -56,8 +54,7 @@ public class ScheduleLineRestController {
         ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
         ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
         headers.clear();
-        headers.add(CUSTOM_HEADER_NAME,
-                "Updated ScheduleLine object with id " + updatedScheduleLine.getId());
+        headers.add(CUSTOM_HEADER_NAME, "Updated ScheduleLine object with id " + updatedScheduleLine.getId());
         return new ResponseEntity<>(updatedScheduleLine, headers, HttpStatus.OK);
     }
 

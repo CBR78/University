@@ -33,8 +33,7 @@ public class StudentRestController {
     public ResponseEntity<List<Student>> getAll() {
         List<Student> students = studentService.getAll();
         headers.clear();
-        headers.add(CUSTOM_HEADER_NAME,
-                "All objects Student found. Number of objects " + students.size());
+        headers.add(CUSTOM_HEADER_NAME, "All objects Student found. Number of objects " + students.size());
         return new ResponseEntity<>(students, headers, HttpStatus.OK);
     }
 
