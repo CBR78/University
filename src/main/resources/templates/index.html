@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments::head (title=#{index.title})" />
+<head>
+<!--    <title th:text="#{index.title}></title>-->
+    <title>University application</title>
+    <th:block th:insert="fragments::head"></th:block>
+</head>
 
 <body>
     <div class="container">
