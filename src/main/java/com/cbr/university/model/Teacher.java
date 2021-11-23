@@ -26,11 +26,17 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(int id) {
+        this.id = id;
+    }
+
     public Teacher(TeacherDto teacherDto) {
-        this.id = teacherDto.getId();
+        if (teacherDto.getId() != null) {
+            this.id = teacherDto.getId();
+        }
         this.firstName = teacherDto.getFirstName();
         this.lastName = teacherDto.getLastName();
-        this.course = new Course(teacherDto.getCourse());  //-----------------------------------------
+        this.course = new Course(teacherDto.getCourse().getId());
     }
 
     public int getId() {

@@ -19,8 +19,14 @@ public class Course {
     public Course() {
     }
 
+    public Course(int id) {
+        this.id = id;
+    }
+
     public Course(CourseDto courseDto) {
-        this.id = courseDto.getId();
+        if (courseDto.getId() != null) {
+            this.id = courseDto.getId();
+        }
         this.name = courseDto.getName();
     }
 

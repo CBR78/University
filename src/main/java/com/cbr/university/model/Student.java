@@ -26,11 +26,17 @@ public class Student {
     public Student() {
     }
 
+    public Student(int id) {
+        this.id = id;
+    }
+
     public Student(StudentDto studentDto) {
-        this.id = studentDto.getId();
+        if (studentDto.getId() != null) {
+            this.id = studentDto.getId();
+        }
         this.firstName = studentDto.getFirstName();
         this.lastName = studentDto.getLastName();
-        this.group = new Group(studentDto.getGroup());  //-----------------------------------------
+        this.group = new Group(studentDto.getGroup().getId());
     }
 
     public int getId() {

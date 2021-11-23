@@ -37,12 +37,14 @@ public class ScheduleLine {
     }
 
     public ScheduleLine(ScheduleLineDto scheduleLineDto) {
-        this.id = scheduleLineDto.getId();
+        if (scheduleLineDto.getId() != null) {
+            this.id = scheduleLineDto.getId();
+        }
         this.date = scheduleLineDto.getDate();
         this.lessonPair = scheduleLineDto.getLessonPair();
-        this.group = new Group(scheduleLineDto.getGroup());  //------------------------------------------------
-        this.teacher = new Teacher(scheduleLineDto.getTeacher());  //------------------------------------------------
-        this.room = new Room(scheduleLineDto.getRoom());  //------------------------------------------------
+        this.group = new Group(scheduleLineDto.getGroup().getId());
+        this.teacher = new Teacher(scheduleLineDto.getTeacher().getId());
+        this.room = new Room(scheduleLineDto.getRoom().getId());
     }
 
     public int getId() {

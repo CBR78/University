@@ -5,7 +5,6 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-<!--        <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n%rEx</pattern> -->
             <pattern>%d{dd.MM.yy HH:mm:ss} [%thread] %-5level %logger{20} - %msg%n%rEx</pattern>
         </encoder>
     </appender>
@@ -21,13 +20,13 @@
         </rollingPolicy>
 
         <encoder>
-<!--        <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n%rEx</pattern> -->
             <pattern>%d{dd.MM.yy HH:mm:ss} [%thread] %-5level %logger{20} - %msg%n%rEx</pattern>
         </encoder>
     </appender>
 
-    <root level="DEBUG">
-        <!--         <appender-ref ref="FILE" /> -->
+    <root level="INFO">
+<!--    <appender-ref ref="FILE" />    -->
         <appender-ref ref="CONSOLE"/>
     </root>
+<!-- TRACE, DEBUG, INFO, WARN, ERROR, FATAL -->
 </configuration>

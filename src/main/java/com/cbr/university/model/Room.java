@@ -19,8 +19,14 @@ public class Room {
     public Room() {
     }
 
+    public Room(int id) {
+        this.id = id;
+    }
+
     public Room(RoomDto roomDto) {
-        this.id = roomDto.getId();
+        if (roomDto.getId() != null) {
+            this.id = roomDto.getId();
+        }
         this.name = roomDto.getName();
     }
 

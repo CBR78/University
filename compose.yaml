@@ -1,18 +1,34 @@
-version: '3.9'
+version: '3'
 
 services:
-
   app:
+    deploy:
+      resources:
+        limits:
+          memory: 1gb
     build: .
     image: university:0.0.1-snapshot
     ports:
       - "8080:8080"
+    networks:
+      net-university:
     depends_on:
       - db
+    restart: unless-stopped
 
   db:
+    deploy:
+      resources:
+        limits:
+          memory: 256m
     image: postgres:14-alpine
     environment:
       POSTGRES_PASSWORD: 123
     ports:
       - "5432:5432"
+    networks:
+      net-university:
+    restart: unless-stopped
+
+networks:
+  net-university:

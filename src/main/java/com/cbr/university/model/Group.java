@@ -19,8 +19,14 @@ public class Group {
     public Group() {
     }
 
+    public Group(int id) {
+        this.id = id;
+    }
+
     public Group(GroupDto groupDto) {
-        this.id = groupDto.getId();
+        if (groupDto.getId() != null) {
+            this.id = groupDto.getId();
+        }
         this.name = groupDto.getName();
     }
 
