@@ -1,8 +1,14 @@
 package com.cbr.university.model;
 
+
 import com.cbr.university.dto.CourseDto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +19,7 @@ public class Course {
     @Column(name = "course_id")
     private int id;
 
-    @Column(name = "course_name")
+    @javax.persistence.Column(name = "course_name")
     private String name;
 
     public Course() {

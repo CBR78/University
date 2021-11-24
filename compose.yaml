@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      net-university:
+      university-net:
     depends_on:
       - db
     restart: unless-stopped
@@ -27,8 +27,13 @@ services:
     ports:
       - "5432:5432"
     networks:
-      net-university:
+      university-net:
+    volumes:
+      - university-pg-data:/var/lib/postgresql/data
     restart: unless-stopped
 
 networks:
-  net-university:
+  university-net:
+
+volumes:
+  university-pg-data:
