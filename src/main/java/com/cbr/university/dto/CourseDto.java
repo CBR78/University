@@ -1,7 +1,11 @@
 package com.cbr.university.dto;
 
 import com.cbr.university.validation.IdExistsInDb;
-import com.cbr.university.validation.group.*;
+import com.cbr.university.validation.group.Cascade;
+import com.cbr.university.validation.group.Create;
+import com.cbr.university.validation.group.None;
+import com.cbr.university.validation.group.RequestUI;
+import com.cbr.university.validation.group.Update;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;

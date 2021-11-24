@@ -1,6 +1,11 @@
 package com.cbr.university.validation;
 
-import com.cbr.university.model.*;
+import com.cbr.university.model.Course;
+import com.cbr.university.model.Group;
+import com.cbr.university.model.Room;
+import com.cbr.university.model.ScheduleLine;
+import com.cbr.university.model.Student;
+import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 
