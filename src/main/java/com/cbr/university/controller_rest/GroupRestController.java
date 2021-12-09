@@ -48,8 +48,7 @@ public class GroupRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Group> add(@Validated(Create.class) @RequestBody GroupDto groupDto) {
-        Group group = new Group(groupDto);
-        Group createdGroup = groupService.create(group);
+        Group createdGroup = groupService.create(new Group(groupDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Group object with id " + createdGroup.getId());
         return new ResponseEntity<>(createdGroup, headers, HttpStatus.CREATED);
@@ -58,8 +57,7 @@ public class GroupRestController {
     @PutMapping
     public ResponseEntity<Group> update(
             @Validated(Update.class) @RequestBody GroupDto groupDto) {
-        Group group = new Group(groupDto);
-        Group updatedGroup = groupService.update(group);
+        Group updatedGroup = groupService.update(new Group(groupDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Group object with id " + updatedGroup.getId());
         return new ResponseEntity<>(updatedGroup, headers, HttpStatus.OK);

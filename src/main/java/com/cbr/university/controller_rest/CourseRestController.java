@@ -47,8 +47,7 @@ public class CourseRestController {
     @PostMapping
     public ResponseEntity<Course> add(
             @Validated(Create.class) @RequestBody CourseDto courseDto) {
-        Course course = new Course(courseDto);
-        Course createdCourse = courseService.create(course);
+        Course createdCourse = courseService.create(new Course(courseDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId());
         return new ResponseEntity<>(createdCourse, headers, HttpStatus.CREATED);
@@ -57,8 +56,7 @@ public class CourseRestController {
     @PutMapping
     public ResponseEntity<Course> update(
             @Validated(Update.class) @RequestBody CourseDto courseDto) {
-        Course course = new Course(courseDto);
-        Course updatedCourse = courseService.update(course);
+        Course updatedCourse = courseService.update(new Course(courseDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId());
         return new ResponseEntity<>(updatedCourse, headers, HttpStatus.OK);

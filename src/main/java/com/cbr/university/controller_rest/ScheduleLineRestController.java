@@ -49,8 +49,7 @@ public class ScheduleLineRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ScheduleLine> add(
             @Validated(Create.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
-        ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
+        ScheduleLine createdScheduleLine = scheduleLineService.create(new ScheduleLine(scheduleLineDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created ScheduleLine object with id " + createdScheduleLine.getId());
         return new ResponseEntity<>(createdScheduleLine, headers, HttpStatus.CREATED);
@@ -59,8 +58,7 @@ public class ScheduleLineRestController {
     @PutMapping
     public ResponseEntity<ScheduleLine> update(
             @Validated(Update.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
-        ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
+        ScheduleLine updatedScheduleLine = scheduleLineService.update(new ScheduleLine(scheduleLineDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated ScheduleLine object with id " + updatedScheduleLine.getId());
         return new ResponseEntity<>(updatedScheduleLine, headers, HttpStatus.OK);

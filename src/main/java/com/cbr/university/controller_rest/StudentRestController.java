@@ -49,8 +49,7 @@ public class StudentRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Student> add(
             @Validated(Create.class) @RequestBody StudentDto studentDto) {
-        Student student = new Student(studentDto);
-        Student createdStudent = studentService.create(student);
+        Student createdStudent = studentService.create(new Student(studentDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Student object with id " + createdStudent.getId());
         return new ResponseEntity<>(createdStudent, headers, HttpStatus.CREATED);
@@ -59,8 +58,7 @@ public class StudentRestController {
     @PutMapping
     public ResponseEntity<Student> update(
             @Validated(Update.class) @RequestBody StudentDto studentDto) {
-        Student student = new Student(studentDto);
-        Student updatedStudent = studentService.update(student);
+        Student updatedStudent = studentService.update(new Student(studentDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Student object with id " + updatedStudent.getId());
         return new ResponseEntity<>(updatedStudent, headers, HttpStatus.OK);

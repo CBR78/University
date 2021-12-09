@@ -49,8 +49,7 @@ public class TeacherRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Teacher> add(
             @Validated(Create.class) @RequestBody TeacherDto teacherDto) {
-        Teacher teacher = new Teacher(teacherDto);
-        Teacher createdTeacher = teacherService.create(teacher);
+        Teacher createdTeacher = teacherService.create(new Teacher(teacherDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Teacher object with id " + createdTeacher.getId());
         return new ResponseEntity<>(createdTeacher, headers, HttpStatus.CREATED);
@@ -59,8 +58,7 @@ public class TeacherRestController {
     @PutMapping
     public ResponseEntity<Teacher> update(
             @Validated(Update.class) @RequestBody TeacherDto teacherDto) {
-        Teacher teacher = new Teacher(teacherDto);
-        Teacher updatedTeacher = teacherService.update(teacher);
+        Teacher updatedTeacher = teacherService.update(new Teacher(teacherDto));
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Teacher object with id " + updatedTeacher.getId());
         return new ResponseEntity<>(updatedTeacher, headers, HttpStatus.OK);
