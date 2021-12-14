@@ -11,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.Locale;
-
 @SpringBootApplication
 public class UniversityWebApp extends SpringBootServletInitializer implements WebMvcConfigurer {
 
@@ -36,8 +34,6 @@ public class UniversityWebApp extends SpringBootServletInitializer implements We
 
     @Bean
     public LocaleResolver localeResolver() {
-        CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(Locale.US);
-        return resolver;
+        return new CookieLocaleResolver();
     }
 }
