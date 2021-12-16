@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+//@EnableJpaRepositories("com.cbr.university.repository") - theoretically, speed up the start
+//@EntityScan("com.cbr.university.model")
 @SpringBootApplication
 public class UniversityWebApp extends SpringBootServletInitializer implements WebMvcConfigurer {
 
