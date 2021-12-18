@@ -5,7 +5,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1gb
+          memory: 2gb
     build: .
     image: university:0.0.1-snapshot
     environment:

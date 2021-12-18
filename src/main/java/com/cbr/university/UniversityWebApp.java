@@ -2,7 +2,6 @@ package com.cbr.university;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,16 +10,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-//@EnableJpaRepositories("com.cbr.university.repository") - theoretically, speed up the start
-//@EntityScan("com.cbr.university.model")
 @SpringBootApplication
-public class UniversityWebApp extends SpringBootServletInitializer implements WebMvcConfigurer {
-
-    private static final String INDEX = "index";
+public class UniversityWebApp implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(UniversityWebApp.class, args);
     }
+
+    private static final String INDEX = "index";
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
