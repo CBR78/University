@@ -1,12 +1,10 @@
 package com.cbr.university.controller_rest;
 
-import com.cbr.university.dto.RoomDto;
 import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,6 @@ public class RoomRestController {
     private final HttpHeaders headers = new HttpHeaders();
     private final BaseService<Room> roomService;
 
-    @Autowired
     public RoomRestController(BaseService<Room> roomService) {
         this.roomService = roomService;
     }
@@ -47,16 +44,16 @@ public class RoomRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody RoomDto roomDto) {
-        Room createdRoom = roomService.create(new Room(roomDto));
+    public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody Room room) {
+        Room createdRoom = roomService.create(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Room object with id " + createdRoom.getId());
         return new ResponseEntity<>(createdRoom, headers, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody RoomDto roomDto) {
-        Room updatedRoom = roomService.update(new Room(roomDto));
+    public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody Room room) {
+        Room updatedRoom = roomService.update(room);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Room object with id " + updatedRoom.getId());
         return new ResponseEntity<>(updatedRoom, headers, HttpStatus.OK);

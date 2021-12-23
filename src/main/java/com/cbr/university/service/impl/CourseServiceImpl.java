@@ -3,7 +3,6 @@ package com.cbr.university.service.impl;
 import com.cbr.university.model.Course;
 import com.cbr.university.repository.CourseRepository;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class CourseServiceImpl implements BaseService<Course> {
     private final CourseRepository courseRepository;
     private final EntityManager entityManager;
 
-    @Autowired
     public CourseServiceImpl(CourseRepository courseRepository, EntityManager entityManager) {
         this.courseRepository = courseRepository;
         this.entityManager = entityManager;

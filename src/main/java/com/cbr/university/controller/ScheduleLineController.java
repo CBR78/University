@@ -1,12 +1,10 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.ScheduleLineDto;
 import com.cbr.university.model.Group;
 import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +22,8 @@ public class ScheduleLineController {
     private final BaseService<Room> roomService;
     private final BaseService<Teacher> teacherService;
 
-    @Autowired
-    public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService,
-                                  BaseService<Group> groupService, BaseService<Room> roomService,
-                                  BaseService<Teacher> teacherService) {
+    public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService, BaseService<Group> groupService,
+                                  BaseService<Room> roomService, BaseService<Teacher> teacherService) {
         this.scheduleLineService = scheduleLineService;
         this.groupService = groupService;
         this.roomService = roomService;
@@ -54,8 +50,7 @@ public class ScheduleLineController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
+    public ModelAndView add(ScheduleLine scheduleLine) {
         scheduleLineService.create(scheduleLine);
         return getAll();
     }
@@ -72,8 +67,7 @@ public class ScheduleLineController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(ScheduleLineDto scheduleLineDto) {
-        ScheduleLine scheduleLine = new ScheduleLine(scheduleLineDto);
+    public ModelAndView edit(ScheduleLine scheduleLine) {
         scheduleLineService.update(scheduleLine);
         return getAll();
     }

@@ -1,10 +1,8 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.RoomDto;
 import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +20,6 @@ public class RoomController {
     private final ModelAndView mv = new ModelAndView();
     private final BaseService<Room> roomService;
 
-    @Autowired
     public RoomController(BaseService<Room> roomService) {
         this.roomService = roomService;
     }
@@ -44,8 +41,7 @@ public class RoomController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) RoomDto roomDto, BindingResult result) {
-        Room room = new Room(roomDto);
+    public ModelAndView add(@Validated(RequestUI.class) Room room, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/rooms/add");
@@ -66,8 +62,7 @@ public class RoomController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) RoomDto roomDto, BindingResult result) {
-        Room room = new Room(roomDto);
+    public ModelAndView edit(@Validated(RequestUI.class) Room room, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/rooms/edit");

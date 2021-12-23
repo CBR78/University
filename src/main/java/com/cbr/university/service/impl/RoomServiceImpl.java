@@ -3,7 +3,6 @@ package com.cbr.university.service.impl;
 import com.cbr.university.model.Room;
 import com.cbr.university.repository.RoomRepository;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class RoomServiceImpl implements BaseService<Room> {
     private final RoomRepository roomRepository;
     private final EntityManager entityManager;
 
-    @Autowired
     public RoomServiceImpl(RoomRepository roomRepository, EntityManager entityManager) {
         this.roomRepository = roomRepository;
         this.entityManager = entityManager;

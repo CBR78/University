@@ -3,7 +3,6 @@ package com.cbr.university.service.impl;
 import com.cbr.university.model.Group;
 import com.cbr.university.repository.GroupRepository;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class GroupServiceImpl implements BaseService<Group> {
     private final GroupRepository groupRepository;
     private final EntityManager entityManager;
 
-    @Autowired
     public GroupServiceImpl(GroupRepository groupRepository, EntityManager entityManager) {
         this.groupRepository = groupRepository;
         this.entityManager = entityManager;

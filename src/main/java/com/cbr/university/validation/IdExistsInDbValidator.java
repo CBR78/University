@@ -7,7 +7,6 @@ import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Student;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -22,7 +21,6 @@ public class IdExistsInDbValidator implements ConstraintValidator<IdExistsInDb, 
     private final BaseService<Teacher> teacherService;
     private BaseService<?> currentService;
 
-    @Autowired
     private IdExistsInDbValidator(BaseService<Course> courseService, BaseService<Group> groupService,
                                   BaseService<Room> roomService, BaseService<ScheduleLine> scheduleLineService,
                                   BaseService<Student> studentService, BaseService<Teacher> teacherService) {
@@ -68,7 +66,6 @@ public class IdExistsInDbValidator implements ConstraintValidator<IdExistsInDb, 
         if (id == null) {
             return true;
         }
-
         return currentService.existsById(id);
     }
 }

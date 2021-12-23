@@ -1,12 +1,10 @@
 package com.cbr.university.controller_rest;
 
-import com.cbr.university.dto.StudentDto;
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,6 @@ public class StudentRestController {
     private final HttpHeaders headers = new HttpHeaders();
     private final BaseService<Student> studentService;
 
-    @Autowired
     public StudentRestController(BaseService<Student> studentService) {
         this.studentService = studentService;
     }
@@ -47,18 +44,16 @@ public class StudentRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Student> add(
-            @Validated(Create.class) @RequestBody StudentDto studentDto) {
-        Student createdStudent = studentService.create(new Student(studentDto));
+    public ResponseEntity<Student> add(@Validated(Create.class) @RequestBody Student student) {
+        Student createdStudent = studentService.create(student);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Student object with id " + createdStudent.getId());
         return new ResponseEntity<>(createdStudent, headers, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Student> update(
-            @Validated(Update.class) @RequestBody StudentDto studentDto) {
-        Student updatedStudent = studentService.update(new Student(studentDto));
+    public ResponseEntity<Student> update(@Validated(Update.class) @RequestBody Student student) {
+        Student updatedStudent = studentService.update(student);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Student object with id " + updatedStudent.getId());
         return new ResponseEntity<>(updatedStudent, headers, HttpStatus.OK);

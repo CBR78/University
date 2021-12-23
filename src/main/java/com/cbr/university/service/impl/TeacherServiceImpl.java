@@ -3,7 +3,6 @@ package com.cbr.university.service.impl;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.repository.TeacherRepository;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
     private final TeacherRepository teacherRepository;
     private final EntityManager entityManager;
 
-    @Autowired
     public TeacherServiceImpl(TeacherRepository teacherRepository, EntityManager entityManager) {
         this.teacherRepository = teacherRepository;
         this.entityManager = entityManager;

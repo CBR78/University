@@ -1,11 +1,9 @@
 package com.cbr.university.controller;
 
-import com.cbr.university.dto.TeacherDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +23,6 @@ public class TeacherController {
     private final BaseService<Teacher> teacherService;
     private final BaseService<Course> courseService;
 
-    @Autowired
     public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService) {
         this.teacherService = teacherService;
         this.courseService = courseService;
@@ -49,9 +46,7 @@ public class TeacherController {
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) TeacherDto teacherDto,
-            BindingResult result) {
-        Teacher teacher = new Teacher(teacherDto);
+    public ModelAndView add(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/add");
@@ -74,9 +69,7 @@ public class TeacherController {
     }
 
     @PostMapping("edit/{id}")
-    public ModelAndView edit(@Validated(RequestUI.class) TeacherDto teacherDto,
-            BindingResult result) {
-        Teacher teacher = new Teacher(teacherDto);
+    public ModelAndView edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();
             mv.setViewName("editing/teachers/edit");

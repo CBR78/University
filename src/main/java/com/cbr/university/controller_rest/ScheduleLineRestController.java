@@ -1,12 +1,10 @@
 package com.cbr.university.controller_rest;
 
-import com.cbr.university.dto.ScheduleLineDto;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,6 @@ public class ScheduleLineRestController {
     private final HttpHeaders headers = new HttpHeaders();
     private final BaseService<ScheduleLine> scheduleLineService;
 
-    @Autowired
     public ScheduleLineRestController(BaseService<ScheduleLine> scheduleLineService) {
         this.scheduleLineService = scheduleLineService;
     }
@@ -47,18 +44,16 @@ public class ScheduleLineRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ScheduleLine> add(
-            @Validated(Create.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine createdScheduleLine = scheduleLineService.create(new ScheduleLine(scheduleLineDto));
+    public ResponseEntity<ScheduleLine> add(@Validated(Create.class) @RequestBody ScheduleLine scheduleLine) {
+        ScheduleLine createdScheduleLine = scheduleLineService.create(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created ScheduleLine object with id " + createdScheduleLine.getId());
         return new ResponseEntity<>(createdScheduleLine, headers, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<ScheduleLine> update(
-            @Validated(Update.class) @RequestBody ScheduleLineDto scheduleLineDto) {
-        ScheduleLine updatedScheduleLine = scheduleLineService.update(new ScheduleLine(scheduleLineDto));
+    public ResponseEntity<ScheduleLine> update(@Validated(Update.class) @RequestBody ScheduleLine scheduleLine) {
+        ScheduleLine updatedScheduleLine = scheduleLineService.update(scheduleLine);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated ScheduleLine object with id " + updatedScheduleLine.getId());
         return new ResponseEntity<>(updatedScheduleLine, headers, HttpStatus.OK);

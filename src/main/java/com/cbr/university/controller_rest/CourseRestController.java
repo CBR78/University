@@ -1,12 +1,10 @@
 package com.cbr.university.controller_rest;
 
-import com.cbr.university.dto.CourseDto;
 import com.cbr.university.model.Course;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +29,6 @@ public class CourseRestController {
     private final HttpHeaders headers = new HttpHeaders();
     private final BaseService<Course> courseService;
 
-    @Autowired
     public CourseRestController(BaseService<Course> courseService) {
         this.courseService = courseService;
     }
@@ -46,8 +43,8 @@ public class CourseRestController {
 
     @PostMapping
     public ResponseEntity<Course> add(
-            @Validated(Create.class) @RequestBody CourseDto courseDto) {
-        Course createdCourse = courseService.create(new Course(courseDto));
+            @Validated(Create.class) @RequestBody Course course) {
+        Course createdCourse = courseService.create(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId());
         return new ResponseEntity<>(createdCourse, headers, HttpStatus.CREATED);
@@ -55,8 +52,8 @@ public class CourseRestController {
 
     @PutMapping
     public ResponseEntity<Course> update(
-            @Validated(Update.class) @RequestBody CourseDto courseDto) {
-        Course updatedCourse = courseService.update(new Course(courseDto));
+            @Validated(Update.class) @RequestBody Course course) {
+        Course updatedCourse = courseService.update(course);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId());
         return new ResponseEntity<>(updatedCourse, headers, HttpStatus.OK);

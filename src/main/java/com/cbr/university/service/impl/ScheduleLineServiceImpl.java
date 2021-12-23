@@ -3,7 +3,6 @@ package com.cbr.university.service.impl;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.repository.ScheduleLineRepository;
 import com.cbr.university.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
     private final ScheduleLineRepository scheduleLineRepository;
     private final EntityManager entityManager;
 
-    @Autowired
     public ScheduleLineServiceImpl(ScheduleLineRepository scheduleLineRepository,
                                    EntityManager entityManager) {
         this.scheduleLineRepository = scheduleLineRepository;
