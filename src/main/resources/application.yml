@@ -1,5 +1,0 @@
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/university_spring
-#    username: user_university_spring
-#    password: 1234
