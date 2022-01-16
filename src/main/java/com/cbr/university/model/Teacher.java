@@ -61,6 +61,17 @@ public class Teacher {
     })
     private Course course;
 
+    public Teacher(int id, String firstName, String lastName, Course course) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.course = course;
+    }
+
+    public Teacher() {
+
+    }
+
     public int getId() {
         return id;
     }

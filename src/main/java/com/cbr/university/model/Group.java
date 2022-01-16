@@ -36,6 +36,15 @@ public class Group {
             RequestUI.class}, min = 2, max = 20, message = "Group name should contain from {min} to {max} letters.")
     private String name;
 
+    public Group(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public Group() {
+
+    }
+
     public int getId() {
         return id;
     }

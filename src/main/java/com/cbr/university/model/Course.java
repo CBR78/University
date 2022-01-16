@@ -38,6 +38,15 @@ public class Course {
             min = 2, max = 30, message = "Course name should contain from {min} to {max} letters.")
     private String name;
 
+    public Course(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Course() {
+
+    }
+
     public int getId() {
         return id;
     }

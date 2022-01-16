@@ -78,6 +78,19 @@ public class ScheduleLine {
     })
     private Room room;
 
+    public ScheduleLine(int id, LocalDate date, LessonPair lessonPair, Group group, Teacher teacher, Room room) {
+        this.id = id;
+        this.date = date;
+        this.lessonPair = lessonPair;
+        this.group = group;
+        this.teacher = teacher;
+        this.room = room;
+    }
+
+    public ScheduleLine() {
+
+    }
+
     public int getId() {
         return id;
     }

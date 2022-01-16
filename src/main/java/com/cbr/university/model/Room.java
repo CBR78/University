@@ -36,6 +36,15 @@ public class Room {
             RequestUI.class}, min = 2, max = 20, message = "Room name should contain from {min} to {max} letters.")
     private String name;
 
+    public Room(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public Room() {
+
+    }
+
     public int getId() {
         return id;
     }
