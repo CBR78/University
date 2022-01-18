@@ -42,7 +42,7 @@ public class ScheduleLineController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("editing/schedule-lines/add");
-        mv.addObject(SCHEDULELINE, new ScheduleLine());
+        mv.addObject(SCHEDULELINE, ScheduleLine.class);
         mv.addObject("groups", groupService.getAll());
         mv.addObject("teachers", teacherService.getAll());
         mv.addObject("rooms", roomService.getAll());

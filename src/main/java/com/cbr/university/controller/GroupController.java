@@ -36,7 +36,7 @@ public class GroupController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("editing/groups/add");
-        mv.addObject(GROUP, new Group());
+        mv.addObject(GROUP, Group.class);
         return mv;
     }
 

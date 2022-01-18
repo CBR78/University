@@ -36,7 +36,7 @@ public class CourseController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("editing/courses/add");
-        mv.addObject(COURSE, new Course());
+        mv.addObject(COURSE, Course.class);
         return mv;
     }
 

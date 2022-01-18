@@ -36,7 +36,7 @@ public class RoomController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("editing/rooms/add");
-        mv.addObject(ROOM, new Room());
+        mv.addObject(ROOM, Room.class);
         return mv;
     }
 

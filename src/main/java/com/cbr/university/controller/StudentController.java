@@ -40,7 +40,7 @@ public class StudentController {
     public ModelAndView add() {
         mv.clear();
         mv.setViewName("editing/students/add");
-        mv.addObject(STUDENT, new Student());
+        mv.addObject(STUDENT, Student.class);
         mv.addObject(GROUPS, groupService.getAll());
         return mv;
     }
