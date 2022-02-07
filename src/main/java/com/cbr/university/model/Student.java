@@ -5,6 +5,12 @@ import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +29,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "students")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +42,7 @@ public class Student {
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Student id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Student", message = "This Student id is not in the database.")
-    private int id;
+    private Integer id;
 
     @Column(name = "student_first_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Student firstName.")
@@ -59,70 +70,16 @@ public class Student {
     })
     private Group group;
 
-    public Student(int id, String firstName, String lastName, Group group) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.group = group;
-    }
-
-    public Student() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Student student = (Student) o;
+        return id != null && Objects.equals(id, student.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, group, id, lastName);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Student other = (Student) obj;
-        return Objects.equals(firstName, other.firstName) && Objects.equals(group, other.group)
-                && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", group="
-                + group + "]";
+        return getClass().hashCode();
     }
 }

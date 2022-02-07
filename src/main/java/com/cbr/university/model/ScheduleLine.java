@@ -5,6 +5,12 @@ import com.cbr.university.validation.LessonPairEnum;
 import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +31,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "schedule_lines")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ScheduleLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +45,7 @@ public class ScheduleLine {
             Update.class}, message = "Request must include a ScheduleLine id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database.")
-    private int id;
+    private Integer id;
 
     @Column(name = "schedule_line_date")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a ScheduleLine date.")
@@ -78,89 +89,16 @@ public class ScheduleLine {
     })
     private Room room;
 
-    public ScheduleLine(int id, LocalDate date, LessonPair lessonPair, Group group, Teacher teacher, Room room) {
-        this.id = id;
-        this.date = date;
-        this.lessonPair = lessonPair;
-        this.group = group;
-        this.teacher = teacher;
-        this.room = room;
-    }
-
-    public ScheduleLine() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LessonPair getLessonPair() {
-        return lessonPair;
-    }
-
-    public void setLessonPair(LessonPair lessonPair) {
-        this.lessonPair = lessonPair;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ScheduleLine that = (ScheduleLine) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, group, id, lessonPair, room, teacher);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ScheduleLine other = (ScheduleLine) obj;
-        return Objects.equals(date, other.date) && Objects.equals(group, other.group)
-                && Objects.equals(id, other.id) && lessonPair == other.lessonPair
-                && Objects.equals(room, other.room) && Objects.equals(teacher, other.teacher);
-    }
-
-    @Override
-    public String toString() {
-        return "ScheduleLine [id=" + id + ", date=" + date + ", lessonPair=" + lessonPair + ", group="
-                + group + ", teacher=" + teacher + ", room=" + room + "]";
+        return getClass().hashCode();
     }
 }

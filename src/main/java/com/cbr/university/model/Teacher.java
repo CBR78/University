@@ -6,6 +6,12 @@ import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.None;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +30,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "teachers")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +43,7 @@ public class Teacher {
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Teacher id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Teacher", message = "This Teacher id is not in the database.")
-    private int id;
+    private Integer id;
 
     @Column(name = "teacher_first_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Teacher firstName.")
@@ -61,70 +72,16 @@ public class Teacher {
     })
     private Course course;
 
-    public Teacher(int id, String firstName, String lastName, Course course) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.course = course;
-    }
-
-    public Teacher() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Teacher teacher = (Teacher) o;
+        return id != null && Objects.equals(id, teacher.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(course, firstName, id, lastName);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Teacher other = (Teacher) obj;
-        return Objects.equals(course, other.course) && Objects.equals(firstName, other.firstName)
-                && Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "Teacher [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", course="
-                + course + "]";
+        return getClass().hashCode();
     }
 }

@@ -5,6 +5,12 @@ import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +25,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "groups")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +38,7 @@ public class Group {
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Group id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Group", message = "This Group id is not in the database.")
-    private int id;
+    private Integer id;
 
     @Column(name = "group_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Group name.")
@@ -36,50 +47,16 @@ public class Group {
             RequestUI.class}, min = 2, max = 20, message = "Group name should contain from {min} to {max} letters.")
     private String name;
 
-    public Group(int id, String name){
-        this.id = id;
-        this.name = name;
-    }
-
-    public Group() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Group group = (Group) o;
+        return id != null && Objects.equals(id, group.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Group other = (Group) obj;
-        return Objects.equals(id, other.id) && Objects.equals(name, other.name);
-    }
-
-    @Override
-    public String toString() {
-        return "Group [id=" + id + ", name=" + name + "]";
+        return getClass().hashCode();
     }
 }
