@@ -5,7 +5,6 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
@@ -27,7 +25,6 @@ import java.util.List;
 @Validated
 public class RoomRestController {
     private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
-    private final HttpHeaders headers = new HttpHeaders();
     private final BaseService<Room> roomService;
 
     public RoomRestController(BaseService<Room> roomService) {
@@ -37,26 +34,28 @@ public class RoomRestController {
     @GetMapping
     public ResponseEntity<List<Room>> getAll() {
         List<Room> rooms = roomService.getAll();
-        headers.clear();
-        headers.add(CUSTOM_HEADER_NAME, "All objects Room found. Number of objects " + rooms.size());
-        return new ResponseEntity<>(rooms, headers, HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .header(CUSTOM_HEADER_NAME, "All objects Room found. Number of objects " + rooms.size())
+                .body(rooms);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Room> add(@Validated(Create.class) @RequestBody Room room) {
         Room createdRoom = roomService.create(room);
-        headers.clear();
-        headers.add(CUSTOM_HEADER_NAME, "Created Room object with id " + createdRoom.getId());
-        return new ResponseEntity<>(createdRoom, headers, HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header(CUSTOM_HEADER_NAME, "Created Room object with id " + createdRoom.getId())
+                .body(createdRoom);
     }
 
     @PutMapping
     public ResponseEntity<Room> update(@Validated(Update.class) @RequestBody Room room) {
         Room updatedRoom = roomService.update(room);
-        headers.clear();
-        headers.add(CUSTOM_HEADER_NAME, "Updated Room object with id " + updatedRoom.getId());
-        return new ResponseEntity<>(updatedRoom, headers, HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .header(CUSTOM_HEADER_NAME, "Updated Room object with id " + updatedRoom.getId())
+                .body(updatedRoom);
     }
 
     @DeleteMapping("{id}")
@@ -65,8 +64,9 @@ public class RoomRestController {
             @IdExistsInDb(typeObject = "Room", message = "This Room id is not in the database")
             @PathVariable Integer id) {
         roomService.deleteById(id);
-        headers.clear();
-        headers.add(CUSTOM_HEADER_NAME, "Deleted Room object with id " + id);
-        return new ResponseEntity<>(headers, HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .header(CUSTOM_HEADER_NAME, "Deleted Room object with id " + id)
+                .build();
     }
 }
