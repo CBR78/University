@@ -76,7 +76,7 @@ public class CourseController {
 
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
-        courseService.delete(courseService.getById(id));
+        courseService.deleteById(id);
         return getAll();
     }
 }

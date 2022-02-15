@@ -30,8 +30,8 @@ public class RoomServiceImpl implements BaseService<Room> {
     }
 
     @Override
-    public void delete(Room room) {
-        roomRepository.delete(room);
+    public void deleteById(int id) {
+        roomRepository.deleteById(id);
     }
 
     @Override

@@ -64,7 +64,7 @@ public class RoomRestController {
             @NotNull(message = "Request must include a Room id")
             @IdExistsInDb(typeObject = "Room", message = "This Room id is not in the database")
             @PathVariable Integer id) {
-        roomService.delete(roomService.getById(id));
+        roomService.deleteById(id);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted Room object with id " + id);
         return new ResponseEntity<>(headers, HttpStatus.OK);

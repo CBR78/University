@@ -64,7 +64,7 @@ public class CourseRestController {
             @NotNull(message = "Request must include a Course id")
             @IdExistsInDb(typeObject = "Course", message = "This Course id is not in the database")
             @PathVariable Integer id) {
-        courseService.delete(courseService.getById(id));
+        courseService.deleteById(id);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted Course object with id " + id);
         return new ResponseEntity<>(headers, HttpStatus.OK);

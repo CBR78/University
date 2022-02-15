@@ -84,7 +84,7 @@ public class TeacherController {
 
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
-        teacherService.delete(teacherService.getById(id));
+        teacherService.deleteById(id);
         return getAll();
     }
 }

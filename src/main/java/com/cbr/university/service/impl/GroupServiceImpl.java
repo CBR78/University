@@ -30,8 +30,8 @@ public class GroupServiceImpl implements BaseService<Group> {
     }
 
     @Override
-    public void delete(Group group) {
-        groupRepository.delete(group);
+    public void deleteById(int id) {
+        groupRepository.deleteById(id);
     }
 
     @Override

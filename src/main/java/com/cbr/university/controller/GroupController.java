@@ -76,7 +76,7 @@ public class GroupController {
 
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
-        groupService.delete(groupService.getById(id));
+        groupService.deleteById(id);
         return getAll();
     }
 }

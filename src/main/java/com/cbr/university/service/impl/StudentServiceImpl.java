@@ -30,8 +30,8 @@ public class StudentServiceImpl implements BaseService<Student> {
     }
 
     @Override
-    public void delete(Student student) {
-        studentRepository.delete(student);
+    public void deleteById(int id) {
+        studentRepository.deleteById(id);
     }
 
     @Override

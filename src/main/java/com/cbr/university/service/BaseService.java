@@ -8,7 +8,7 @@ public interface BaseService<T> {
 
     T update(T t);
 
-    void delete(T t);
+    void deleteById(int id);
 
     List<T> getAll();
 

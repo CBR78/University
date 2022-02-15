@@ -74,7 +74,7 @@ public class ScheduleLineController {
 
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
-        scheduleLineService.delete(scheduleLineService.getById(id));
+        scheduleLineService.deleteById(id);
         return getAll();
     }
 }

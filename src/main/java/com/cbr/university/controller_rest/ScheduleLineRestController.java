@@ -64,7 +64,7 @@ public class ScheduleLineRestController {
             @NotNull(message = "Request must include a ScheduleLine id")
             @IdExistsInDb(typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database")
             @PathVariable Integer id) {
-        scheduleLineService.delete(scheduleLineService.getById(id));
+        scheduleLineService.deleteById(id);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted ScheduleLine object with id " + id);
         return new ResponseEntity<>(headers, HttpStatus.OK);

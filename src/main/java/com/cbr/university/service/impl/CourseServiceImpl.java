@@ -30,8 +30,8 @@ public class CourseServiceImpl implements BaseService<Course> {
     }
 
     @Override
-    public void delete(Course course) {
-        courseRepository.delete(course);
+    public void deleteById(int id) {
+        courseRepository.deleteById(id);
     }
 
     @Override

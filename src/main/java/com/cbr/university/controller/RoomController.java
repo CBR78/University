@@ -76,7 +76,7 @@ public class RoomController {
 
     @GetMapping("delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
-        roomService.delete(roomService.getById(id));
+        roomService.deleteById(id);
         return getAll();
     }
 }

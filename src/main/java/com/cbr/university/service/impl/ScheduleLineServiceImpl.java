@@ -14,8 +14,7 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
     private final ScheduleLineRepository scheduleLineRepository;
     private final EntityManager entityManager;
 
-    public ScheduleLineServiceImpl(ScheduleLineRepository scheduleLineRepository,
-                                   EntityManager entityManager) {
+    public ScheduleLineServiceImpl(ScheduleLineRepository scheduleLineRepository, EntityManager entityManager) {
         this.scheduleLineRepository = scheduleLineRepository;
         this.entityManager = entityManager;
     }
@@ -31,8 +30,8 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
     }
 
     @Override
-    public void delete(ScheduleLine scheduleLine) {
-        scheduleLineRepository.delete(scheduleLine);
+    public void deleteById(int id) {
+        scheduleLineRepository.deleteById(id);
     }
 
     @Override

@@ -64,7 +64,7 @@ public class GroupRestController {
             @NotNull(message = "Request must include a Group id")
             @IdExistsInDb(typeObject = "Group", message = "This Group id is not in the database")
             @PathVariable Integer id) {
-        groupService.delete(groupService.getById(id));
+        groupService.deleteById(id);
         headers.clear();
         headers.add(CUSTOM_HEADER_NAME, "Deleted Group object with id " + id);
         return new ResponseEntity<>(headers, HttpStatus.OK);
