@@ -9,13 +9,12 @@
 <div class="container">
     <header th:insert="fragments::header"></header>
     <h2 th:text="#{scheduleLines.edit}"></h2>
-    <form method="post" th:action="@{/editing/schedule-lines/edit/{id}(id=${scheduleLine.id})}"
-          th:object="${scheduleLine}">
+    <form method="post" th:action="@{/editing/schedule-lines/edit}" th:object="${scheduleLine}">
 
         <div class="form-group">
             <label for="scheduleLine.id">Id:</label>
             <input id="scheduleLine.id" class="form-control" readonly
-                   th:placeholder="${scheduleLine.id}">
+                   th:field="*{id}" th:placeholder="${scheduleLine.id}">
         </div>
 
         <div class="form-group">

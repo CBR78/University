@@ -66,7 +66,7 @@ public class ScheduleLineController {
         return mv;
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("edit")
     public ModelAndView edit(ScheduleLine scheduleLine) {
         scheduleLineService.update(scheduleLine);
         return getAll();

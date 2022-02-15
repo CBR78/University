@@ -61,7 +61,7 @@ public class RoomController {
         return mv;
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("edit")
     public ModelAndView edit(@Validated(RequestUI.class) Room room, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();

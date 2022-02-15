@@ -61,7 +61,7 @@ public class GroupController {
         return mv;
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("edit")
     public ModelAndView edit(@Validated(RequestUI.class) Group group, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();

@@ -68,7 +68,7 @@ public class TeacherController {
         return mv;
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("edit")
     public ModelAndView edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
             mv.clear();
