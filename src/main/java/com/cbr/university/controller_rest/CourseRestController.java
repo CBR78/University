@@ -6,7 +6,6 @@ import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("rest/courses")
 @Validated
 public class CourseRestController {
-    private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final BaseService<Course> courseService;
 
     public CourseRestController(BaseService<Course> courseService) {
@@ -32,41 +31,26 @@ public class CourseRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Course>> getAll() {
-        List<Course> courses = courseService.getAll();
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "All objects Course found. Number of objects " + courses.size())
-                .body(courses);
+    public List<Course> getAll() {
+        return courseService.getAll();
     }
 
     @PostMapping
-    public ResponseEntity<Course> add(@Validated(Create.class) @RequestBody Course course) {
-        Course createdCourse = courseService.create(course);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .header(CUSTOM_HEADER_NAME, "Created Course object with id " + createdCourse.getId())
-                .body(createdCourse);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Course add(@Validated(Create.class) @RequestBody Course course) {
+        return courseService.create(course);
     }
 
     @PutMapping
-    public ResponseEntity<Course> update(@Validated(Update.class) @RequestBody Course course) {
-        Course updatedCourse = courseService.update(course);
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "Updated Course object with id " + updatedCourse.getId())
-                .body(updatedCourse);
+    public Course update(@Validated(Update.class) @RequestBody Course course) {
+        return courseService.update(course);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Course> delete(
+    public void delete(
             @NotNull(message = "Request must include a Course id")
             @IdExistsInDb(typeObject = "Course", message = "This Course id is not in the database")
             @PathVariable Integer id) {
         courseService.deleteById(id);
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "Deleted Course object with id " + id)
-                .build();
     }
 }

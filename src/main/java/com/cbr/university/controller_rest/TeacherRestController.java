@@ -6,7 +6,6 @@ import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("rest/teachers")
 @Validated
 public class TeacherRestController {
-    private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
     private final BaseService<Teacher> teacherService;
 
     public TeacherRestController(BaseService<Teacher> teacherService) {
@@ -32,41 +31,26 @@ public class TeacherRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Teacher>> getAll() {
-        List<Teacher> teachers = teacherService.getAll();
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "All objects Teacher found. Number of objects " + teachers.size())
-                .body(teachers);
+    public List<Teacher> getAll() {
+        return teacherService.getAll();
     }
 
     @PostMapping
-    public ResponseEntity<Teacher> add(@Validated(Create.class) @RequestBody Teacher teacher) {
-        Teacher createdTeacher = teacherService.create(teacher);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .header(CUSTOM_HEADER_NAME, "Created Teacher object with id " + createdTeacher.getId())
-                .body(createdTeacher);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Teacher add(@Validated(Create.class) @RequestBody Teacher teacher) {
+        return teacherService.create(teacher);
     }
 
     @PutMapping
-    public ResponseEntity<Teacher> update(@Validated(Update.class) @RequestBody Teacher teacher) {
-        Teacher updatedTeacher = teacherService.update(teacher);
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "Updated Teacher object with id " + updatedTeacher.getId())
-                .body(updatedTeacher);
+    public Teacher update(@Validated(Update.class) @RequestBody Teacher teacher) {
+        return teacherService.update(teacher);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Teacher> delete(
+    public void delete(
             @NotNull(message = "Request must include a Teacher id")
             @IdExistsInDb(typeObject = "Teacher", message = "This Teacher id is not in the database")
             @PathVariable Integer id) {
         teacherService.deleteById(id);
-        return ResponseEntity
-                .ok()
-                .header(CUSTOM_HEADER_NAME, "Deleted Teacher object with id " + id)
-                .build();
     }
 }
