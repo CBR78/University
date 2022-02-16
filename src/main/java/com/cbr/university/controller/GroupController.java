@@ -30,7 +30,7 @@ public class GroupController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(Group.class);
+        model.addAttribute(new Group());
         return "editing/groups/add";
     }
 
@@ -41,7 +41,7 @@ public class GroupController {
             return "editing/groups/add";
         } else {
             groupService.create(group);
-            return getAll(model);
+            return "redirect:/editing/groups";
         }
     }
 
@@ -58,13 +58,13 @@ public class GroupController {
             return "editing/groups/edit";
         } else {
             groupService.update(group);
-            return getAll(model);
+            return "redirect:/editing/groups";
         }
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable int id) {
         groupService.deleteById(id);
-        return getAll(model);
+        return "redirect:/editing/groups";
     }
 }

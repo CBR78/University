@@ -30,7 +30,7 @@ public class RoomController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(Room.class);
+        model.addAttribute(new Room());
         return "editing/rooms/add";
     }
 
@@ -41,7 +41,7 @@ public class RoomController {
             return "editing/rooms/add";
         } else {
             roomService.create(room);
-            return getAll(model);
+            return "redirect:/editing/rooms";
         }
     }
 
@@ -58,13 +58,13 @@ public class RoomController {
             return "editing/rooms/edit";
         } else {
             roomService.update(room);
-            return getAll(model);
+            return "redirect:/editing/rooms";
         }
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable int id) {
         roomService.deleteById(id);
-        return getAll(model);
+        return "redirect:/editing/rooms";
     }
 }

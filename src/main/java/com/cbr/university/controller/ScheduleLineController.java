@@ -36,7 +36,6 @@ public class ScheduleLineController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(ScheduleLine.class);
         model.addAttribute(groupService.getAll());
         model.addAttribute(teacherService.getAll());
         model.addAttribute(roomService.getAll());
@@ -44,9 +43,9 @@ public class ScheduleLineController {
     }
 
     @PostMapping("add")
-    public String add(ScheduleLine scheduleLine, Model model) {
+    public String add(ScheduleLine scheduleLine) {
         scheduleLineService.create(scheduleLine);
-        return getAll(model);
+        return "redirect:/editing/schedule-lines";
     }
 
     @GetMapping("edit/{id}")
@@ -59,14 +58,14 @@ public class ScheduleLineController {
     }
 
     @PostMapping("edit")
-    public String edit(ScheduleLine scheduleLine, Model model) {
+    public String edit(ScheduleLine scheduleLine) {
         scheduleLineService.update(scheduleLine);
-        return getAll(model);
+        return "redirect:/editing/schedule-lines";
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable int id) {
         scheduleLineService.deleteById(id);
-        return getAll(model);
+        return "redirect:/editing/schedule-lines";
     }
 }

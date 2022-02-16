@@ -33,7 +33,7 @@ public class StudentController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(Student.class);
+        model.addAttribute(new Student());
         model.addAttribute(groupService.getAll());
         return "editing/students/add";
     }
@@ -46,7 +46,7 @@ public class StudentController {
             return "editing/students/add";
         } else {
             studentService.create(student);
-            return getAll(model);
+            return "redirect:/editing/students";
         }
     }
 
@@ -65,13 +65,13 @@ public class StudentController {
             return "editing/students/edit";
         } else {
             studentService.update(student);
-            return getAll(model);
+            return "redirect:/editing/students";
         }
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable int id) {
         studentService.deleteById(id);
-        return getAll(model);
+        return "redirect:/editing/students";
     }
 }

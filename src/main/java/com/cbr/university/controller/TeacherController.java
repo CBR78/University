@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +25,6 @@ public class TeacherController {
         this.courseService = courseService;
     }
 
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("msg", "Welcome to the Netherlands!");
-    }
-
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute(teacherService.getAll());
@@ -39,7 +33,7 @@ public class TeacherController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(Teacher.class);
+        model.addAttribute(new Teacher());
         model.addAttribute(courseService.getAll());
         return "editing/teachers/add";
     }
@@ -52,7 +46,7 @@ public class TeacherController {
             return "editing/teachers/add";
         } else {
             teacherService.create(teacher);
-            return getAll(model);
+            return "redirect:/editing/teachers";
         }
     }
 
@@ -71,13 +65,13 @@ public class TeacherController {
             return "editing/teachers/edit";
         } else {
             teacherService.update(teacher);
-            return getAll(model);
+            return "redirect:/editing/teachers";
         }
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable int id, Model model) {
+    public String delete(@PathVariable int id) {
         teacherService.deleteById(id);
-        return getAll(model);
+        return "redirect:/editing/teachers";
     }
 }
