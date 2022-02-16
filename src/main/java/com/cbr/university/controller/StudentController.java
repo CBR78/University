@@ -5,13 +5,13 @@ import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("editing/students")
@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class StudentController {
     private static final String STUDENT = "student";
     private static final String GROUPS = "groups";
-    private final ModelAndView mv = new ModelAndView();
     private final BaseService<Student> studentService;
     private final BaseService<Group> groupService;
 
@@ -29,62 +28,52 @@ public class StudentController {
     }
 
     @GetMapping
-    public ModelAndView getAll() {
-        mv.clear();
-        mv.setViewName("editing/students/view");
-        mv.addObject("students", studentService.getAll());
-        return mv;
+    public String getAll(Model model) {
+        model.addAttribute("students", studentService.getAll());
+        return "editing/students/view";
     }
 
     @GetMapping("add")
-    public ModelAndView add() {
-        mv.clear();
-        mv.setViewName("editing/students/add");
-        mv.addObject(STUDENT, Student.class);
-        mv.addObject(GROUPS, groupService.getAll());
-        return mv;
+    public String add(Model model) {
+        model.addAttribute(STUDENT, Student.class);
+        model.addAttribute(GROUPS, groupService.getAll());
+        return "editing/students/add";
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Student student, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/students/add");
-            mv.addObject(STUDENT, student);
-            mv.addObject(GROUPS, groupService.getAll());
-            return mv;
+            model.addAttribute(STUDENT, student);
+            model.addAttribute(GROUPS, groupService.getAll());
+            return "editing/students/add";
         } else {
             studentService.create(student);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable int id) {
-        mv.clear();
-        mv.setViewName("editing/students/edit");
-        mv.addObject(STUDENT, studentService.getById(id));
-        mv.addObject(GROUPS, groupService.getAll());
-        return mv;
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute(studentService.getById(id));
+        model.addAttribute(GROUPS, groupService.getAll());
+        return "editing/students/edit";
     }
 
     @PostMapping("edit")
-    public ModelAndView edit(@Validated(RequestUI.class) Student student, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/students/edit");
-            mv.addObject(STUDENT, student);
-            mv.addObject(GROUPS, groupService.getAll());
-            return mv;
+            model.addAttribute(STUDENT, student);
+            model.addAttribute(GROUPS, groupService.getAll());
+            return "editing/students/edit";
         } else {
             studentService.update(student);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, Model model) {
         studentService.deleteById(id);
-        return getAll();
+        return getAll(model);
     }
 }

@@ -5,13 +5,13 @@ import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("editing/teachers")
@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class TeacherController {
     private static final String TEACHER = "teacher";
     private static final String COURSES = "courses";
-    private final ModelAndView mv = new ModelAndView();
     private final BaseService<Teacher> teacherService;
     private final BaseService<Course> courseService;
 
@@ -29,62 +28,52 @@ public class TeacherController {
     }
 
     @GetMapping
-    public ModelAndView getAll() {
-        mv.clear();
-        mv.setViewName("editing/teachers/view");
-        mv.addObject("teachers", teacherService.getAll());
-        return mv;
+    public String getAll(Model model) {
+        model.addAttribute("teachers", teacherService.getAll());
+        return "editing/teachers/view";
     }
 
     @GetMapping("add")
-    public ModelAndView add() {
-        mv.clear();
-        mv.setViewName("editing/teachers/add");
-        mv.addObject(TEACHER, Teacher.class);
-        mv.addObject(COURSES, courseService.getAll());
-        return mv;
+    public String add(Model model) {
+        model.addAttribute(TEACHER, Teacher.class);
+        model.addAttribute(COURSES, courseService.getAll());
+        return "editing/teachers/add";
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Teacher teacher, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/teachers/add");
-            mv.addObject(TEACHER, teacher);
-            mv.addObject(COURSES, courseService.getAll());
-            return mv;
+            model.addAttribute(TEACHER, teacher);
+            model.addAttribute(COURSES, courseService.getAll());
+            return "editing/teachers/add";
         } else {
             teacherService.create(teacher);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable int id) {
-        mv.clear();
-        mv.setViewName("editing/teachers/edit");
-        mv.addObject(TEACHER, teacherService.getById(id));
-        mv.addObject(COURSES, courseService.getAll());
-        return mv;
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute(TEACHER, teacherService.getById(id));
+        model.addAttribute(COURSES, courseService.getAll());
+        return "editing/teachers/edit";
     }
 
     @PostMapping("edit")
-    public ModelAndView edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Teacher teacher, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/teachers/edit");
-            mv.addObject(TEACHER, teacher);
-            mv.addObject(COURSES, courseService.getAll());
-            return mv;
+            model.addAttribute(TEACHER, teacher);
+            model.addAttribute(COURSES, courseService.getAll());
+            return "editing/teachers/edit";
         } else {
             teacherService.update(teacher);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, Model model) {
         teacherService.deleteById(id);
-        return getAll();
+        return getAll(model);
     }
 }

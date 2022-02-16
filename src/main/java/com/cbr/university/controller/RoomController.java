@@ -4,20 +4,19 @@ import com.cbr.university.model.Room;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("editing/rooms")
 @Validated
 public class RoomController {
     private static final String ROOM = "room";
-    private final ModelAndView mv = new ModelAndView();
     private final BaseService<Room> roomService;
 
     public RoomController(BaseService<Room> roomService) {
@@ -25,58 +24,48 @@ public class RoomController {
     }
 
     @GetMapping
-    public ModelAndView getAll() {
-        mv.clear();
-        mv.setViewName("editing/rooms/view");
-        mv.addObject("rooms", roomService.getAll());
-        return mv;
+    public String getAll(Model model) {
+        model.addAttribute("rooms", roomService.getAll());
+        return "editing/rooms/view";
     }
 
     @GetMapping("add")
-    public ModelAndView add() {
-        mv.clear();
-        mv.setViewName("editing/rooms/add");
-        mv.addObject(ROOM, Room.class);
-        return mv;
+    public String add(Model model) {
+        model.addAttribute(ROOM, Room.class);
+        return "editing/rooms/add";
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Room room, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Room room, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/rooms/add");
-            mv.addObject(ROOM, room);
-            return mv;
+            model.addAttribute(ROOM, room);
+            return "editing/rooms/add";
         } else {
             roomService.create(room);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable int id) {
-        mv.clear();
-        mv.setViewName("editing/rooms/edit");
-        mv.addObject(ROOM, roomService.getById(id));
-        return mv;
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute(ROOM, roomService.getById(id));
+        return "editing/rooms/edit";
     }
 
     @PostMapping("edit")
-    public ModelAndView edit(@Validated(RequestUI.class) Room room, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Room room, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/rooms/edit");
-            mv.addObject(ROOM, room);
-            return mv;
+            model.addAttribute(ROOM, room);
+            return "editing/rooms/edit";
         } else {
             roomService.update(room);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, Model model) {
         roomService.deleteById(id);
-        return getAll();
+        return getAll(model);
     }
 }

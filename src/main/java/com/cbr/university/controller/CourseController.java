@@ -4,20 +4,19 @@ import com.cbr.university.model.Course;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("editing/courses")
 @Validated
 public class CourseController {
     private static final String COURSE = "course";
-    private final ModelAndView mv = new ModelAndView();
     private final BaseService<Course> courseService;
 
     public CourseController(BaseService<Course> courseService) {
@@ -25,58 +24,48 @@ public class CourseController {
     }
 
     @GetMapping
-    public ModelAndView getAll() {
-        mv.clear();
-        mv.setViewName("editing/courses/view");
-        mv.addObject("courses", courseService.getAll());
-        return mv;
+    public String getAll(Model model) {
+        model.addAttribute("courses", courseService.getAll());
+        return "editing/courses/view";
     }
 
     @GetMapping("add")
-    public ModelAndView add() {
-        mv.clear();
-        mv.setViewName("editing/courses/add");
-        mv.addObject(COURSE, Course.class);
-        return mv;
+    public String add(Model model) {
+        model.addAttribute(COURSE, Course.class);
+        return "editing/courses/add";
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(RequestUI.class) Course course, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/courses/add");
-            mv.addObject(COURSE, course);
-            return mv;
+            model.addAttribute(COURSE, course);
+            return "editing/courses/add";
         } else {
             courseService.create(course);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable int id) {
-        mv.clear();
-        mv.setViewName("editing/courses/edit");
-        mv.addObject(COURSE, courseService.getById(id));
-        return mv;
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute(COURSE, courseService.getById(id));
+        return "editing/courses/edit";
     }
 
     @PostMapping("edit")
-    public ModelAndView edit(@Validated(RequestUI.class) Course course, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            mv.clear();
-            mv.setViewName("editing/courses/edit");
-            mv.addObject(COURSE, course);
-            return mv;
+            model.addAttribute(COURSE, course);
+            return "editing/courses/edit";
         } else {
             courseService.update(course);
-            return getAll();
+            return getAll(model);
         }
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, Model model) {
         courseService.deleteById(id);
-        return getAll();
+        return getAll(model);
     }
 }

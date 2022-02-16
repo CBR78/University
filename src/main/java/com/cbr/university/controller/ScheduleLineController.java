@@ -6,17 +6,16 @@ import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("editing/schedule-lines")
 public class ScheduleLineController {
     private static final String SCHEDULELINE = "scheduleLine";
-    private final ModelAndView mv = new ModelAndView();
     private final BaseService<ScheduleLine> scheduleLineService;
     private final BaseService<Group> groupService;
     private final BaseService<Room> roomService;
@@ -31,50 +30,44 @@ public class ScheduleLineController {
     }
 
     @GetMapping
-    public ModelAndView getAll() {
-        mv.clear();
-        mv.setViewName("editing/schedule-lines/view");
-        mv.addObject("scheduleLines", scheduleLineService.getAll());
-        return mv;
+    public String getAll(Model model) {
+        model.addAttribute("scheduleLines", scheduleLineService.getAll());
+        return "editing/schedule-lines/view";
     }
 
     @GetMapping("add")
-    public ModelAndView add() {
-        mv.clear();
-        mv.setViewName("editing/schedule-lines/add");
-        mv.addObject(SCHEDULELINE, ScheduleLine.class);
-        mv.addObject("groups", groupService.getAll());
-        mv.addObject("teachers", teacherService.getAll());
-        mv.addObject("rooms", roomService.getAll());
-        return mv;
+    public String add(Model model) {
+        model.addAttribute(SCHEDULELINE, ScheduleLine.class);
+        model.addAttribute("groups", groupService.getAll());
+        model.addAttribute("teachers", teacherService.getAll());
+        model.addAttribute("rooms", roomService.getAll());
+        return "editing/schedule-lines/add";
     }
 
     @PostMapping("add")
-    public ModelAndView add(ScheduleLine scheduleLine) {
+    public String add(ScheduleLine scheduleLine, Model model) {
         scheduleLineService.create(scheduleLine);
-        return getAll();
+        return getAll(model);
     }
 
     @GetMapping("edit/{id}")
-    public ModelAndView edit(@PathVariable int id) {
-        mv.clear();
-        mv.setViewName("editing/schedule-lines/edit");
-        mv.addObject(SCHEDULELINE, scheduleLineService.getById(id));
-        mv.addObject("groups", groupService.getAll());
-        mv.addObject("teachers", teacherService.getAll());
-        mv.addObject("rooms", roomService.getAll());
-        return mv;
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute(SCHEDULELINE, scheduleLineService.getById(id));
+        model.addAttribute("groups", groupService.getAll());
+        model.addAttribute("teachers", teacherService.getAll());
+        model.addAttribute("rooms", roomService.getAll());
+        return "editing/schedule-lines/edit";
     }
 
     @PostMapping("edit")
-    public ModelAndView edit(ScheduleLine scheduleLine) {
+    public String edit(ScheduleLine scheduleLine, Model model) {
         scheduleLineService.update(scheduleLine);
-        return getAll();
+        return getAll(model);
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable int id) {
+    public String delete(@PathVariable int id, Model model) {
         scheduleLineService.deleteById(id);
-        return getAll();
+        return getAll(model);
     }
 }
