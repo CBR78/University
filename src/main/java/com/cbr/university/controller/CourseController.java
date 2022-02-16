@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("editing/courses")
 @Validated
 public class CourseController {
-    private static final String COURSE = "course";
     private final BaseService<Course> courseService;
 
     public CourseController(BaseService<Course> courseService) {
@@ -25,20 +24,20 @@ public class CourseController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("courses", courseService.getAll());
+        model.addAttribute(courseService.getAll());
         return "editing/courses/view";
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(COURSE, Course.class);
+        model.addAttribute(Course.class);
         return "editing/courses/add";
     }
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(COURSE, course);
+            model.addAttribute(course);
             return "editing/courses/add";
         } else {
             courseService.create(course);
@@ -48,14 +47,14 @@ public class CourseController {
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute(COURSE, courseService.getById(id));
+        model.addAttribute(courseService.getById(id));
         return "editing/courses/edit";
     }
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(COURSE, course);
+            model.addAttribute(course);
             return "editing/courses/edit";
         } else {
             courseService.update(course);

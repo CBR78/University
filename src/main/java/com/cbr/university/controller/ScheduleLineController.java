@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("editing/schedule-lines")
 public class ScheduleLineController {
-    private static final String SCHEDULELINE = "scheduleLine";
     private final BaseService<ScheduleLine> scheduleLineService;
     private final BaseService<Group> groupService;
     private final BaseService<Room> roomService;
@@ -31,16 +30,16 @@ public class ScheduleLineController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("scheduleLines", scheduleLineService.getAll());
+        model.addAttribute(scheduleLineService.getAll());
         return "editing/schedule-lines/view";
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(SCHEDULELINE, ScheduleLine.class);
-        model.addAttribute("groups", groupService.getAll());
-        model.addAttribute("teachers", teacherService.getAll());
-        model.addAttribute("rooms", roomService.getAll());
+        model.addAttribute(ScheduleLine.class);
+        model.addAttribute(groupService.getAll());
+        model.addAttribute(teacherService.getAll());
+        model.addAttribute(roomService.getAll());
         return "editing/schedule-lines/add";
     }
 
@@ -52,10 +51,10 @@ public class ScheduleLineController {
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute(SCHEDULELINE, scheduleLineService.getById(id));
-        model.addAttribute("groups", groupService.getAll());
-        model.addAttribute("teachers", teacherService.getAll());
-        model.addAttribute("rooms", roomService.getAll());
+        model.addAttribute(scheduleLineService.getById(id));
+        model.addAttribute(groupService.getAll());
+        model.addAttribute(teacherService.getAll());
+        model.addAttribute(roomService.getAll());
         return "editing/schedule-lines/edit";
     }
 

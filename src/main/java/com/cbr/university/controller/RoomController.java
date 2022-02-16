@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("editing/rooms")
 @Validated
 public class RoomController {
-    private static final String ROOM = "room";
     private final BaseService<Room> roomService;
 
     public RoomController(BaseService<Room> roomService) {
@@ -25,20 +24,20 @@ public class RoomController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("rooms", roomService.getAll());
+        model.addAttribute(roomService.getAll());
         return "editing/rooms/view";
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(ROOM, Room.class);
+        model.addAttribute(Room.class);
         return "editing/rooms/add";
     }
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Room room, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(ROOM, room);
+            model.addAttribute(room);
             return "editing/rooms/add";
         } else {
             roomService.create(room);
@@ -48,14 +47,14 @@ public class RoomController {
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute(ROOM, roomService.getById(id));
+        model.addAttribute(roomService.getById(id));
         return "editing/rooms/edit";
     }
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Room room, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(ROOM, room);
+            model.addAttribute(room);
             return "editing/rooms/edit";
         } else {
             roomService.update(room);

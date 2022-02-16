@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="scheduleLine: ${scheduleLines}">
+                <tr th:each="scheduleLine: ${scheduleLineList}">
                     <td th:text="${scheduleLine.date}"></td>
                     <td th:text="${scheduleLine.lessonPair.pairStartTime}"></td>
                     <td th:text="${scheduleLine.group.name}"></td>

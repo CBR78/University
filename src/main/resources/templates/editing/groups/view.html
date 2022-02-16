@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="group: ${groups}">
+                <tr th:each="group: ${groupList}">
                     <td th:text="${group.name}"></td>
                     <td><a th:href="@{/editing/groups/edit/{id}(id=${group.id})}" th:text="#{edit}"></a></td>
                     <td><a th:href="@{/editing/groups/delete/{id}(id=${group.id})}" th:text="#{delete}"></a></td>

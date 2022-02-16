@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="group.id" th:text="#{group}"></label>
                 <select id="group.id" class="form-control" required name="group.id">
-                    <option th:each="group: ${groups}"
+                    <option th:each="group: ${groupList}"
                             th:value="${group.id}" th:text="${group.name}"></option>
                 </select>
             </div>

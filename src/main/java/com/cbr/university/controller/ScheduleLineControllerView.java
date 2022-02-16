@@ -18,7 +18,7 @@ public class ScheduleLineControllerView {
 
     @GetMapping
     public String getAllView(Model model) {
-        model.addAttribute("scheduleLines", scheduleLineService.getAll());
+        model.addAttribute(scheduleLineService.getAll());
         return "viewing/schedule-lines/view";
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("editing/groups")
 @Validated
 public class GroupController {
-    private static final String GROUP = "group";
     private final BaseService<Group> groupService;
 
     public GroupController(BaseService<Group> groupService) {
@@ -25,20 +24,20 @@ public class GroupController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("groups", groupService.getAll());
+        model.addAttribute(groupService.getAll());
         return "editing/groups/view";
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(GROUP, Group.class);
+        model.addAttribute(Group.class);
         return "editing/groups/add";
     }
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Group group, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(GROUP, group);
+            model.addAttribute(group);
             return "editing/groups/add";
         } else {
             groupService.create(group);
@@ -48,14 +47,14 @@ public class GroupController {
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute(GROUP, groupService.getById(id));
+        model.addAttribute(groupService.getById(id));
         return "editing/groups/edit";
     }
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Group group, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(GROUP, group);
+            model.addAttribute(group);
             return "editing/groups/edit";
         } else {
             groupService.update(group);

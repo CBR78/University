@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="teacher: ${teachers}">
+                <tr th:each="teacher: ${teacherList}">
                     <td th:text="${teacher.firstName}"></td>
                     <td th:text="${teacher.lastName}"></td>
                     <td th:text="${teacher.course.name}"></td>

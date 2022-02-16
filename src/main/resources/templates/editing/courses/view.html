@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="course: ${courses}">
+                <tr th:each="course: ${courseList}">
                     <td th:text="${course.name}"></td>
                     <td><a th:href="@{/editing/courses/edit/{id}(id=${course.id})}" th:text="#{edit}"></a></td>
                     <td><a th:href="@{/editing/courses/delete/{id}(id=${course.id})}" th:text="#{delete}"></a></td>

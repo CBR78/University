@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("editing/students")
 @Validated
 public class StudentController {
-    private static final String STUDENT = "student";
-    private static final String GROUPS = "groups";
     private final BaseService<Student> studentService;
     private final BaseService<Group> groupService;
 
@@ -29,22 +27,22 @@ public class StudentController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("students", studentService.getAll());
+        model.addAttribute(studentService.getAll());
         return "editing/students/view";
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute(STUDENT, Student.class);
-        model.addAttribute(GROUPS, groupService.getAll());
+        model.addAttribute(Student.class);
+        model.addAttribute(groupService.getAll());
         return "editing/students/add";
     }
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(STUDENT, student);
-            model.addAttribute(GROUPS, groupService.getAll());
+            model.addAttribute(student);
+            model.addAttribute(groupService.getAll());
             return "editing/students/add";
         } else {
             studentService.create(student);
@@ -55,15 +53,15 @@ public class StudentController {
     @GetMapping("edit/{id}")
     public String edit(@PathVariable int id, Model model) {
         model.addAttribute(studentService.getById(id));
-        model.addAttribute(GROUPS, groupService.getAll());
+        model.addAttribute(groupService.getAll());
         return "editing/students/edit";
     }
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(STUDENT, student);
-            model.addAttribute(GROUPS, groupService.getAll());
+            model.addAttribute(student);
+            model.addAttribute(groupService.getAll());
             return "editing/students/edit";
         } else {
             studentService.update(student);

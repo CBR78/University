@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="room: ${rooms}">
+                <tr th:each="room: ${roomList}">
                     <td th:text="${room.name}"></td>
                     <td><a th:href="@{/editing/rooms/edit/{id}(id=${room.id})}" th:text="#{edit}"></a></td>
                     <td><a th:href="@{/editing/rooms/delete/{id}(id=${room.id})}" th:text="#{delete}"></a></td>
