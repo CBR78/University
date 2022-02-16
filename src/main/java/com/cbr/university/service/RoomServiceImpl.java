@@ -1,4 +1,4 @@
-package com.cbr.university.service.impl;
+package com.cbr.university.service;
 
 import com.cbr.university.model.Room;
 import com.cbr.university.repository.RoomRepository;

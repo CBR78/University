@@ -1,8 +1,7 @@
-package com.cbr.university.service.impl;
+package com.cbr.university.service;
 
 import com.cbr.university.model.Teacher;
 import com.cbr.university.repository.TeacherRepository;
-import com.cbr.university.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

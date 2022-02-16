@@ -1,4 +1,4 @@
-package com.cbr.university.service.impl;
+package com.cbr.university.service;
 
 import com.cbr.university.model.Group;
 import com.cbr.university.repository.GroupRepository;
