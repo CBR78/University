@@ -39,11 +39,9 @@ public class StudentController {
     }
 
     @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Student student, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(student);
-            model.addAttribute(groupService.getAll());
-            return "editing/students/add";
+            return "redirect:/editing/students/add";
         } else {
             studentService.create(student);
             return "redirect:/editing/students";
@@ -58,11 +56,9 @@ public class StudentController {
     }
 
     @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Student student, Model model, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Student student, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(student);
-            model.addAttribute(groupService.getAll());
-            return "editing/students/edit";
+            return "redirect:/editing/students/edit/{id}";
         } else {
             studentService.update(student);
             return "redirect:/editing/students";

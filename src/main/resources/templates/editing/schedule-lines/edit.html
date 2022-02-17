@@ -6,18 +6,18 @@
 </head>
 
 <body>
-<div class="container">
-    <header th:insert="fragments::header"></header>
-    <h2 th:text="#{scheduleLines.edit}"></h2>
-    <form method="post" th:action="@{/editing/schedule-lines/edit}" th:object="${scheduleLine}">
+    <div class="container">
+        <header th:insert="fragments::header"></header>
+        <h2 th:text="#{scheduleLines.edit}"></h2>
+        <form method="post" th:action="@{/editing/schedule-lines/edit}" th:object="${scheduleLine}">
 
-        <div class="form-group">
-            <label for="scheduleLine.id">Id:</label>
-            <input id="scheduleLine.id" class="form-control" readonly
-                   th:field="*{id}" th:placeholder="${scheduleLine.id}">
-        </div>
+            <div class="form-group">
+                <label for="scheduleLine.id">Id:</label>
+                <input id="scheduleLine.id" class="form-control" readonly
+                       th:field="*{id}" th:placeholder="${scheduleLine.id}">
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
             <label for="date" th:text="#{date}"></label>
             <input id="date" class="form-control" required type="date"
                        name="date">

@@ -35,10 +35,9 @@ public class CourseController {
     }
 
     @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Course course, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(course);
-            return "editing/courses/add";
+            return "redirect:/editing/courses/add";
         } else {
             courseService.create(course);
             return "redirect:/editing/courses";
@@ -52,10 +51,9 @@ public class CourseController {
     }
 
     @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Course course, Model model, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Course course, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(course);
-            return "editing/courses/edit";
+            return "redirect:/editing/courses/edit";
         } else {
             courseService.update(course);
             return "redirect:/editing/courses";

@@ -39,11 +39,9 @@ public class TeacherController {
     }
 
     @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Teacher teacher, Model model, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(teacher);
-            model.addAttribute(courseService.getAll());
-            return "editing/teachers/add";
+            return "redirect:/editing/teachers/add";
         } else {
             teacherService.create(teacher);
             return "redirect:/editing/teachers";
@@ -58,11 +56,9 @@ public class TeacherController {
     }
 
     @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Teacher teacher, Model model, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(teacher);
-            model.addAttribute(courseService.getAll());
-            return "editing/teachers/edit";
+            return "redirect:/editing/teachers/edit";
         } else {
             teacherService.update(teacher);
             return "redirect:/editing/teachers";

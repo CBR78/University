@@ -35,10 +35,9 @@ public class GroupController {
     }
 
     @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Group group, Model model, BindingResult result) {
+    public String add(@Validated(RequestUI.class) Group group, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(group);
-            return "editing/groups/add";
+            return "redirect:/editing/groups/add";
         } else {
             groupService.create(group);
             return "redirect:/editing/groups";
@@ -52,10 +51,9 @@ public class GroupController {
     }
 
     @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Group group, Model model, BindingResult result) {
+    public String edit(@Validated(RequestUI.class) Group group, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute(group);
-            return "editing/groups/edit";
+            return "redirect:/editing/groups/edit";
         } else {
             groupService.update(group);
             return "redirect:/editing/groups";
