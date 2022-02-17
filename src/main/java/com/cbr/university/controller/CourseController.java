@@ -36,11 +36,11 @@ public class CourseController {
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Course course, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/courses/add";
-        } else {
+        if (!result.hasErrors()) {
             courseService.create(course);
             return "redirect:/editing/courses";
+        } else {
+            return "redirect:/editing/courses/add";
         }
     }
 
@@ -52,11 +52,11 @@ public class CourseController {
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Course course, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/courses/edit";
-        } else {
+        if (!result.hasErrors()) {
             courseService.update(course);
             return "redirect:/editing/courses";
+        } else {
+            return "redirect:/editing/courses/edit";
         }
     }
 

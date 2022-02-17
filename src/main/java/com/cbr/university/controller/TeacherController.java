@@ -40,11 +40,11 @@ public class TeacherController {
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/teachers/add";
-        } else {
+        if (!result.hasErrors()) {
             teacherService.create(teacher);
             return "redirect:/editing/teachers";
+        } else {
+            return "redirect:/editing/teachers/add";
         }
     }
 
@@ -57,11 +57,11 @@ public class TeacherController {
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/teachers/edit";
-        } else {
+        if (!result.hasErrors()) {
             teacherService.update(teacher);
             return "redirect:/editing/teachers";
+        } else {
+            return "redirect:/editing/teachers/edit";
         }
     }
 

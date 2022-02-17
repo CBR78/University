@@ -36,11 +36,11 @@ public class RoomController {
 
     @PostMapping("add")
     public String add(@Validated(RequestUI.class) Room room, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/rooms/add";
-        } else {
+        if (!result.hasErrors()) {
             roomService.create(room);
             return "redirect:/editing/rooms";
+        } else {
+            return "redirect:/editing/rooms/add";
         }
     }
 
@@ -52,11 +52,11 @@ public class RoomController {
 
     @PostMapping("edit")
     public String edit(@Validated(RequestUI.class) Room room, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/editing/rooms/edit";
-        } else {
+        if (!result.hasErrors()) {
             roomService.update(room);
             return "redirect:/editing/rooms";
+        } else {
+            return "redirect:/editing/rooms/edit";
         }
     }
 
