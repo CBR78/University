@@ -16,7 +16,12 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 public class StudentRestEndpoint {
     private final BaseService<Student> studentService;
-    StudentHandler handler = new StudentHandler();
+    private final StudentHandler handler = new StudentHandler();
+
+    public StudentRestEndpoint(BaseService<Student> studentService) {
+        this.studentService = studentService;
+    }
+
     RouterFunction<ServerResponse> route = RouterFunctions.route()
             .path("/endpoint/student", builder -> builder
                     .GET(handler::getAllStudents)
@@ -24,10 +29,6 @@ public class StudentRestEndpoint {
                     .PUT(handler::updateStudent)
                     .DELETE("/{id}", handler::deleteStudent))
             .build();
-
-    public StudentRestEndpoint(BaseService<Student> studentService) {
-        this.studentService = studentService;
-    }
 
     public class StudentHandler {
 
@@ -38,14 +39,14 @@ public class StudentRestEndpoint {
 
         public ServerResponse addStudent(ServerRequest request) throws ServletException, IOException {
             Student student = request.body(Student.class);
-            studentService.create(student);
-            return ok().build();
+            Student createdStudent = studentService.create(student);
+            return ok().contentType(APPLICATION_JSON).body(createdStudent);
         }
 
         public ServerResponse updateStudent(ServerRequest request) throws ServletException, IOException {
             Student student = request.body(Student.class);
-            studentService.update(student);
-            return ok().build();
+            Student updatedStudent = studentService.update(student);
+            return ok().contentType(APPLICATION_JSON).body(updatedStudent);
         }
 
         public ServerResponse deleteStudent(ServerRequest request) {
