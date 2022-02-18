@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final String CUSTOM_HEADER_NAME = "X-Query-Result";
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -33,37 +32,31 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        Map<String, Object> body = createBody(status, errors);
-        headers.add(CUSTOM_HEADER_NAME, "@Valid error. More details in the response body.");
+        Map<String, Object> body = createBody("@Valid error. More details in the response body.", status, errors);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, HttpHeaders headers, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         List<String> errors = new ArrayList<>();
-
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             errors.add(violation.getMessage());
         }
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        Map<String, Object> body = createBody(status, errors);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(CUSTOM_HEADER_NAME, "@Validated error. More details in the response body.");
+        Map<String, Object> body = createBody("@Validated error. More details in the response body.", status, errors);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<?> resourceNotFoundException(NoSuchElementException ex, WebRequest request) {
-
+    public ResponseEntity<Object> resourceNotFoundException(NoSuchElementException ex, HttpHeaders headers, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        Map<String, Object> body = createBody(status, null);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(CUSTOM_HEADER_NAME, "Database entry not found");
+        Map<String, Object> body = createBody("Database entry not found", status, null);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    private Map<String, Object> createBody(HttpStatus status, List<String> errors) {
+    private Map<String, Object> createBody(String exceptDescription, HttpStatus status, List<String> errors) {
         Map<String, Object> body = new LinkedHashMap<>();
+        body.put("exceptDescription", exceptDescription);
         body.put("timestamp", new Date());
         body.put("status", status.value());
         body.put("errors", errors);
