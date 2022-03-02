@@ -13,7 +13,8 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication()
+        auth
+                .inMemoryAuthentication()
                 .withUser("student").password(encoder.encode("1234")).roles("STUDENT").and()
                 .withUser("editor").password(encoder.encode("4321")).roles("EDITOR");
     }
