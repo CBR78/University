@@ -6,20 +6,20 @@
 </head>
 
 <body>
-    <div class="container">
-        <header th:insert="fragments::header"></header>
-        <h2 th:text="#{groups.add}"></h2>
-        <form method="post" th:action="@{/editing/groups/add}" th:object="${group}">
+<div class="container">
+    <header th:insert="fragments::header"></header>
+    <h2 th:text="#{groups.add}"></h2>
+    <form method="post" th:action="@{/editing/groups/add}" th:object="${group}">
 
-            <div class="form-group">
-                <label for="name" th:text="#{groups.thGroupName}"></label>
-                <input id="name" class="form-control" required type="text" name="name">
-                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            </div>
+        <div class="form-group">
+            <label for="name" th:text="#{groups.thGroupName}"></label>
+            <input id="name" class="form-control" required type="text" name="name">
+            <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
 
-            <input class="btn btn-primary" type="submit" value="Create">
-        </form>
-        <footer th:insert="fragments::footer"></footer>
-    </div>
+        <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+    <footer th:insert="fragments::footer"></footer>
+</div>
 </body>
 </html>

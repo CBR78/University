@@ -6,33 +6,33 @@
 </head>
 
 <body>
-    <div class="container">
-        <header th:insert="fragments::header"></header>
-        <div th:insert="fragments::menu_view"></div>
-        <h2 th:text="#{scheduleLines.pageName}"></h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th th:text="#{date}"></th>
-                    <th th:text="#{timeLessonPair}"></th>
-                    <th th:text="#{group}"></th>
-                    <th th:text="#{course}"></th>
-                    <th th:text="#{teacher}"></th>
-                    <th th:text="#{room}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="scheduleLine: ${scheduleLineList}">
-                    <td th:text="${scheduleLine.date}"></td>
-                    <td th:text="${scheduleLine.lessonPair.pairStartTime}"></td>
-                    <td th:text="${scheduleLine.group.name}"></td>
-                    <td th:text="${scheduleLine.teacher.course.name}"></td>
-                    <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}"></td>
-                    <td th:text="${scheduleLine.room.name}"></td>
-                </tr>
-            </tbody>
-        </table>
-        <footer th:insert="fragments::footer"></footer>
-    </div>
+<div class="container">
+    <header th:insert="fragments::header"></header>
+    <div th:insert="fragments::menu_view"></div>
+    <h2 th:text="#{scheduleLines.pageName}"></h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{date}"></th>
+            <th th:text="#{timeLessonPair}"></th>
+            <th th:text="#{group}"></th>
+            <th th:text="#{course}"></th>
+            <th th:text="#{teacher}"></th>
+            <th th:text="#{room}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scheduleLine: ${scheduleLineList}">
+            <td th:text="${scheduleLine.date}"></td>
+            <td th:text="${scheduleLine.lessonPair.pairStartTime}"></td>
+            <td th:text="${scheduleLine.group.name}"></td>
+            <td th:text="${scheduleLine.teacher.course.name}"></td>
+            <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}"></td>
+            <td th:text="${scheduleLine.room.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <footer th:insert="fragments::footer"></footer>
+</div>
 </body>
 </html>

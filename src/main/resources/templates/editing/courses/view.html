@@ -6,26 +6,26 @@
 </head>
 
 <body>
-    <div class="container">
-        <header th:insert="fragments::header"></header>
-        <div th:insert="fragments::menu_edit"></div>
-        <h2 th:text="#{courses.pageName}"></h2>
-        <a th:href="@{/editing/courses/add}" th:text="#{courses.add}"></a>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th th:text="#{courses.thCourseName}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="course: ${courseList}">
-                    <td th:text="${course.name}"></td>
-                    <td><a th:href="@{/editing/courses/edit/{id}(id=${course.id})}" th:text="#{edit}"></a></td>
-                    <td><a th:href="@{/editing/courses/delete/{id}(id=${course.id})}" th:text="#{delete}"></a></td>
-                </tr>
-            </tbody>
-        </table>
-        <footer th:insert="fragments::footer"></footer>
-    </div>
+<div class="container">
+    <header th:insert="fragments::header"></header>
+    <div th:insert="fragments::menu_edit"></div>
+    <h2 th:text="#{courses.pageName}"></h2>
+    <a th:href="@{/editing/courses/add}" th:text="#{courses.add}"></a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{courses.thCourseName}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course: ${courseList}">
+            <td th:text="${course.name}"></td>
+            <td><a th:href="@{/editing/courses/edit/{id}(id=${course.id})}" th:text="#{edit}"></a></td>
+            <td><a th:href="@{/editing/courses/delete/{id}(id=${course.id})}" th:text="#{delete}"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <footer th:insert="fragments::footer"></footer>
+</div>
 </body>
 </html>
