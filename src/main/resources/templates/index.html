@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>University application</title>
     <th:block th:insert="fragments::head"></th:block>
@@ -17,7 +17,7 @@
     <span sec:authorize="hasRole('STUDENT')" th:insert="fragments::menu_view"></span>
     <span sec:authorize="hasRole('EDITOR')" th:insert="fragments::menu_edit"></span>
 
-    <form sec:authorize="isAnonymous()" th:action="@{/login}" method="post">
+    <form method="post" sec:authorize="isAnonymous()" th:action="@{/login}">
         <fieldset>
             <h2>Please Sign In</h2>
             <div th:if="${param.error}">
@@ -28,22 +28,22 @@
             </div>
 
             <div class="form-group">
-                <label> User Name : <input type="text" name="username"/>
+                <label> User Name : <input name="username" type="text"/>
                 </label>
             </div>
 
             <div class="form-group">
-                <label> Password: <input type="password" name="password"/>
+                <label> Password: <input name="password" type="password"/>
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Sign In</button>
+            <button class="btn btn-primary" type="submit">Sign In</button>
 
         </fieldset>
     </form>
 
     <p></p>
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+    <form method="post" sec:authorize="isAuthenticated()" th:action="@{/logout}">
         <button class="btn btn-primary" type="submit">Sign Out</button>
     </form>
 

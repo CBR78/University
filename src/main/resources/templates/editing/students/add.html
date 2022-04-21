@@ -13,21 +13,21 @@
 
         <div class="form-group">
             <label for="firstName" th:text="#{firstName}"></label>
-            <input id="firstName" class="form-control" required type="text" name="firstName">
-            <span style="color: red;" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            <input class="form-control" id="firstName" name="firstName" required type="text">
+            <span style="color: red;" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
         </div>
 
         <div class="form-group">
             <label for="lastName" th:text="#{lastName}"></label>
-            <input id="lastName" class="form-control" required type="text" name="lastName">
-            <span style="color: red;" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            <input class="form-control" id="lastName" name="lastName" required type="text">
+            <span style="color: red;" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
         </div>
 
         <div class="form-group">
             <label for="group.id" th:text="#{group}"></label>
-            <select id="group.id" class="form-control" required name="group.id">
+            <select class="form-control" id="group.id" name="group.id" required>
                 <option th:each="group: ${groupList}"
-                        th:value="${group.id}" th:text="${group.name}"></option>
+                        th:text="${group.name}" th:value="${group.id}"></option>
             </select>
         </div>
 

@@ -13,38 +13,38 @@
 
         <div class="form-group">
             <label for="date" th:text="#{date}"></label>
-            <input id="date" class="form-control" required type="date" name="date">
+            <input class="form-control" id="date" name="date" required type="date">
         </div>
 
         <div class="form-group">
             <label for="lessonPair" th:text="#{timeLessonPair}"></label>
-            <select id="lessonPair" class="form-control" required name="lessonPair">
+            <select class="form-control" id="lessonPair" name="lessonPair" required>
                 <option th:each="lessonPair: ${T(com.cbr.university.model.LessonPair).values()}"
-                        th:value="${lessonPair}" th:text="${lessonPair.getPairStartTime()}"></option>
+                        th:text="${lessonPair.getPairStartTime()}" th:value="${lessonPair}"></option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="group.id" th:text="#{group}"></label>
-            <select id="group.id" class="form-control" required name="group.id">
+            <select class="form-control" id="group.id" name="group.id" required>
                 <option th:each="group: ${groupList}"
-                        th:value="${group.id}" th:text="${group.name}"></option>
+                        th:text="${group.name}" th:value="${group.id}"></option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="teacher.id" th:text="#{teacher}"></label>
-            <select id="teacher.id" class="form-control" required name="teacher.id">
+            <select class="form-control" id="teacher.id" name="teacher.id" required>
                 <option th:each="teacher: ${teacherList}"
-                        th:value="${teacher.id}" th:text="${teacher.firstName + ' ' + teacher.lastName}"></option>
+                        th:text="${teacher.firstName + ' ' + teacher.lastName}" th:value="${teacher.id}"></option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="room.id" th:text="#{room}"></label>
-            <select id="room.id" class="form-control" required name="room.id">
+            <select class="form-control" id="room.id" name="room.id" required>
                 <option th:each="room: ${roomList}"
-                        th:value="${room.id}" th:text="${room.name}"></option>
+                        th:text="${room.name}" th:value="${room.id}"></option>
             </select>
         </div>
         <input class="btn btn-primary" type="submit" value="Create">

@@ -17,11 +17,6 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 public class StudentRestEndpoint {
     private final BaseService<Student> studentService;
     private final StudentHandler handler = new StudentHandler();
-
-    public StudentRestEndpoint(BaseService<Student> studentService) {
-        this.studentService = studentService;
-    }
-
     RouterFunction<ServerResponse> route = RouterFunctions.route()
             .path("/endpoint/student", builder -> builder
                     .GET(handler::getAllStudents)
@@ -29,6 +24,10 @@ public class StudentRestEndpoint {
                     .PUT(handler::updateStudent)
                     .DELETE("/{id}", handler::deleteStudent))
             .build();
+
+    public StudentRestEndpoint(BaseService<Student> studentService) {
+        this.studentService = studentService;
+    }
 
     public class StudentHandler {
 
