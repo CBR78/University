@@ -2,7 +2,6 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.repository.ScheduleLineRepository;
-import com.cbr.university.service.BaseService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
