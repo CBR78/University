@@ -12,7 +12,7 @@
 
 #### v.21.10.2021 - Docker
 
-Написаны dockerfile и docker-compose файл, для запуска приложения совместро с контейнером Postgres.  
+Написаны dockerfile и docker-compose, для запуска приложения совместно с контейнером Postgres.  
 Настроен Debian сервер на отдельном ПК.   
 Отлажена работа на:
  - Docker Desktop + WSL2 на Windows 10;
