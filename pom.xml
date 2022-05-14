@@ -81,10 +81,73 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <!-- Generate JMeter configuration -->
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <!-- Run JMeter tests -->
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                    <!-- Fail build on errors in test -->
+                    <execution>
+                        <id>jmeter-check-results</id>
+                        <goals>
+                            <goal>results</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>de.codecentric</groupId>
+                <artifactId>jmeter-graph-maven-plugin</artifactId>
+                <version>0.1.0</version>
+                <configuration>
+                    <inputFile>${project.build.directory}/jmeter/results/20220514-TestPlan-8-22.csv
+                    </inputFile>
+                    <graphs>
+                        <graph>
+                            <pluginType>ThreadsStateOverTime</pluginType>
+                            <width>800</width>
+                            <height>600</height>
+                            <outputFile>
+                                ${project.build.directory}/jmeter/results/SimpleWebservicePerformanceTest-ThreadsStateOverTime.png
+                            </outputFile>
+                        </graph>
+                        <!-- ... you can declare more <graph>-elements here -->
+                    </graphs>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>create-graphs</id>
+                        <goals>
+                            <goal>create-graph</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+
+            </plugin>
+
         </plugins>
     </build>
 </project>
