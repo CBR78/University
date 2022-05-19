@@ -16,7 +16,8 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
         auth
                 .inMemoryAuthentication()
                 .withUser("student").password(encoder.encode("1234")).roles("STUDENT").and()
-                .withUser("editor").password(encoder.encode("4321")).roles("EDITOR");
+                .withUser("editor").password(encoder.encode("4321")).roles("EDITOR").and()
+                .withUser("rest").password(encoder.encode("1122")).roles("REST");
     }
 
     @Override
@@ -26,12 +27,11 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index", "/error").permitAll()
                 .antMatchers("/viewing/**").hasRole("STUDENT")
                 .antMatchers("/editing/**").hasRole("EDITOR")
+                .antMatchers("/rest/**").hasRole("REST")
                 .anyRequest().denyAll().and()
 
-                .formLogin()
-                .loginPage("/login").permitAll().and()
-
-                .logout()
-                .permitAll();
+                .formLogin().loginPage("/login").permitAll().and()
+                .logout().permitAll().and()
+                .httpBasic();
     }
 }
