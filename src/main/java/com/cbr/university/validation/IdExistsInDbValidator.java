@@ -7,24 +7,26 @@ import javax.validation.ConstraintValidatorContext;
 
 public class IdExistsInDbValidator implements ConstraintValidator<IdExistsInDb, Integer> {
 
-    private final ServiceSimpleFactory serviceFactory;
+    private final ServiceContext serviceContext;
     private BaseService<?> currentService;
 
-    IdExistsInDbValidator(ServiceSimpleFactory serviceFactory) {
-        this.serviceFactory = serviceFactory;
+    IdExistsInDbValidator(ServiceContext serviceContext) {
+        this.serviceContext = serviceContext;
     }
 
     @Override
     public void initialize(IdExistsInDb exist) {
-        String typeObject = exist.typeObject();
-        this.currentService = serviceFactory.load(typeObject);
+        this.currentService = serviceContext
+                .getInstance(exist.typeObject())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "typeObject parameter accepts only 1 of 6 values - Course, Group, Room, ScheduleLine, Student, Teacher"));
     }
 
     @Override
     public boolean isValid(Integer id, ConstraintValidatorContext context) {
-        if (id == null) {
+        if (id == null)
             return true;
-        }
-        return currentService.existsById(id);
+        else
+            return currentService.existsById(id);
     }
 }
