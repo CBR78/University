@@ -28,35 +28,35 @@ public class RoomController {
         return "editing/rooms/view";
     }
 
-    @GetMapping("add")
-    public String add(Model model) {
+    @GetMapping("get-add-view")
+    public String getAddView(Model model) {
         model.addAttribute(new Room());
         return "editing/rooms/add";
     }
 
-    @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Room room, BindingResult result) {
+    @PostMapping("save-add-view")
+    public String saveAddView(@Validated(RequestUI.class) Room room, BindingResult result) {
         if (!result.hasErrors()) {
             roomService.create(room);
             return "redirect:/editing/rooms";
         } else {
-            return "redirect:/editing/rooms/add";
+            return "redirect:/editing/rooms/get-add-view";
         }
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    @GetMapping("get-edit-view/{id}")
+    public String getEditView(@PathVariable int id, Model model) {
         model.addAttribute(roomService.getById(id));
         return "editing/rooms/edit";
     }
 
-    @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Room room, BindingResult result) {
+    @PostMapping("save-edit-view")
+    public String saveEditView(@Validated(RequestUI.class) Room room, BindingResult result) {
         if (!result.hasErrors()) {
             roomService.update(room);
             return "redirect:/editing/rooms";
         } else {
-            return "redirect:/editing/rooms/edit";
+            return "redirect:/editing/rooms/get-edit-view/{id}";
         }
     }
 

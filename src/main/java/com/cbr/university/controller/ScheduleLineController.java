@@ -34,22 +34,22 @@ public class ScheduleLineController {
         return "editing/schedule-lines/view";
     }
 
-    @GetMapping("add")
-    public String add(Model model) {
+    @GetMapping("get-add-view")
+    public String getAddView(Model model) {
         model.addAttribute(groupService.getAll());
         model.addAttribute(teacherService.getAll());
         model.addAttribute(roomService.getAll());
         return "editing/schedule-lines/add";
     }
 
-    @PostMapping("add")
-    public String add(ScheduleLine scheduleLine) {
+    @PostMapping("save-add-view")
+    public String saveAddView(ScheduleLine scheduleLine) {
         scheduleLineService.create(scheduleLine);
         return "redirect:/editing/schedule-lines";
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    @GetMapping("get-edit-view/{id}")
+    public String getEditView(@PathVariable int id, Model model) {
         model.addAttribute(scheduleLineService.getById(id));
         model.addAttribute(groupService.getAll());
         model.addAttribute(teacherService.getAll());
@@ -57,8 +57,8 @@ public class ScheduleLineController {
         return "editing/schedule-lines/edit";
     }
 
-    @PostMapping("edit")
-    public String edit(ScheduleLine scheduleLine) {
+    @PostMapping("save-edit-view")
+    public String saveEditView(ScheduleLine scheduleLine) {
         scheduleLineService.update(scheduleLine);
         return "redirect:/editing/schedule-lines";
     }

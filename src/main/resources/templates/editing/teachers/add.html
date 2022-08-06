@@ -9,7 +9,7 @@
 <div class="container">
     <header th:insert="fragments::header"></header>
     <h2 th:text="#{teachers.add}"></h2>
-    <form method="post" th:action="@{/editing/teachers/add}" th:object="${teacher}">
+    <form method="post" th:action="@{/editing/teachers/save-add-view}" th:object="${teacher}">
 
         <div class="form-group">
             <label for="firstName" th:text="#{firstName}"></label>

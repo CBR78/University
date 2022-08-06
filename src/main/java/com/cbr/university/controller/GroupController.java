@@ -28,35 +28,35 @@ public class GroupController {
         return "editing/groups/view";
     }
 
-    @GetMapping("add")
-    public String add(Model model) {
+    @GetMapping("get-add-view")
+    public String getAddView(Model model) {
         model.addAttribute(new Group());
         return "editing/groups/add";
     }
 
-    @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Group group, BindingResult result) {
+    @PostMapping("save-add-view")
+    public String saveAddView(@Validated(RequestUI.class) Group group, BindingResult result) {
         if (!result.hasErrors()) {
             groupService.create(group);
             return "redirect:/editing/groups";
         } else {
-            return "redirect:/editing/groups/add";
+            return "redirect:/editing/groups/get-add-view";
         }
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    @GetMapping("get-edit-view/{id}")
+    public String getEditView(@PathVariable int id, Model model) {
         model.addAttribute(groupService.getById(id));
         return "editing/groups/edit";
     }
 
-    @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Group group, BindingResult result) {
+    @PostMapping("save-edit-view")
+    public String saveEditView(@Validated(RequestUI.class) Group group, BindingResult result) {
         if (!result.hasErrors()) {
             groupService.update(group);
             return "redirect:/editing/groups";
         } else {
-            return "redirect:/editing/groups/edit";
+            return "redirect:/editing/groups/get-edit-view/{id}";
         }
     }
 

@@ -28,35 +28,35 @@ public class CourseController {
         return "editing/courses/view";
     }
 
-    @GetMapping("add")
-    public String add(Model model) {
+    @GetMapping("get-add-view")
+    public String getAddView(Model model) {
         model.addAttribute(new Course());
         return "editing/courses/add";
     }
 
-    @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Course course, BindingResult result) {
+    @PostMapping("save-add-view")
+    public String saveAddView(@Validated(RequestUI.class) Course course, BindingResult result) {
         if (!result.hasErrors()) {
             courseService.create(course);
             return "redirect:/editing/courses";
         } else {
-            return "redirect:/editing/courses/add";
+            return "redirect:/editing/courses/get-add-view";
         }
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    @GetMapping("get-edit-view/{id}")
+    public String getEditView(@PathVariable int id, Model model) {
         model.addAttribute(courseService.getById(id));
         return "editing/courses/edit";
     }
 
-    @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Course course, BindingResult result) {
+    @PostMapping("save-edit-view")
+    public String saveEditView(@Validated(RequestUI.class) Course course, BindingResult result) {
         if (!result.hasErrors()) {
             courseService.update(course);
             return "redirect:/editing/courses";
         } else {
-            return "redirect:/editing/courses/edit";
+            return "redirect:/editing/courses/get-edit-view/{id}";
         }
     }
 

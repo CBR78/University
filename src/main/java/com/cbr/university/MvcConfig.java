@@ -10,7 +10,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
-public class ConfigMvc implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
     private static final String INDEX = "index";
 
     @Override

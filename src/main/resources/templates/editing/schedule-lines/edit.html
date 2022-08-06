@@ -9,7 +9,7 @@
 <div class="container">
     <header th:insert="fragments::header"></header>
     <h2 th:text="#{scheduleLines.edit}"></h2>
-    <form method="post" th:action="@{/editing/schedule-lines/edit}" th:object="${scheduleLine}">
+    <form method="post" th:action="@{/editing/schedule-lines/save-edit-view}" th:object="${scheduleLine}">
 
         <div class="form-group">
             <label for="scheduleLine.id">Id:</label>

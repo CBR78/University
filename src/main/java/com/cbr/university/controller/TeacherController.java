@@ -31,37 +31,37 @@ public class TeacherController {
         return "editing/teachers/view";
     }
 
-    @GetMapping("add")
-    public String add(Model model) {
+    @GetMapping("get-add-view")
+    public String getAddView(Model model) {
         model.addAttribute(new Teacher());
         model.addAttribute(courseService.getAll());
         return "editing/teachers/add";
     }
 
-    @PostMapping("add")
-    public String add(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
+    @PostMapping("save-add-view")
+    public String saveAddView(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (!result.hasErrors()) {
             teacherService.create(teacher);
             return "redirect:/editing/teachers";
         } else {
-            return "redirect:/editing/teachers/add";
+            return "redirect:/editing/teachers/get-add-view";
         }
     }
 
-    @GetMapping("edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
+    @GetMapping("get-edit-view/{id}")
+    public String getEditView(@PathVariable int id, Model model) {
         model.addAttribute(teacherService.getById(id));
         model.addAttribute(courseService.getAll());
         return "editing/teachers/edit";
     }
 
-    @PostMapping("edit")
-    public String edit(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
+    @PostMapping("save-edit-view")
+    public String saveEditView(@Validated(RequestUI.class) Teacher teacher, BindingResult result) {
         if (!result.hasErrors()) {
             teacherService.update(teacher);
             return "redirect:/editing/teachers";
         } else {
-            return "redirect:/editing/teachers/edit";
+            return "redirect:/editing/teachers/get-edit-view/{id}";
         }
     }
 

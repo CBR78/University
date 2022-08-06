@@ -10,7 +10,7 @@
     <header th:insert="fragments::header"></header>
     <div th:insert="fragments::menu_edit"></div>
     <h2 th:text="#{students.pageName}"></h2>
-    <a th:href="@{/editing/students/add}" th:text="#{students.add}"></a>
+    <a th:href="@{/editing/students/get-add-view}" th:text="#{students.add}"></a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -24,7 +24,7 @@
             <td th:text="${student.firstName}"></td>
             <td th:text="${student.lastName}"></td>
             <td th:text="${student.group.name}"></td>
-            <td><a th:href="@{/editing/students/edit/{id}(id=${student.id})}"
+            <td><a th:href="@{/editing/students/get-edit-view/{id}(id=${student.id})}"
                    th:text="#{edit}"></a></td>
             <td><a th:href="@{/editing/students/delete/{id}(id=${student.id})}"
                    th:text="#{delete}"></a></td>
