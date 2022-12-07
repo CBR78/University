@@ -2,21 +2,17 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.repository.ScheduleLineRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
-
     private final ScheduleLineRepository scheduleLineRepository;
     private final EntityManager entityManager;
-
-    public ScheduleLineServiceImpl(ScheduleLineRepository scheduleLineRepository, EntityManager entityManager) {
-        this.scheduleLineRepository = scheduleLineRepository;
-        this.entityManager = entityManager;
-    }
 
     @Override
     public ScheduleLine create(ScheduleLine scheduleLine) {

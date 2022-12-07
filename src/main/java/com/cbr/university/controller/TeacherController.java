@@ -4,6 +4,7 @@ import com.cbr.university.model.Course;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,16 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("editing/teachers")
 @Validated
 public class TeacherController {
     private final BaseService<Teacher> teacherService;
     private final BaseService<Course> courseService;
-
-    public TeacherController(BaseService<Teacher> teacherService, BaseService<Course> courseService) {
-        this.teacherService = teacherService;
-        this.courseService = courseService;
-    }
 
     @GetMapping
     public String getAll(Model model) {

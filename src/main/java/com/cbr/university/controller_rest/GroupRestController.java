@@ -5,6 +5,7 @@ import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.IdExistsInDb;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,14 +22,11 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("rest/groups")
 @Validated
 public class GroupRestController {
     private final BaseService<Group> groupService;
-
-    public GroupRestController(BaseService<Group> groupService) {
-        this.groupService = groupService;
-    }
 
     @GetMapping
     public List<Group> getAll() {

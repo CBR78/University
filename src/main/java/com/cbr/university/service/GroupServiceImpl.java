@@ -2,21 +2,17 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Group;
 import com.cbr.university.repository.GroupRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GroupServiceImpl implements BaseService<Group> {
-
     private final GroupRepository groupRepository;
     private final EntityManager entityManager;
-
-    public GroupServiceImpl(GroupRepository groupRepository, EntityManager entityManager) {
-        this.groupRepository = groupRepository;
-        this.entityManager = entityManager;
-    }
 
     @Override
     public Group create(Group group) {

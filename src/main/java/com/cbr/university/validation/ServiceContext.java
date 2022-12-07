@@ -30,7 +30,6 @@ public class ServiceContext {
     }
 
     public Optional<BaseService<?>> getInstance(String typeObject) {
-
         return Optional.ofNullable(baseService.get(typeObject));
     }
 }

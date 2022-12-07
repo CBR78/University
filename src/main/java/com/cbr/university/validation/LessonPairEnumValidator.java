@@ -6,6 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class LessonPairEnumValidator implements ConstraintValidator<LessonPairEnum, LessonPair> {
+
     @Override
     public boolean isValid(LessonPair lessonPair, ConstraintValidatorContext context) {
         if (lessonPair == null) {

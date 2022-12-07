@@ -3,6 +3,7 @@ package com.cbr.university.controller;
 import com.cbr.university.model.Group;
 import com.cbr.university.service.BaseService;
 import com.cbr.university.validation.group.RequestUI;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,14 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("editing/groups")
 @Validated
 public class GroupController {
     private final BaseService<Group> groupService;
-
-    public GroupController(BaseService<Group> groupService) {
-        this.groupService = groupService;
-    }
 
     @GetMapping
     public String getAll(Model model) {

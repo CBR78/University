@@ -2,21 +2,17 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Student;
 import com.cbr.university.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl implements BaseService<Student> {
-
     private final StudentRepository studentRepository;
     private final EntityManager entityManager;
-
-    public StudentServiceImpl(StudentRepository studentRepository, EntityManager entityManager) {
-        this.studentRepository = studentRepository;
-        this.entityManager = entityManager;
-    }
 
     @Override
     public Student create(Student student) {

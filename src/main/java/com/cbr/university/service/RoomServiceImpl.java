@@ -2,21 +2,17 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Room;
 import com.cbr.university.repository.RoomRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RoomServiceImpl implements BaseService<Room> {
-
     private final RoomRepository roomRepository;
     private final EntityManager entityManager;
-
-    public RoomServiceImpl(RoomRepository roomRepository, EntityManager entityManager) {
-        this.roomRepository = roomRepository;
-        this.entityManager = entityManager;
-    }
 
     @Override
     public Room create(Room room) {

@@ -5,6 +5,7 @@ import com.cbr.university.model.Room;
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.model.Teacher;
 import com.cbr.university.service.BaseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,20 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("editing/schedule-lines")
 public class ScheduleLineController {
     private final BaseService<ScheduleLine> scheduleLineService;
     private final BaseService<Group> groupService;
     private final BaseService<Room> roomService;
     private final BaseService<Teacher> teacherService;
-
-    public ScheduleLineController(BaseService<ScheduleLine> scheduleLineService, BaseService<Group> groupService,
-                                  BaseService<Room> roomService, BaseService<Teacher> teacherService) {
-        this.scheduleLineService = scheduleLineService;
-        this.groupService = groupService;
-        this.roomService = roomService;
-        this.teacherService = teacherService;
-    }
 
     @GetMapping
     public String getAll(Model model) {
