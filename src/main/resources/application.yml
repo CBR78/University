@@ -1,0 +1,17 @@
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/university
+    username: university
+    password: 123
+    #url: ${DB_URL:jdbc:postgresql://localhost:5432/university}
+    #username: ${DB_USERNAME:university}
+    #password: ${DB_PASSWORD:123}
+
+  mvc:
+    format:
+      date: iso
+
+  jpa:
+    hibernate:
+      ddl-auto: update
