@@ -8,9 +8,13 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <div th:insert="fragments::menu_edit"></div>
+
     <h2 th:text="#{scheduleLines.pageName}"></h2>
-    <a th:href="@{/editing/schedule-lines/get-add-view}" th:text="#{scheduleLines.add}"></a>
+
+    <a th:text="#{scheduleLines.add}" th:href="@{/editing/schedule-lines/get-add-view}"></a>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -30,14 +34,16 @@
             <td th:text="${scheduleLine.teacher.course.name}"></td>
             <td th:text="${scheduleLine.teacher.firstName + ' ' + scheduleLine.teacher.lastName}"></td>
             <td th:text="${scheduleLine.room.name}"></td>
-            <td><a th:href="@{/editing/schedule-lines/get-edit-view/{id}(id=${scheduleLine.id})}"
-                   th:text="#{edit}"></a></td>
-            <td><a th:href="@{/editing/schedule-lines/delete/{id}(id=${scheduleLine.id})}"
-                   th:text="#{delete}"></a></td>
+            <td><a th:text="#{edit}"
+                   th:href="@{/editing/schedule-lines/get-edit-view/{id}(id=${scheduleLine.id})}"></a></td>
+            <td><a th:text="#{delete}"
+                   th:href="@{/editing/schedule-lines/delete/{id}(id=${scheduleLine.id})}"></a></td>
         </tr>
         </tbody>
     </table>
+
     <footer th:insert="fragments::footer"></footer>
+
 </div>
 </body>
 </html>

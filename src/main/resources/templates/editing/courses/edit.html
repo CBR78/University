@@ -8,25 +8,50 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <h2 th:text="#{courses.edit}"></h2>
-    <form method="post" th:action="@{/editing/courses/save-edit-view}" th:object="${course}">
+
+    <form
+            method="post"
+            th:action="@{/editing/courses/save-edit-view}"
+            th:object="${course}">
 
         <div class="form-group">
-            <label for="course.id">Id:</label>
-            <input class="form-control" id="course.id" readonly
-                   th:field="*{id}" th:placeholder="${course.id}">
+            <label for="course.id">
+                Id:
+            </label>
+            <input
+                    class="form-control"
+                    id="course.id"
+                    readonly
+                    th:placeholder="${course.id}"
+                    th:field="*{id}">
         </div>
 
         <div class="form-group">
-            <label for="course.name" th:text="#{courses.thCourseName}"></label>
-            <input class="form-control" id="course.name" required th:field="*{name}"
-                   th:placeholder="${course.name}" type="text">
-            <span style="color: red;" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            <label
+                    for="course.name"
+                    th:text="#{courses.thCourseName}">
+            </label>
+            <input
+                    class="form-control"
+                    id="course.name"
+                    type="text" required
+                    th:placeholder="${course.name}"
+                    th:field="*{name}">
+            <span
+                    style="color: red;"
+                    th:errors="*{name}"
+                    th:if="${#fields.hasErrors('name')}"></span>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Update">
+        <input
+                class="btn btn-primary"
+                type="submit"
+                value="Update">
     </form>
-    <footer th:insert="fragments::footer"></footer>
+    <footer
+            th:insert="fragments::footer"></footer>
 </div>
 </body>
 </html>

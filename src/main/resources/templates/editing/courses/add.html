@@ -8,18 +8,37 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <h2 th:text="#{courses.add}"></h2>
-    <form method="post" th:action="@{/editing/courses/save-add-view}" th:object="${course}">
+
+    <form
+            method="post"
+            th:action="@{/editing/courses/save-add-view}"
+            th:object="${course}">
 
         <div class="form-group">
-            <label for="name" th:text="#{courses.thCourseName}"></label>
-            <input class="form-control" id="name" name="name" required type="text">
-            <span style="color: red;" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            <label
+                    for="name"
+                    th:text="#{courses.thCourseName}"></label>
+            <input
+                    class="form-control"
+                    id="name"
+                    type="text" required
+                    name="name">
+            <span
+                    style="color: red;"
+                    th:errors="*{name}"
+                    th:if="${#fields.hasErrors('name')}"></span>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Create">
+        <input
+                class="btn btn-primary"
+                type="submit"
+                value="Create">
     </form>
+
     <footer th:insert="fragments::footer"></footer>
+
 </div>
 </body>
 </html>

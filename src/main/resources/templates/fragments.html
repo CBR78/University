@@ -9,7 +9,8 @@
 <block th:fragment="head">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           rel="stylesheet">
     <script crossorigin="anonymous"
@@ -78,7 +79,7 @@
     <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span>
                 | Roles: <span sec:authentication="principal.authorities"></span>
-            </span>
+    </span>
     <div th:text="#{footer}"></div>
     <address th:text="#{address}"></address>
 </footer>

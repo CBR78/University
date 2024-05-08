@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = ex
                 .getBindingResult()
                 .getFieldErrors()
@@ -37,7 +37,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, HttpHeaders headers, WebRequest request) {
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException ex, HttpHeaders headers, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
@@ -48,7 +49,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Object> resourceNotFoundException(NoSuchElementException ex, HttpHeaders headers, WebRequest request) {
+    public ResponseEntity<Object> resourceNotFoundException(
+            NoSuchElementException ex, HttpHeaders headers, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         Map<String, Object> body = createBody("Database entry not found", status, null);
         return handleExceptionInternal(ex, body, headers, status, request);

@@ -8,9 +8,13 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <div th:insert="fragments::menu_edit"></div>
+
     <h2 th:text="#{groups.pageName}"></h2>
-    <a th:href="@{/editing/groups/get-add-view}" th:text="#{groups.add}"></a>
+
+    <a th:text="#{groups.add}" th:href="@{/editing/groups/get-add-view}"></a>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -20,12 +24,14 @@
         <tbody>
         <tr th:each="group: ${groupList}">
             <td th:text="${group.name}"></td>
-            <td><a th:href="@{/editing/groups/get-edit-view/{id}(id=${group.id})}" th:text="#{edit}"></a></td>
-            <td><a th:href="@{/editing/groups/delete/{id}(id=${group.id})}" th:text="#{delete}"></a></td>
+            <td><a th:text="#{edit}" th:href="@{/editing/groups/get-edit-view/{id}(id=${group.id})}"></a></td>
+            <td><a th:text="#{delete}" th:href="@{/editing/groups/delete/{id}(id=${group.id})}"></a></td>
         </tr>
         </tbody>
     </table>
+
     <footer th:insert="fragments::footer"></footer>
+
 </div>
 </body>
 </html>

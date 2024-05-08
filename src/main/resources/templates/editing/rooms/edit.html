@@ -8,25 +8,52 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <h2 th:text="#{rooms.edit}"></h2>
-    <form method="post" th:action="@{/editing/rooms/save-edit-view}" th:object="${room}">
+
+    <form
+            method="post"
+            th:action="@{/editing/rooms/save-edit-view}"
+            th:object="${room}">
 
         <div class="form-group">
-            <label for="room.id">Id:</label>
-            <input class="form-control" id="room.id" readonly
-                   th:field="*{id}" th:placeholder="${room.id}">
+            <label
+                    for="room.id">
+                Id:
+            </label>
+            <input
+                    class="form-control"
+                    id="room.id"
+                    readonly
+                    th:placeholder="${room.id}"
+                    th:field="*{id}">
         </div>
 
         <div class="form-group">
-            <label for="room.name" th:text="#{rooms.thRoomName}"></label>
-            <input class="form-control" id="room.name" required th:field="*{name}"
-                   th:placeholder="${room.name}" type="text">
-            <span style="color: red;" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            <label
+                    for="room.name"
+                    th:text="#{rooms.thRoomName}">
+            </label>
+            <input
+                    class="form-control"
+                    id="room.name"
+                    type="text" required
+                    th:placeholder="${room.name}"
+                    th:field="*{name}">
+            <span
+                    style="color: red;"
+                    th:errors="*{name}"
+                    th:if="${#fields.hasErrors('name')}"></span>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Update">
+        <input
+                class="btn btn-primary"
+                type="submit"
+                value="Update">
     </form>
+
     <footer th:insert="fragments::footer"></footer>
+
 </div>
 </body>
 </html>

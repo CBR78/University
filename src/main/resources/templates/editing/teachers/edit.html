@@ -8,40 +8,87 @@
 <body>
 <div class="container">
     <header th:insert="fragments::header"></header>
+
     <h2 th:text="#{teachers.edit}"></h2>
-    <form method="post" th:action="@{/editing/teachers/save-edit-view}" th:object="${teacher}">
+
+    <form
+            method="post"
+            th:action="@{/editing/teachers/save-edit-view}"
+            th:object="${teacher}">
 
         <div class="form-group">
-            <label for="teacher.id">Id:</label>
-            <input class="form-control" id="teacher.id" readonly
-                   th:field="*{id}" th:placeholder="${teacher.id}">
+            <label
+                    for="teacher.id">
+                Id:
+            </label>
+            <input
+                    class="form-control"
+                    id="teacher.id"
+                    readonly
+                    th:placeholder="${teacher.id}"
+                    th:field="*{id}">
         </div>
 
         <div class="form-group">
-            <label for="firstName" th:text="#{firstName}"></label>
-            <input class="form-control" id="firstName" required th:field="*{firstName}"
-                   th:placeholder="${teacher.firstName}" type="text">
-            <span style="color: red;" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+            <label
+                    for="firstName"
+                    th:text="#{firstName}">
+            </label>
+            <input
+                    class="form-control"
+                    id="firstName"
+                    type="text" required
+                    th:placeholder="${teacher.firstName}"
+                    th:field="*{firstName}">
+            <span
+                    style="color: red;"
+                    th:errors="*{firstName}"
+                    th:if="${#fields.hasErrors('firstName')}"></span>
         </div>
 
         <div class="form-group">
-            <label for="lastName" th:text="#{lastName}"></label>
-            <input class="form-control" id="lastName" required th:field="*{lastName}"
-                   th:placeholder="${teacher.lastName}" type="text">
-            <span style="color: red;" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
+            <label
+                    for="lastName"
+                    th:text="#{lastName}">
+            </label>
+            <input
+                    class="form-control"
+                    id="lastName"
+                    type="text" required
+                    th:placeholder="${teacher.lastName}"
+                    th:field="*{lastName}">
+            <span
+                    style="color: red;"
+                    th:errors="*{lastName}"
+                    th:if="${#fields.hasErrors('lastName')}"></span>
         </div>
 
         <div class="form-group">
-            <label for="course.id" th:text="#{course}"></label>
-            <select class="form-control" id="course.id" name="course.id" required>
-                <option th:each="course: ${courseList}"
-                        th:text="${course.name}" th:value="${course.id}"></option>
+            <label
+                    for="course.id"
+                    th:text="#{course}">
+            </label>
+            <select
+                    class="form-control"
+                    id="course.id"
+                    required
+                    name="course.id">
+                <option
+                        th:each="course: ${courseList}"
+                        th:text="${course.name}"
+                        th:value="${course.id}">
+                </option>
             </select>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Update">
+        <input
+                class="btn btn-primary"
+                type="submit"
+                value="Update">
     </form>
+
     <footer th:insert="fragments::footer"></footer>
+
 </div>
 </body>
 </html>
