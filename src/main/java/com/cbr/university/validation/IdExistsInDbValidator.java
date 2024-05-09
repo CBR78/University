@@ -1,9 +1,8 @@
 package com.cbr.university.validation;
 
 import com.cbr.university.service.BaseService;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class IdExistsInDbValidator implements ConstraintValidator<IdExistsInDb, Integer> {
 

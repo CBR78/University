@@ -2,12 +2,12 @@ package com.cbr.university.endpoints;
 
 import com.cbr.university.model.Student;
 import com.cbr.university.service.BaseService;
+import jakarta.servlet.ServletException;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 
-import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
 

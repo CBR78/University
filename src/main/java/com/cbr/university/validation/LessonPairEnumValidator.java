@@ -1,9 +1,8 @@
 package com.cbr.university.validation;
 
 import com.cbr.university.model.LessonPair;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class LessonPairEnumValidator implements ConstraintValidator<LessonPairEnum, LessonPair> {
 

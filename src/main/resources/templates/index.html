@@ -2,20 +2,20 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>University application</title>
-    <th:block th:insert="fragments::head"></th:block>
+    <th:block th:insert="~{fragments::head}"></th:block>
 </head>
 
 <body>
 <div class="container">
 
     <div class="row justify-content-between">
-        <header class="col-8" th:insert="fragments::header"></header>
-        <span class="col-4" th:insert="fragments::lang"></span>
+        <header class="col-8" th:insert="~{fragments::header}"></header>
+        <span class="col-4" th:insert="~{fragments::lang}"></span>
     </div>
 
-    <span sec:authorize="isAnonymous()" th:insert="fragments::menu_login"></span>
-    <span sec:authorize="hasRole('STUDENT')" th:insert="fragments::menu_view"></span>
-    <span sec:authorize="hasRole('EDITOR')" th:insert="fragments::menu_edit"></span>
+    <span sec:authorize="isAnonymous()" th:insert="~{fragments::menu_login}"></span>
+    <span sec:authorize="hasRole('STUDENT')" th:insert="~{fragments::menu_view}"></span>
+    <span sec:authorize="hasRole('EDITOR')" th:insert="~{fragments::menu_edit}"></span>
 
     <form
             method="post"
@@ -67,7 +67,7 @@
         </button>
     </form>
 
-    <footer th:insert="fragments::footer"></footer>
+    <footer th:insert="~{fragments::footer}"></footer>
 </div>
 </body>
 </html>

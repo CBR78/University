@@ -2,10 +2,10 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Room;
 import com.cbr.university.repository.RoomRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
