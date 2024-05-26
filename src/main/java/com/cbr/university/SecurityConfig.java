@@ -29,7 +29,8 @@ public class SecurityConfig {
                                 //.requestMatchers("/rest/**").hasRole("REST")
                                 // .requestMatchers("/error").permitAll() // Иначе будет плавающая ложная ошибка 401 при вызове permitAll-методов
                                 //.requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
-                                .anyRequest().authenticated()
+                                //.anyRequest().authenticated()
+                                .anyRequest().permitAll()
 
 //                        .formLogin().loginPage("/login").permitAll().and()
 //                        .logout().permitAll()
