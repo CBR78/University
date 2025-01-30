@@ -31,7 +31,7 @@ public class TeacherServiceImpl implements BaseService<Teacher> {
 
     @Override
     public List<Teacher> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return teacherRepository.findAll();
     }
 

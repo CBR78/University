@@ -31,7 +31,7 @@ public class RoomServiceImpl implements BaseService<Room> {
 
     @Override
     public List<Room> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return roomRepository.findAll();
     }
 

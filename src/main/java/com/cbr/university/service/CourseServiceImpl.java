@@ -31,7 +31,7 @@ public class CourseServiceImpl implements BaseService<Course> {
 
     @Override
     public List<Course> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return courseRepository.findAll();
     }
 

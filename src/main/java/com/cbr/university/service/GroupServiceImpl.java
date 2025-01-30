@@ -31,7 +31,7 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public List<Group> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return groupRepository.findAll();
     }
 

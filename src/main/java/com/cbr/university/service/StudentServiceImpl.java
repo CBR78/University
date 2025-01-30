@@ -31,7 +31,7 @@ public class StudentServiceImpl implements BaseService<Student> {
 
     @Override
     public List<Student> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return studentRepository.findAll();
     }
 

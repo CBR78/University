@@ -31,7 +31,7 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
     @Override
     public List<ScheduleLine> getAll() {
-        entityManager.clear();
+        entityManager.flush();
         return scheduleLineRepository.findAll();
     }
 
