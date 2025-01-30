@@ -2,7 +2,6 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Group;
 import com.cbr.university.repository.GroupRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +11,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements BaseService<Group> {
     private final GroupRepository groupRepository;
-    private final EntityManager entityManager;
 
     @Override
     public Group create(Group group) {
-        return groupRepository.save(group);
+        return groupRepository.saveAndFlush(group);
     }
 
     @Override
     public Group update(Group group) {
-        return groupRepository.save(group);
+        return groupRepository.saveAndFlush(group);
     }
 
     @Override
@@ -31,7 +29,6 @@ public class GroupServiceImpl implements BaseService<Group> {
 
     @Override
     public List<Group> getAll() {
-        entityManager.flush();
         return groupRepository.findAll();
     }
 

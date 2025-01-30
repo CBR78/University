@@ -2,7 +2,6 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.Student;
 import com.cbr.university.repository.StudentRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +11,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements BaseService<Student> {
     private final StudentRepository studentRepository;
-    private final EntityManager entityManager;
 
     @Override
     public Student create(Student student) {
-        return studentRepository.save(student);
+        return studentRepository.saveAndFlush(student);
     }
 
     @Override
     public Student update(Student student) {
-        return studentRepository.save(student);
+        return studentRepository.saveAndFlush(student);
     }
 
     @Override
@@ -31,7 +29,6 @@ public class StudentServiceImpl implements BaseService<Student> {
 
     @Override
     public List<Student> getAll() {
-        entityManager.flush();
         return studentRepository.findAll();
     }
 

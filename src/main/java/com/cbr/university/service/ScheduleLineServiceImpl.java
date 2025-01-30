@@ -2,7 +2,6 @@ package com.cbr.university.service;
 
 import com.cbr.university.model.ScheduleLine;
 import com.cbr.university.repository.ScheduleLineRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +11,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
     private final ScheduleLineRepository scheduleLineRepository;
-    private final EntityManager entityManager;
 
     @Override
     public ScheduleLine create(ScheduleLine scheduleLine) {
-        return scheduleLineRepository.save(scheduleLine);
+        return scheduleLineRepository.saveAndFlush(scheduleLine);
     }
 
     @Override
     public ScheduleLine update(ScheduleLine scheduleLine) {
-        return scheduleLineRepository.save(scheduleLine);
+        return scheduleLineRepository.saveAndFlush(scheduleLine);
     }
 
     @Override
@@ -31,7 +29,6 @@ public class ScheduleLineServiceImpl implements BaseService<ScheduleLine> {
 
     @Override
     public List<ScheduleLine> getAll() {
-        entityManager.flush();
         return scheduleLineRepository.findAll();
     }
 
