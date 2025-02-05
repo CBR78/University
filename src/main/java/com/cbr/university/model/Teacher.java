@@ -9,7 +9,6 @@ import com.cbr.university.validation.group.Update;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -55,7 +54,6 @@ public class Teacher {
     private String lastName;
 
     @OneToOne
-    @JoinColumn(name = "course_id")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Course id.")
     @Valid
     @ConvertGroup.List({

@@ -10,7 +10,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -53,7 +52,6 @@ public class ScheduleLine {
     private LessonPair lessonPair;
 
     @OneToOne
-    @JoinColumn(name = "group_id")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Group id.")
     @Valid
     @ConvertGroup.List({
@@ -63,7 +61,6 @@ public class ScheduleLine {
     private Group group;
 
     @OneToOne
-    @JoinColumn(name = "teacher_id")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Teacher id.")
     @Valid
     @ConvertGroup.List({
@@ -73,7 +70,6 @@ public class ScheduleLine {
     private Teacher teacher;
 
     @OneToOne
-    @JoinColumn(name = "room_id")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Room id.")
     @Valid
     @ConvertGroup.List({
