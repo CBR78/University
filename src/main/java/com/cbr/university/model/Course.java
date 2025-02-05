@@ -6,12 +6,9 @@ import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.None;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
@@ -25,7 +22,6 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "courses")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,15 +29,13 @@ import java.util.Objects;
 @ToString
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
+    @GeneratedValue
     @Null(groups = {Create.class, None.class}, message = "Request must not include a Course id.")
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Course id.")
     @IdExistsInDb(groups = {Cascade.class, Update.class},
             typeObject = "Course", message = "This Course id is not in the database.")
     private Integer id;
 
-    @Column(name = "course_name")
     @Null(groups = {Cascade.class, None.class}, message = "Request must not include a Course name.")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Course name.")
     @Size(groups = {Create.class, Update.class, RequestUI.class},

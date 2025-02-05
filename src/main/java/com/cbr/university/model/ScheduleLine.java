@@ -5,16 +5,13 @@ import com.cbr.university.validation.LessonPairEnum;
 import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.Update;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -30,7 +27,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "schedule_lines")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -38,8 +34,7 @@ import java.util.Objects;
 @ToString
 public class ScheduleLine {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "schedule_line_id")
+    @GeneratedValue
     @Null(groups = {Create.class}, message = "Request must not include a ScheduleLine id.")
     @NotNull(groups = {Cascade.class,
             Update.class}, message = "Request must include a ScheduleLine id.")
@@ -47,12 +42,10 @@ public class ScheduleLine {
             Update.class}, typeObject = "ScheduleLine", message = "This ScheduleLine id is not in the database.")
     private Integer id;
 
-    @Column(name = "schedule_line_date")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a ScheduleLine date.")
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "lesson_pair")
     @NotNull(groups = {Create.class,
             Update.class}, message = "Request must include a ScheduleLine lessonPair.")
     @LessonPairEnum(groups = {Create.class,

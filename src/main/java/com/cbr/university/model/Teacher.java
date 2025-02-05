@@ -6,14 +6,11 @@ import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.None;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -29,7 +26,6 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "teachers")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -37,15 +33,13 @@ import java.util.Objects;
 @ToString
 public class Teacher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teacher_id")
+    @GeneratedValue
     @Null(groups = {Create.class}, message = "Request must not include a Teacher id.")
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Teacher id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Teacher", message = "This Teacher id is not in the database.")
     private Integer id;
 
-    @Column(name = "teacher_first_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Teacher firstName.")
     @NotNull(groups = {Create.class, Update.class,
             RequestUI.class}, message = "Request must include a Teacher firstName.")
@@ -53,7 +47,6 @@ public class Teacher {
             RequestUI.class}, min = 2, max = 50, message = "Teacher firstName should contain from {min} to {max} letters.")
     private String firstName;
 
-    @Column(name = "teacher_last_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Teacher lastName.")
     @NotNull(groups = {Create.class, Update.class,
             RequestUI.class}, message = "Request must include a Teacher lastName.")

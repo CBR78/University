@@ -5,12 +5,9 @@ import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
@@ -24,7 +21,6 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "groups")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,15 +28,13 @@ import java.util.Objects;
 @ToString
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id")
+    @GeneratedValue
     @Null(groups = {Create.class}, message = "Request must not include a Group id.")
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Group id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Group", message = "This Group id is not in the database.")
     private Integer id;
 
-    @Column(name = "group_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Group name.")
     @NotNull(groups = {Create.class, Update.class}, message = "Request must include a Group name.")
     @Size(groups = {Create.class, Update.class,

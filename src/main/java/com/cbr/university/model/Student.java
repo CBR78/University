@@ -5,14 +5,11 @@ import com.cbr.university.validation.group.Cascade;
 import com.cbr.university.validation.group.Create;
 import com.cbr.university.validation.group.RequestUI;
 import com.cbr.university.validation.group.Update;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -28,7 +25,6 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "students")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -36,15 +32,13 @@ import java.util.Objects;
 @ToString
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
+    @GeneratedValue
     @Null(groups = {Create.class}, message = "Request must not include a Student id.")
     @NotNull(groups = {Cascade.class, Update.class}, message = "Request must include a Student id.")
     @IdExistsInDb(groups = {Cascade.class,
             Update.class}, typeObject = "Student", message = "This Student id is not in the database.")
     private Integer id;
 
-    @Column(name = "student_first_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Student firstName.")
     @NotNull(groups = {Create.class,
             Update.class}, message = "Request must include a Student firstName.")
@@ -52,7 +46,6 @@ public class Student {
             RequestUI.class}, min = 2, max = 50, message = "Student firstName should contain from {min} to {max} letters.")
     private String firstName;
 
-    @Column(name = "student_last_name")
     @Null(groups = {Cascade.class}, message = "Request must not include a Student lastName.")
     @NotNull(groups = {Create.class,
             Update.class}, message = "Request must include a Student lastName.")
